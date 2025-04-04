@@ -1,0 +1,84 @@
+const Auth = require('./auth.js')
+const Email = require('./email.js')
+
+/*---------------------------------------------------------------
+    
+            Change Password
+            Db table renewPassword
+            { 
+              tokenSessionRenewPassword, 
+              email, 
+              password,
+              try,
+              startTiming,
+              endTiming,
+              confirmed, 
+              finished, 
+              finishReason (sessionConfirmed,tryesExceed) 
+            }
+-----------------------------------------------------------------*/
+
+class ChangePassword extends Auth {
+
+constructor( processArgv ){
+
+  super( processArgv ) 
+  this.email = new Email( processArgv ) 
+
+}
+
+changePassword(req,res){  
+      
+      const  email  = req.body.email
+      
+      // filter email...
+      
+      let sql = `SELECT * FROM users WHERE email=?`
+      
+      let sequence = new Promise((resolve,reject)=>{
+        
+        try{
+          
+          this.db.serialize(()=>{
+            
+            this.db.each(sql, [ email ], (err,row)=>{ 
+              
+              if( row ){
+                if( row.email ){ 
+                  resolve()  
+                }
+              }
+
+            },(err)=>reject())  
+            
+          })
+
+        }catch(err){  
+          
+          reject(err)  
+        
+        }
+      
+      })
+
+      sequence.then( (response,index) => {
+        
+        this.email.sendEmailChangePassword( req, res)
+
+      }).catch(err => {
+        
+        //console.log('ERROR--------------------',err)
+        
+        return res.json({ 
+          action: 2, 
+          status: 'error', 
+          description: 'something went wrong' 
+        })
+
+      })
+
+}
+
+}
+
+module.exports = ChangePassword

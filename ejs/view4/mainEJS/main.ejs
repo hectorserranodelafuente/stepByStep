@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<head></head>
+<body>
+
+    <p>Not session found</p>
+    <p id="redirectMessage" style="color:orange"></p>
+
+    <% if (environment=='development') { %>
+      <%- include('../renderedHead/head.ejs') %>
+      <% } %>
+  
+      <% if (environment=='production') { %>
+        <%- include('../renderedHeadProduction/head.ejs') %>
+      <% } %>
+</body>
+</html>

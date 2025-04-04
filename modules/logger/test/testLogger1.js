@@ -1,0 +1,1 @@
+let logger=require("../logger.js");var count=0;setInterval(function(){count++,logger.log("C:/Users/Hecto/Documents/javascript/aws/expressHelloWorld/modules/logger","logs.txt","log ## this is line "+count)},1e3,count);

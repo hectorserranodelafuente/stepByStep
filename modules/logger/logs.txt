@@ -1,0 +1,22 @@
+/confirm2FA ERROR Something went wrong
+/confirm2FA ERROR Something went wrong
+/confirm2FA ERROR Something went wrong
+/api/signUp error urlName has being choosen by another user or confirmation SignUp with this token is pending
+/api/signUp error undefined
+/api/signUp error the user has being signUp before
+/api/signUp error undefined
+/confirm2FA SUCCESS redirecTo init
+/confirm2FA ERROR Something went wrong
+/confirm2FA ERROR Something went wrong
+/confirm2FA ERROR Something went wrong
+/api/signUp error urlName has being choosen by another user or confirmation SignUp with this token is pending
+/api/signUp error undefined
+/api/signUp error the user has being signUp before
+/api/signUp error undefined
+/confirm2FA SUCCESS redirecTo init
+/confirm2FA ERROR Something went wrong
+/confirm2FA ERROR Something went wrong
+/confirm2FA ERROR Something went wrong
+Last log--------------------------------------------------------------
+
+Last log--------------------------------------------------------------

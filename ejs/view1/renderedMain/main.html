@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Usuario</title>
+</head>
+<style>
+
+    
+body{
+        margin: 0; 
+        height: 100vh; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center;
+    }
+
+    .centered-div{
+        border: solid 1px;
+        padding:20px;
+        width:420px;
+        overflow:hidden;
+        -webkit-box-shadow: 10px 10px 5px 0px rgba(153,153,153,1);
+        -moz-box-shadow: 10px 10px 5px 0px rgba(153,153,153,1);
+        box-shadow: 10px 10px 5px 0px rgba(153,153,153,1);
+        overflow:hidden;
+    }
+
+    .centered-div-showed{
+       display:block;
+    }
+
+    .centered-div-hidden{
+        display:none;
+    }
+    
+    .move-div-step1{
+        width: 820px;
+        position: relative;
+        left: 0;
+    }
+
+    .move-div-step2{
+        width:820px;
+        position:relative;
+        left:-440px;
+    }
+    
+    .step1Container{
+        width:410px;
+        float:left;
+        padding:10px;
+    }
+
+    .step2Container{
+        width:360px;
+        float:left;
+        padding:10px;
+    }
+
+
+
+    .centered-div-in{
+        background-color:rgb(198, 198, 198);
+        padding:10px;
+    }
+
+   
+    input{
+        float:right;
+    }
+
+    button{
+        
+        font-weight:600;
+        cursor:pointer;
+        border-radius:10px;
+        padding:10px;
+        background-color:#1c3be8;
+        color:#fff;
+        border:solid 0x;
+        text-align:center;width:200px;
+
+    }
+    
+    button:hover{
+        background-color:#9aa9f8;
+    }
+
+    
+    .showed{
+        display: block
+    }
+
+    .hidden{
+        display: none
+    }
+
+    .recoverPassword{
+        background-color:red;
+        color:#fff;
+    }
+
+</style>
+<body>
+                <div 
+                    id="closeSessionMessage"
+                    class = "hidden"
+                    style = "position:fixed;
+                             top:10px;
+                             left:10px;
+                             padding:20px;
+                             border:solid gray 1px;">
+                     
+                    <div>
+                        <p> 
+                            <strong>
+                                Previous session could be opened, do you want to close them ? 
+                            </strong>
+                        </p>
+                    </div>
+                    <form id="questionCloseSession">
+                                <div style = "border:solid gray 1px;
+                                              height:20px;
+                                              padding:10px;">
+                                    <div style = "float:left;width:10%;">
+                                        <input type="radio" name="closeSession" value="yes">
+                                    </div>
+                                    <div style="float:right;
+                                                width:90%;
+                                                text-align:right;"> 
+                                        <strong>
+                                            Yes
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div style = "border:solid gray 1px;
+                                              height:20px;
+                                              padding:10px;">
+                                    <div style="float:left;width:10%">
+                                        <input type="radio" name="closeSession" value="no"> 
+                                    </div>
+                                    <div style="float:right;
+                                                width:90%;
+                                                text-align:right;"> 
+                                        <strong>    
+                                            No
+                                        </strong>
+                                    </div>
+                                </div>
+                        <div style="padding:10px;">    
+                            <button type="button" onclick="submitCloseSession()">Submit</button>
+                        </div>
+                        
+                    
+                    </form>
+                    
+                </div>
+    <div id="centeredDiv" class="centered-div centered-div-showed">
+       <div id="move-div" class="move-div-step1"> 
+        <div class="step1Container"> 
+                
+                
+
+                <p id="closeSessionResponse" class="hidden" style="color:orange;"></p>
+                <div class="centered-div-in">
+                <form id="userForm" class="showed">
+                    <label for="email">Usuario:</label>
+                    <input type="text" id="email" name="email"><br><br>
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" name="password"><br><br>
+                    <button type="button" onclick="submitForm()">Enviar</button>
+                </form>
+                
+                <div id = "errorUserForm"  
+                    class = "hidden" 
+                    style = "color:red;
+                             border:solid red 1px;
+                             margin-top:5px;
+                             padding:10px;">
+                </div>
+
+            </div>
+            </div>
+            <div class="step2Container">
+                <div id="errorCodeForm"  
+                    class="hidden" 
+                    style="color:red;
+                           border:solid red 1px;
+                           margin-top:5px;
+                           padding:10px;">
+                </div>
+                <div id = "messageCode"
+                     class = "hidden" 
+                     style = "color:yellowgreen;
+                              border:solid yellowgreen 1px;
+                              margin-top:5px;
+                              padding:10px;">
+                </div>
+                <div class="centered-div-in">
+                <form id="codeForm" class="hidden">
+                    <label for="code">Code:</label>
+                    <input type="text" id="code" name="code"><br><br>
+                    <button type="button" onclick="submitCodeForm()">Enviar</button>
+                </form>
+                </div>
+                
+                
+            </div>
+            
+        </div>
+        <div style="padding:20px;background-color:rgb(198, 198, 198);">
+            <button 
+                type="button" 
+                class="recoverPassword" 
+                onClick="forgotPassword()">
+                    Do you forgot your password ?
+            </button>
+        </div>
+
+
+    </div>
+
+
+
+    
+      
+  
+    <script src="../public/js/basicLoginForm.js"></script>
+  
+
+      
+  
+      
+    
+      
+      </body>
+</html>

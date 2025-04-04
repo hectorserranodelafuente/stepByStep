@@ -1,0 +1,59 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Usuario</title>
+</head>
+<style>
+    
+    .showed{
+        display: block
+    }
+
+    .hidden{
+        display: none
+    }
+
+</style>
+<body>
+
+    <button id="startPage" onclick="goToStartPage()">Back to start page</button>
+    <p>_____________________________________________</p>
+    <form id="userForm" class="showed">
+        <label for="email">Usuario:</label>
+        <input type="text" id="email" name="email"><br><br>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password"><br><br>
+        <label for="urlName">UrlName:</label>     
+        <input type="urlName" id="urlName" name="urlName"><br><br>
+        <label for="twoFA">2FA:</label>
+        <input type="checkbox" id="twoFA" name="twoFA" checked><br><br>
+        <button type="button" onclick="submitForm()">Enviar</button>
+    </form>
+
+    <div id="errorUserForm" style="color:red;"></div>
+    
+    
+    <p>Password requirements</p>
+    <ul>
+        <li>At least one especial character</li>
+	    <li>At least one capital character</li>
+	    <li>At least one number character</li>
+        <li>min length of nine characters and max length twenty characters</li>
+	</ul>
+
+    <div id="successUserForm" style="color:yellowgreen;"></div>
+    <p>_____________________________________________</p>
+    <!--<button id="goToLogin" class="hidden">
+        Click to go to LOGIN
+    </button>-->
+
+    <div id="countMessage" style="color:orange;font-weight:600"></div>
+
+    <%- include('../renderedHead/headProduction.ejs') %>
+    
+</body>
+</html>
+
