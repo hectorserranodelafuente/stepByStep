@@ -1,2 +1,2 @@
 # stepByStep
-a 2FA code structure that use email as second step item receiver.
+a 2FA code structure that uses email as second step item receiver.
