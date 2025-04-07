@@ -1,7 +1,8 @@
 const sqlite3 = require('sqlite3').verbose();
+const path = require('path')
 
 // Crear o abrir la base de datos
-let db = new sqlite3.Database('../db/test/sqlite/dbLoginTest.sqlite', (err) => {
+let db = new sqlite3.Database(path.join(__dirname,'..','/db/test/sqlite/dbLoginTest.sqlite'), (err) => {
   if (err) {
     console.error('Error al abrir la base de datos:', err.message);
   } else {

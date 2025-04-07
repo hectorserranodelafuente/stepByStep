@@ -5,9 +5,13 @@
   "scripts": {
     "test": "node ./test/wsServer.js -- environment=test",
     "createView": "node ./scripts/createView.js",
+    "createDbDev":"node ./scripts/createDbDev.js",
+    "createDbPro":"node ./scripts/createDbPro.js",
+    "createDbTest":"node ./scripts/createDbTest.js",
     "render": "node ./scripts/render.js",
     "renderPro": "node ./scripts/renderPro.js",
-    "dist": "node ./scripts/production.js"
+    "dist": "node ./scripts/production.js",
+    "startDev": "node server.js -- environment=development"
   },
   "author": "",
   "license": "ISC",
