@@ -16,14 +16,13 @@ constructor(){}
             if(index>1){
                 if(val.split('=')[0]==="environment"){
                     actualEnvironment=val.split('=')[1]
-                    console.log('ACTUALENVIRONMENT',actualEnvironment)
                 }
             }
         })
  
         data = await env[actualEnvironment]()
         
-        console.log('DATA ',data)
+        
         return new Auth( processArgv, data)
     }
 

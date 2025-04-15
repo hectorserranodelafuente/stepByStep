@@ -9,7 +9,7 @@ class ChangePasswordNext extends Auth {
     }
     
     changePasswordNext( req, res ){  
-        console.log(1)
+        
         const { 
 
             tokenChangePasswordSession, 
@@ -19,10 +19,6 @@ class ChangePasswordNext extends Auth {
         } = req.body
 
         let newPassword = this.utils.encryptPassword(password,this.additionLength) 
-        console.log(tokenChangePasswordSession)
-        console.log('newPassword ',newPassword)
-        console.log(password)
-        console.log(twoFA)
         
         let now = new Date().getTime()
         
@@ -35,7 +31,7 @@ class ChangePasswordNext extends Auth {
                 this.db.each( sql, [ now, now, 0, tokenChangePasswordSession ], (err,row) => {
 
                     if( row.email ){  
-                        console.log('--ROW--',row)
+
                         resolve(row)   
                     
                     }
@@ -64,10 +60,9 @@ class ChangePasswordNext extends Auth {
                         newPassword.addition,
                         email 
                     ])
-                    //this.db.finalize()
+                   
                 
                 }catch(err){
-                    console.log('ERR---',err)
                     reject()
                 }
 
@@ -78,12 +73,10 @@ class ChangePasswordNext extends Auth {
         
         }).then((response)=>{
            
-            // update changePassword
+            
             let sql = `UPDATE changePassword SET  newPassword = ?, addition = ?, twoFA = ?, finished = ?, confirmed = ? WHERE tokenChangePasswordSession = ?`
 
             try{
-
-                //this.db.prepare(sql) 
                 
                 this.db.run( sql, [
                     newPassword.encryptedPassword, 
@@ -113,7 +106,7 @@ class ChangePasswordNext extends Auth {
         
         
         }).catch( (err) => {
-            console.log(4)
+            
             console.log(err)
             return res.json({
                 

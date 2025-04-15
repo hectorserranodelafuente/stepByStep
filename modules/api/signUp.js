@@ -14,7 +14,7 @@ class SignUp extends Auth{
         this.utils = new utils(processArgv)
         this.description = ''
         this.reportStructuredData = { validfilterNotNull:true, validfilterParticular:true }
-        //console.log('SIGNUP AUTH DB::',this.db)
+        
     }
 
 
@@ -105,9 +105,9 @@ class SignUp extends Auth{
         
         if(row.email) {
             if(index==0) {
-            //console.log('ROW ',JSON.stringify(row))
+            
             this.description = 'urlName has being choosen by another user or confirmation SignUp with this token is pending'
-            logger.log( this.dirPathLogger, this.logsFileName, `/api/signUp error ${this.description}` )
+           
             res.json({action:0,status:'error', description:this.description})
             reject()
             index++
@@ -115,16 +115,15 @@ class SignUp extends Auth{
         }
     }
     each_2(err,row,index,res,reject){  
-        //console.log('EACH_2')
+       
         if (err) {
-            logger.log( this.dirPathLogger, this.logsFileName, `/api/signUp error ${err.message}` )
+           console.log(err)
             }
             
             if(row.email) {
             if(index==0) {
                 this.description = `we have sent an email and is pending to confirm`
-                logger.log( this.dirPathLogger, this.logsFileName, `/api/signUp error ${this.description}` )
-                //console.log('RES',res)
+                
                 res.json({ action:0,status:'error', description: this.description })
                 reject()
                 index++
@@ -138,14 +137,13 @@ class SignUp extends Auth{
         if (err) {
         console.error(err.message);
         }
-        // console.log(` Email: ${row.email}`);
+        
         if(row.email){
             if(index==0) {
                 this.description = `the user has being signUp before` 
-                logger.log( this.dirPathLogger, this.logsFileName, `/api/signUp error ${this.description}` )
-                //console.log('RES',res)
+                
                 res.json({action:0, status:'error', description:this.description})
-                //console.log('REJECT',reject)
+                
                 reject()
                 index++
             }
@@ -155,7 +153,7 @@ class SignUp extends Auth{
 
     
     signUp(req,res){
-        //console.log('1')
+  
         let userNotInUsers = false
         let userNotInPreUsers = false
         let respuesta = res
@@ -180,15 +178,14 @@ class SignUp extends Auth{
                     
                 
                     }).then((_response) =>{
-                    //console.log(2)
+                  
                     let scope = this
                     return new Promise((resolve,reject)=>{
                         this.db.serialize(() => {
-                            //console.log(2.1,req.body.urlName)
+                          
                             let index = 0
                             // 0 false 1 true
-                            // Neither a preUser with the same name
-                            console.log(req.body)
+                            
                             this.db.each(`SELECT email FROM users WHERE name = "${req.body.urlName}" UNION SELECT email FROM preUsers WHERE name = "${req.body.urlName}" AND confirmed = 0`, (err, row) => {
                                 if(err){
                                     console.log(err)
@@ -206,7 +203,7 @@ class SignUp extends Auth{
                     })
                 
                 }).then( (response) => {  
-                    //console.log(3,response)
+                   
                     return new Promise((resolve,reject)=>{
                         this.db.serialize(() => {
                         let index = 0
@@ -221,7 +218,7 @@ class SignUp extends Auth{
                     })
                     
                     }).then( _response => {
-                        //console.log(4)
+                
                     return new Promise((resolve,reject)=>{
                         this.db.serialize(() => {
                             let index = 0
@@ -232,11 +229,11 @@ class SignUp extends Auth{
                         })
                     })
                     }).then(_response=>{
-                    //console.log(5)
+                   
                     this.email.sendEmailConfirmationSignUp(req,res)
 
                     }).catch((err) => {
-                        //console.log(6,err)
+                    
                     logger.log( this.dirPathLogger, this.logsFileName, `/api/signUp error ${err}` )
                     });
 

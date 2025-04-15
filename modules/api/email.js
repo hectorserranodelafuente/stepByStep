@@ -6,9 +6,7 @@ const nodemailer = require('nodemailer');
 class Email extends UtilsAuth{
 
     constructor(processArgv){
-        super(processArgv)
-        //console.log('EMAIL AUTH DB::',this.db)
-        
+        super(processArgv)  
     }
 
     async sendEmail(req,res,subject,text,add){
@@ -21,11 +19,11 @@ class Email extends UtilsAuth{
           port:scope.transporterPort,
           secure:scope.transporterSecure,
           auth: {
-              user:scope.transporterAuthUser, // tu correo de IONOS
-              pass:scope.transporterAuthPass, // tu clave SMTP de IONOS
+              user:scope.transporterAuthUser,
+              pass:scope.transporterAuthPass, 
           },
           tls: {
-              rejectUnauthorized:scope.transporterTlsRejectUnauthorized  // Desactiva la verificación del certificado
+              rejectUnauthorized:scope.transporterTlsRejectUnauthorized
           }
       });
       
@@ -44,25 +42,25 @@ class Email extends UtilsAuth{
               logger.log( scope.dirPathLogger, scope.logsFileName, `User: ${req.body.email}` )
               return console.log(error);
             }
+            
             console.log('Correo enviado: %s', info.messageId);
             
             let _serverResponse = {action:1,status:'ok',description:'Confirmation email sent, check your email'}
-            //console.log('RES',res)
-            //console.log("_serverResponse",_serverResponse)
+           
             if(add){
-              //console.log('1.add',add)
+             
               _serverResponse={ ..._serverResponse,...add }
-              //console.log('2.add',_serverResponse)
+              
             }
-            //console.log("_serverResponse",_serverResponse)
+           
             resolve(_serverResponse)
           
             
-            //logger.log( scope.dirPathLogger, scope.logsFileName, `Success on sending email,user: ${req.body.email}`)
+            
             end = true
           });
       }).then(response=>{
-        //console.log('----response----',response)
+        
         res.json(response)
 
       })
@@ -73,8 +71,7 @@ class Email extends UtilsAuth{
     
 
     async sendEmailConfirmationSignUp(req,res){
-      // make modifications
-      //...
+     
       let timeExpirationSession = this.periodExpiringPreUsers
       let tokenSessionPreUsers = this.generateToken(this.tokensLength)
       let urlConfirmSignUp = `${this.domainName}/api/confirmSignUp?ts=${tokenSessionPreUsers}`
@@ -84,18 +81,17 @@ class Email extends UtilsAuth{
       let valueEndTiming = valueStarTiming+timeExpirationSession
       let valueConfirmed = 0
       let valueFinished = 0
-      //console.log(tokenSessionPreUsers)
-      //console.log('#####')
+      
       try{
-        //console.log(':::::::::::::::::::::::::::::::::::::::::::::::::::',this.db)
+       
        
           const insertionPreUser = this.db.prepare(`INSERT INTO preUsers VALUES (?,?,?,?,?,?,?,?,?,?)`)
           insertionPreUser.run(req.body.email,tokenSessionPreUsers,req.body.urlName, encryptedPassword.encryptedPassword, value2FA, valueStarTiming.toString(), valueEndTiming.toString(), valueConfirmed,encryptedPassword.addition, valueFinished)
           insertionPreUser.finalize()
        
-        //console.log(':::::::::::::::::::::::::::::::::::::::::::::::::::',this.db)
+       
       }catch(err){
-        console.log('____________',err)
+        console.log(err)
       }
       
       let scope=this
@@ -138,9 +134,9 @@ class Email extends UtilsAuth{
       let twoFA = 1
       
       let error = false
-      console.log('1')
+      
       try{
-        console.log('2')
+        
         const changePassword = this.db.prepare(`INSERT INTO changePassword VALUES (?,?,?,?,?,?,?,?,?)`)
           
               changePassword.run(

@@ -8,28 +8,21 @@ class Confirm2FA extends Auth {
     constructor(processArgv){
         super(processArgv)
         this.utils = new utils(processArgv)
-        console.log('CONFIRM2FA AUTH DB::',this.db)
     }
     
     confirm2FA(req,res){
-        
-        console.log('-------------------------')
-        console.log( req.body.tokenTwoFASession)
-        console.log( req.body.code )
-        console.log('-------------------------')
         
         let sequence = new Promise((resolve,reject)=>{
             
             this.db.serialize(() => {
             let index = 0
-            // 0 false 1 true
-            console.log('-------------------------->',req.body.tokenTwoFASession)
+            
             this.db.each(`SELECT email, try, finished, code, finishReason FROM twoFA WHERE tokenTwoFASession = ?`, [ req.body.tokenTwoFASession], (err, row) => {
                 if (err) {
                 console.error('=>',err.message)
                 reject()
                 }
-                // console.log(row)
+              
                 if(row.email) {
                     if(index==0) {
                         resolve({ 
@@ -62,9 +55,7 @@ class Confirm2FA extends Auth {
             }else{
 
                 if( response.code !== req.body.code){
-                //console.log('[[[[[[[[[',response.code)
-                //console.log('[[[[[[[[[', req.body.code)
-                        // Default values
+
                         let finished = 0
                         let finishReason = ''
                         let action = 2
@@ -82,8 +73,8 @@ class Confirm2FA extends Auth {
 
                         this.db.serialize(() => {
                             const updatePreUser2 = this.db.prepare(`UPDATE twoFA SET try = ?, finished=?, finishReason = ? WHERE tokenTwoFASession = ?`)
-                                updatePreUser2.run( _try, finished, finishReason, response.token2FActiveSession)
-                                updatePreUser2.finalize()
+                            updatePreUser2.run( _try, finished, finishReason, response.token2FActiveSession)
+                            updatePreUser2.finalize()
                         
                         })
 
@@ -109,7 +100,7 @@ class Confirm2FA extends Auth {
 
             }).then( response => {
             
-                    // Init session in session table with new register
+                   
                     let tokenSession = this.utils.generateToken(this.tokensLength)
                     let startTiming = new Date().getTime() 
                     let endTiming = new Date().getTime() + this.periodExpiringSession
@@ -117,9 +108,6 @@ class Confirm2FA extends Auth {
 
                     let startTimingRenewal = endTiming
                     let endTimingRenewal = startTimingRenewal + this.periodRenewalSession
-                    
-                    console.log("starTimingRenewal________________", startTimingRenewal)
-                    console.log("endTimingRenewal_________________", endTimingRenewal)
 
                     let finished = 0
                     let _try = response.try+1
@@ -128,7 +116,7 @@ class Confirm2FA extends Auth {
                     
                     this.db.serialize(() => {
                         
-                        //########################## INSERT INTO session ##############################
+                       
                         const insertionSession = this.db.prepare(`INSERT INTO session VALUES (?,?,?,?,?,?,?,?)`)
                             insertionSession.run( tokenSession, response.email, startTiming, endTiming, notRenewSession, startTimingRenewal, endTimingRenewal, finished)
                             insertionSession.finalize()
@@ -142,13 +130,13 @@ class Confirm2FA extends Auth {
                         
                     })
 
-                    logger.log( this.dirPathLogger, this.logsFileName, `/confirm2FA SUCCESS redirecTo init` )
+                    
                     res.json({ action:4, status:'success', tokenSession:tokenSession, description:'Redirect to init' })
                         
                 
                 
             }).catch(err=>{
-            console.log('===============>',err)
+           
                 logger.log( this.dirPathLogger, this.logsFileName, `/confirm2FA ERROR Something went wrong` )
                 res.json({ action:err.action, status:'error', error:`Something went wrong`, description:err.error})
             }) 

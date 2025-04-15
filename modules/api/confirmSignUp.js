@@ -8,14 +8,13 @@ class ConfirmSignUp extends Auth{
         constructor(processArgv){
 
             super(processArgv)
-            console.log('CONFIRMSIGNUP AUTH DB::',this.db)
 
         }
 
         confirmSignUp(req,res){
-            //console.log(req.query.ts)
+            
             const sequence = new Promise( (resolve, reject) =>{
-                //console.log(1)
+                
                 if(!req.query.ts){
             
                   const templatePath = path.join(__dirname,'../../public/ejs/confirmSignUpGenericError.ejs');
@@ -36,7 +35,7 @@ class ConfirmSignUp extends Auth{
                 } 
                 
               }).then( response => {
-                //console.log(2)
+                
                 return new Promise((resolve,reject)=>{
                 this.db.serialize(() => {
                   
@@ -46,7 +45,7 @@ class ConfirmSignUp extends Auth{
                     console.error(err.message);
                     reject()
                   }
-                  console.log('row => ',row)
+                  
                   if(row.email){
                     if(index==0){
                         
@@ -54,12 +53,11 @@ class ConfirmSignUp extends Auth{
                         insertionUser.run(row.email,row.name,row.password, row['twoFA'],row.addition)
                         insertionUser.finalize()
                       
-                        console.log('::')
+                       
                         const updatePreUser = this.db.prepare(`UPDATE preUsers SET confirmed=?,finished=? WHERE tokenPreUsers=?`)
                         updatePreUser.run(1, 1,req.query.ts)
                         updatePreUser.finalize()
-                        console.log('::')
-                        //logger.log( dirPathLogger, logsFileName, `` )
+                        
                       
                         const templatePath = path.join(__dirname,'../../public/ejs/confirmSignUpSuccess.ejs');
                         const data = { email: row.email };
@@ -82,8 +80,8 @@ class ConfirmSignUp extends Auth{
               })
             
               }).then(response=>{
-                //console.log(3)
-                logger.log( this.dirPathLogger, this.logsFileName, `` )
+                
+                
                 
                 const templatePath = path.join(__dirname,'../../public/ejs/confirmedBeforeSignUp.ejs');
                 const data = {};
@@ -98,14 +96,10 @@ class ConfirmSignUp extends Auth{
                     
                   });
                 
-                //res.json({status:'error',error:'user signUp has being confirmated before or time to confirm has expired'})
+                
             
               }).catch( err => {
-                //console.log(4)
-                //res send html
-                logger.log( this.dirPathLogger, this.logsFileName, `` )
-                console.log( 'reject!!!' )
-                console.log( err ) 
+               console.log( err ) 
               })
             
             }

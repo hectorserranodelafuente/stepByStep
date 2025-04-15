@@ -24,9 +24,9 @@ constructor(processArgv){
     
 
     const scope = this
-    //console.log('==========>',env)
+    
     processArgv.forEach(function (val, index, array) {
-        // console.log(index + ': ' + val);
+        
         if(index>1){
             if(val.split('=')[0]==="environment"){
                 scope.actualEnvironment=val.split('=')[1]
@@ -52,7 +52,7 @@ constructor(processArgv){
       this.db =  new sqlite3.Database(scope.dbSqlitePath)
 
     }
-    console.log('AUTH DB::',this.db)
+    
     
     this.periodExpiringSession = 1*60*1000
     this.periodRenewalSession = 2*60*1000 
@@ -73,7 +73,7 @@ constructor(processArgv){
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
       ]
     this.specialCharacters = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', ';', ':', "'", '"', '<', '>', ',', '.', '/', '?', '|', '\\']
-      //console.log(this)
+    
 }
 
 

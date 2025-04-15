@@ -1,22 +1,6 @@
 const Auth = require('./auth.js')
 const Email = require('./email.js')
 
-/*---------------------------------------------------------------
-    
-            Change Password
-            Db table renewPassword
-            { 
-              tokenSessionRenewPassword, 
-              email, 
-              password,
-              try,
-              startTiming,
-              endTiming,
-              confirmed, 
-              finished, 
-              finishReason (sessionConfirmed,tryesExceed) 
-            }
------------------------------------------------------------------*/
 
 class ChangePassword extends Auth {
 
@@ -30,8 +14,6 @@ constructor( processArgv ){
 changePassword(req,res){  
       
       const  email  = req.body.email
-      
-      // filter email...
       
       let sql = `SELECT * FROM users WHERE email=?`
       
@@ -67,7 +49,6 @@ changePassword(req,res){
 
       }).catch(err => {
         
-        //console.log('ERROR--------------------',err)
         
         return res.json({ 
           action: 2, 

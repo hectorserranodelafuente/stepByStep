@@ -6,7 +6,7 @@ class CloseSession extends Auth{
     constructor(processArgv){   
         
         super(processArgv)  
-        console.log('CLOSESESSION AUTH DB::',this.db)
+        
     }
 
     closeSession( req, res){
