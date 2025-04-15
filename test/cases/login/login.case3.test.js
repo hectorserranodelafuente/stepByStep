@@ -29,7 +29,7 @@ class LoginCase3 {
                     .db
                     .each(sql,
                     (err,row)=>{
-                        console.log('ROW----', row)
+                        
                         if( index == (row['COUNT(*)']-1)){
                             resolve({ tokenTwoFASession:row.tokenTwoFASession, code:row.code })
                         }

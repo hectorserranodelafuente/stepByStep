@@ -33,9 +33,10 @@ const { Case }  = require('../../case.js')
     }
     
     main(processArgv,socket){
-        console.log('case 15- We confirm third user signUp successfully')
+        
 
         let scope = this
+        
         this.auxGetConfirmationToken( 'prueba-3@mailinator.com', processArgv ).then(response=>{
             
             let req3 = { query:{ ts:null }  }

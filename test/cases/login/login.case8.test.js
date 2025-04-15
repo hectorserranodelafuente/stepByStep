@@ -34,7 +34,7 @@ class LoginCase8 {
         }
         
         let scope = this
-        //it expected not send email confirmation becouse 2FA is not activated
+        
         function mockEmail(req,res){
             res.json({
                 action:1,

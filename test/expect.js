@@ -18,8 +18,7 @@ class Expect {
     }
 
     jsonContains( response, expectedResponse){
-        console.log('----', response)
-        console.log('----', expectedResponse)
+        
         return Object.keys(expectedResponse).every( key => {
             return expectedResponse[key] === response[key]
         })
@@ -32,19 +31,13 @@ class Expect {
         }
         
         if(typeResponse=="json"){
-            console.log(" JSON ")
-            console.log("-", response )
-            console.log("-", expectedResult )
+           
             this.valid = this.equal(response, expectedResult) 
         }
         if(typeResponse=="html"){
             this.valid = this.contains(response,expectedResult)
         }
-        console.log('#######################################')
-        console.log('response',response)
-        console.log('expectedResult',expectedResult)
-        console.log(`${this.caseName}\nis valid: ${this.valid}`)
-        console.log('########################################')
+        
         
         socket.send(JSON.stringify({
             type:'case', 
@@ -56,13 +49,9 @@ class Expect {
             valid: this.valid
         }))
         
-        console.log('------------------------------RESOLVE--------------------------------')
-        console.log('--RESPONSE PROMISE }}}}}}}}}}}}}}}}',this.valid)
-        console.log('resolves',this.accumulator.resolves)
+    
         this.accumulator.resolves[index](this.valid)
-        /*if(end){
-            new Accumulator().endSerie(callback)
-        }*/
+        
     }
 }
 
@@ -80,15 +69,13 @@ class Emulate extends Expect{
 
         this.emulatedResponse.then( response => { 
             
-            console.log('STORE')
-            console.log('response-',response)
             new Expect(caseName,caseDescription).store(response,typeResponse,expectedResult,_resolve,socket,index) 
         })
     
     }
 
     json(response){
-        console.log("JSON response--")
+      
         this.resolve(response) 
     
     }
@@ -112,10 +99,5 @@ class Mocker {
     
 }
 
-/*
-    function callBackMockStep1(err, row){ 
-        new Emulate('case-1').json({ mockName:"step1", data:{ email:"" }}) 
-    }
-*/
 
 exports.Emulate=Emulate

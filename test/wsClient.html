@@ -22,8 +22,7 @@
     
 
     socket.onopen = () => {
-        console.log('Conectado al servidor');
-        // Enviar mensaje al servidor
+
         socket.send('Hola servidor');
     };
 
@@ -68,15 +67,12 @@
                     document.getElementsByClassName('hiddenDetails')[index].classList.toggle('showDetails')
      
                 }
-                //document.getElementsByClassName('hiddenDetails')[el].className='showDetails'
+                
             
             })
             
             let responsesHTML=''
-             /*data.responses.forEach(response=>{
-                responsesHTML += `${response}</br>`
-            })
-            */
+           
             let _result = (data.totalResult) ? ' WOW, EVERYTHING IS OK!!!!' :'UPS, SOMETHING WENT WRONG'
             console.log(_result)
             if(data.totalResult){

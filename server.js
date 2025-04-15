@@ -10,7 +10,6 @@ const ejs = require('ejs')
 const cron = require('node-cron')
 const app = express()
 const port = 3000
-//const envMail = require('./envMail.js')
 const utils = require('./modules/api/utilsAuth.js')
 
 
@@ -46,11 +45,9 @@ async function  main() {
 
     const StateSession = require('./modules/api/stateSession.js')
     const inst_stateSession = new StateSession(process.argv)
-    // console.log('--StateSession--',StateSession)
 
     const ChangePassword = require('./modules/api/changePassword.js')
     const inst_changePassword = new ChangePassword(process.argv)
-    // console.log('--ChangePasswordStepOne--', ChangePasswordStepOne)
 
     const ChangePasswordNext = require('./modules/api/changePasswordNext.js')
     const inst_changePasswordNext = new ChangePasswordNext(process.argv)
@@ -125,23 +122,11 @@ async function  main() {
 
 
     app.use(bodyParser.json());
+    
     let pathPublic=path.join(new Auth(process.argv).dirPathProject, 'public')
-    /*if(new Auth(process.argv).actualEnvironment=='production'){
-      console.log('IN PRODUCTION')
-      pathPublic=path.join(new Auth(process.argv).dirPathProject, 'dist/public')
-      console.log(pathPublic)
-    }*/
+ 
     app.use('/public', express.static(pathPublic))
 
-    /*
-
-    app.get('/', (req, res) => {
-      logger.log( dirPathLogger, logsFileName, `Get /` )
-      logger.log( dirPathLogger, logsFileName, `Init web page: ${dirPathProject}public/index.html` )
-      res.sendFile(`${dirPathProject}public/index.html`); 
-    })
-
-    */
     app.get('/api/stateSession',(req,res)=>{
       inst_stateSession.stateSession(req,res)
     })
@@ -213,7 +198,6 @@ async function  main() {
 
 
     app.listen(port, () => {
-      //logger.log( dirPathLogger, logsFileName, `app listening on port ${port}` )
       console.log(`Example app listening on port ${port}`)
     })
 

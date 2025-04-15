@@ -24,7 +24,6 @@ class ForgotPassword2{
         let req2 = {
             body:{ 
                 email:'prueba-1@mailinator.com',
-                //password:'contrasena@2025' 
             }
         }
         

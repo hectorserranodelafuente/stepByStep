@@ -37,9 +37,6 @@
             
 
             if( dataLogin.action == 1 ){
-                
-                // let count =  5
-                // let countMessage = `we will redirect to login in ${count}`
 
                 document.getElementById("successUserForm").style.display = "block" 
                 document.getElementById("successUserForm").innerHTML = dataLogin.description

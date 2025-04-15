@@ -33,7 +33,7 @@ const { Case }  = require('../../case.js')
     }
     
     main(processArgv,socket){
-        console.log('case 3','We confirm first user signUp successfully')
+        
 
         let scope = this
         this.auxGetConfirmationToken( 'prueba-1@mailinator.com', processArgv ).then(response=>{

@@ -25,8 +25,6 @@ const countFolders = async (directory) => {
 
 
 
-//task('fillArgsHeaderEJS')
-
 function renderHeaders(environment,done){
     console.log('renderHeaders')
     countFolders(path.join(path.join(path.join(__dirname,'..')),'ejs')).then(count => {
@@ -53,7 +51,7 @@ function renderHeaders(environment,done){
                 if(err){
                     console.log(err)
                 }
-                console.log(str)
+                
             })
             
         }
@@ -69,15 +67,15 @@ task('renderHeadersProduction',function(done){
     renderHeaders('production',done)
 })
 
-//..
+
 
 function renderMain(environment,done){
     countFolders(path.join(path.join(path.join(__dirname,'..')),'ejs')).then(count => {
-        console.log('COUNT--------------------',count)
+        
         for(var i=0;i<count;i++){
 
             ejs.renderFile(path.join(path.join(path.join(__dirname,'..')),`ejs/view${i+1}/mainEJS/main.ejs`), {environment:environment} , async = true, function(err, str){
-                console.log('____:::',str)
+                
                 if(!err){
                     let renderedMain='renderedMain'
                     if(environment=='production'){
@@ -90,7 +88,7 @@ function renderMain(environment,done){
                 }else{
                     console.log(err)
                 }
-                console.log(str)
+               
             })
             
         }
@@ -111,7 +109,7 @@ function mainsToFolder(environment,done){
     countFolders(path.join(path.join(path.join(__dirname,'..')),'ejs')).then(count => {
         for(var i=0;i<count;i++){
             let { name } = require(`../ejs/view${i+1}/nameFileDest.js`)
-            console.log(':::MAINSTODEVELOPMENT:::',name)
+            
             let dist=''
             let rendered=''
             if(environment=='production'){
@@ -145,13 +143,13 @@ task('cleanViewsPro',function(){
 })
 
 task('cleanRenderedMain',function(){
-    console.log('clearRenderedMain')
+    
     return src(path.join(path.join(path.join(__dirname,'..')),'ejs/*/renderedMain/*.*')).pipe(clean())
          
 })
 
 task('cleanRenderedHeaders',function(){
-    console.log('cleanRenderedHeaders')
+    
     return src(path.join(path.join(path.join(__dirname,'..')),`ejs/*/renderedHead/*.*`)).pipe(clean()) 
     
 })

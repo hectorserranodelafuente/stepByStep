@@ -12,18 +12,14 @@ const { test } = require('../../env.js')
 
 function dist(){    
     console.log('DIST')
-    /* gulpTask.renderPro() */   
 }
 
 let inst1,inst2,inst3
 
     inst1 = new Case1(false, null)
-    // inst2 = new Case2(false, null)
-    // inst3 = new Case3(false, null)
-    // inst4 = new Case4(true, dist)
+   
 
-
-let instances = [ inst1/*, inst2, inst3, inst4*/ ]
+let instances = [ inst1]
 let time=3000
 
 instances.forEach((inst,index) => {

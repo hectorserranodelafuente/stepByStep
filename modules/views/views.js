@@ -8,7 +8,7 @@ class Views extends Auth{
     }
 
     checkSession(req,res){
-        console.log('=====>',req.query.tokenSession)
+        
         let queryTokenSession = true
         if(!req.query.tokenSession){ queryTokenSession = false  }
         
@@ -28,16 +28,16 @@ class Views extends Auth{
                     if (err) {  reject(err) }
                 
                     if(row.email) {
-                        console.log('row-',row)
+                       
                         if(index==0) {
-                            console.log('####')
+                            
                             resolve({ closed: false })
                             index++
                         }  
                     }
                 
                 },(err => {
-                    console.log('####')
+                    
                     resolve({ closed: true, description:'not session found' })
                     
                     }))
@@ -51,7 +51,7 @@ class Views extends Auth{
     }
 
     init(req,res){
-        //structure similar to all views with exception of basicSignUp, basicLogin, basicStart
+        
         this.checkSession(req,res).then(response=>{
             if(!response.closed){
                 res.sendFile(`${this.dirPathProject}/public/${this.frontTech}Views/init.html`)

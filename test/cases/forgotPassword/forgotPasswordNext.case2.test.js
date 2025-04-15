@@ -18,8 +18,7 @@ class forgotPasswordNext2{
     }
     
     auxRecoverToken(email,processArgv){
-        console.log(processArgv)
-        console.log(' email ',email)
+       
         let db = new Auth(processArgv).db
         return new Promise((resolve,reject)=>{
             let sql = `SELECT tokenChangePasswordSession, COUNT(*) FROM changePassword WHERE email = ?`
@@ -48,7 +47,7 @@ class forgotPasswordNext2{
     }
 
     main( processArgv, socket ){
-        //console.log(':::::::::::::',processArgv)
+        
         let email = 'prueba-1@mailinator.com'
 
         let scope = this 
@@ -84,8 +83,7 @@ class forgotPasswordNext2{
             20)
             
         
-        //...
-        //console.log('PROCESSARGV...',processArgv)
+        
         this.auxRecoverToken(email,processArgv).then( (response) => {
             
             req.body.tokenChangePasswordSession = response

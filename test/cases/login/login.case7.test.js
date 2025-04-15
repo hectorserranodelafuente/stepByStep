@@ -16,9 +16,9 @@ class LoginCase7 {
 
     }
     
-    // We fail twice trying to confirm login with code
+   
     auxFunction(processArgv,email){
-        //console.log(email)
+        
         return new Promise((resolve,reject)=>{
             new Auth(processArgv).db.serialize(()=>{
                 let index = 0
@@ -28,7 +28,7 @@ class LoginCase7 {
                     .db
                     .each(sql,
                     (err,row)=>{
-                        console.log('ROW----', row)
+                        
                         if( index == (row['COUNT(*)']-1)){
                             resolve({ tokenTwoFASession:row.tokenTwoFASession, code:row.code })
                         }

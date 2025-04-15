@@ -7,21 +7,20 @@ const decoder = new StringDecoder('utf8')
 const fs = require('fs')
 
 
-//console.log('utils ',utils)
+
 
 function arrayBufferToHex(arrayBuffer) {
     const byteArray = new Uint8Array(arrayBuffer);
     return Array.from(byteArray)
-      .map(byte => byte.toString(16).padStart(2, '0')) // Convert each byte to hex and pad to 2 digits
-      .join(''); // Join all hex values into a single string
+      .map(byte => byte.toString(16).padStart(2, '0')) 
+      .join(''); 
 }
 
   function hexToArrayBuffer(hex) {
     const byteArray = new Uint8Array(
-      hex.match(/.{1,2}/g).map(byte => parseInt(byte, 16)) // Divide el string en pares y los convierte a enteros
+      hex.match(/.{1,2}/g).map(byte => parseInt(byte, 16))
     );
-    return byteArray.buffer; // Devuelve el ArrayBuffer correspondiente
-  }
+    return byteArray.buffer;
   
 async function introduceUser(rl){
     return new Promise((resolve,reject)=>{

@@ -25,17 +25,7 @@ class Case extends Accumulator{
                 this.endSerie(callback, this.socket)
              }
             
-             console.log(this.endSerie)
-
              
-            
-        //if(end){
-            //this.end(callback)
-            //this.endSerie(callback)
-        //}
-        
-        
-        //testSignUp.instance = this
 
     }
 

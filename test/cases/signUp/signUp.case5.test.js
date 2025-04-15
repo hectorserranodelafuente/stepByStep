@@ -14,11 +14,6 @@ const { Socket } = require('../../socket.js')
         constructor(index,end,callback){ 
               
             this.case = new Case(index,end,callback)
-            
-            /*this.socket = new Socket() 
-            setTimeout(function(){
-                console.log('SOCKET ',this.socket.socket)   
-            },3000)*/
             this.callback = callback
         
         }   
@@ -26,7 +21,7 @@ const { Socket } = require('../../socket.js')
     
 
     main(processArgv,socket){
-            console.log('main case 1')
+            
                 let req1 = {
                     body:{
                         urlName:'prueba2',
@@ -46,8 +41,7 @@ const { Socket } = require('../../socket.js')
                     }, scope.case.resolves[scope.case.index],socket,4)
                 
                
-                //reset().then(response=>{
-                    console.log('RESET DB DONE')
+                
                     let signUp1 = new SignUp(processArgv)
                         
                         function mockEmail(req,res){
@@ -63,7 +57,7 @@ const { Socket } = require('../../socket.js')
                         signUp1.email.sendEmail = mockEmail 
                     
                         signUp1.signUp(req1,res1)
-                //})
+             
 
                 return this.case.promise
     }

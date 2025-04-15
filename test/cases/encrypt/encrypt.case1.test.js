@@ -30,13 +30,9 @@ class EncryptPassword{
             .then( ( response ) => {
                 
                 const { key, iv, ciphertext } = response
-                // console.log('key ',key)
-                // console.log('iv ',iv)
-                // console.log('ciphertext', ciphertext)
                 return new UtilsAuth(processArgv).aesDecrypt(ciphertext,key,iv)
 
             }).then( (_response) => {
-                // console.log('_response',_response)
                 res.json({  decryptedPassword: _response })
 
             })
@@ -44,7 +40,7 @@ class EncryptPassword{
     }
 
     main(processArgv,socket) {
-        //...
+        
         let toBeEncrypted = 'contrasena@2025' 
         let scope = this
         

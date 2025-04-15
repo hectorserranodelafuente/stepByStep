@@ -4,7 +4,6 @@ class StateSession extends Auth{
 
     constructor(processArgv){
         super(processArgv)
-        console.log('STATESESSION AUTH DB::',this.db)
     }
     
     stateSession(req,res){

@@ -1,8 +1,4 @@
-/*
-We login with a user that has being signed up, 
-doesnt have session initialized yet and has 2FA NOT ACTIVATED,
-so we redirect to init
-*/
+
 
 
 const { Emulate, Mocker } = require('../../expect.js')
@@ -34,7 +30,7 @@ class LoginCase10 {
         }
         
         let scope = this
-        //it expected not send email confirmation becouse 2FA is not activated
+      
         function mockEmail(req,res){
             res.json({
                 action:0,

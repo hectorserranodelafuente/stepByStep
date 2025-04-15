@@ -14,11 +14,6 @@ const { Socket } = require('../../socket.js')
         constructor(index,end,callback){ 
               
             this.case = new Case(index,end,callback)
-            
-            /*this.socket = new Socket() 
-            setTimeout(function(){
-                console.log('SOCKET ',this.socket.socket)   
-            },3000)*/
             this.callback = callback
         
         }   
@@ -26,7 +21,7 @@ const { Socket } = require('../../socket.js')
     
 
     main(processArgv,socket){
-            console.log('main case 1')
+            
                 let req1 = {
                     body:{
                         urlName:'prueba1',
@@ -36,7 +31,7 @@ const { Socket } = require('../../socket.js')
                     }
                 }
                 let scope = this
-                console.log('scope',scope.case.resolve)
+                
                 let res1 = new Emulate(`case 1`,`When we introduce a first register the data is all right and it is sent a confirmation email`,
                     'json',
                     {
@@ -47,7 +42,7 @@ const { Socket } = require('../../socket.js')
                 
                
                 reset().then(response=>{
-                    console.log('RESET DB DONE')
+                    
                     let signUp1 = new SignUp(processArgv)
                         
                         function mockEmail(req,res){

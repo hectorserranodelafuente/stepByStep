@@ -12,8 +12,7 @@ class Socket{
             this.server = new WebSocket.Server({port:this.port})
 
         }
-        this.server.on('connection',(socket)=>{
-            console.log('CONNECTION')    
+        this.server.on('connection',(socket)=>{ 
             this.socket = socket
         
         })

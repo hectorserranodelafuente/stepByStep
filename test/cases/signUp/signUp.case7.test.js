@@ -16,7 +16,7 @@ const { Case }  = require('../../case.js')
         }   
         
         main(processArgv,socket){
-            console.log('main case 1')
+            
                 let req1 = {
                     body:{
                         urlName:'prueba3',
@@ -26,7 +26,7 @@ const { Case }  = require('../../case.js')
                     }
                 }
                 let scope = this
-                console.log('scope',scope.case.resolve)
+                
                 let res1 = new Emulate('case 14','introduce a third register the data is all right with twoFA NOT ACTIVATED and it is sent a confirmation email',
                     'json',
                     {
@@ -36,8 +36,8 @@ const { Case }  = require('../../case.js')
                     }, scope.case.resolves[scope.case.index],socket,13)
                 
                
-                //reset().then(response=>{
-                    console.log('RESET DB DONE')
+               
+                    
                     let signUp1 = new SignUp(processArgv)
                         
                         function mockEmail(req,res){
@@ -53,7 +53,7 @@ const { Case }  = require('../../case.js')
                         signUp1.email.sendEmail = mockEmail 
                     
                         signUp1.signUp(req1,res1)
-                //})
+               
 
                 return this.case.promise
         }

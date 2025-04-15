@@ -16,9 +16,9 @@ class LoginCase6 {
 
     }
     
-    // We fail twice trying to confirm login with code
+    
     auxFunction(processArgv,email){
-        //console.log(email)
+        
         return new Promise((resolve,reject)=>{
             new Auth(processArgv).db.serialize(()=>{
                 let index = 0

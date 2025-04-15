@@ -20,7 +20,7 @@ const { Case }  = require('../../case.js')
     
     main(processArgv,socket){
 
-        console.log('case 2','Trying to signUp a user, that has not being confirmed yet, it doesnt send a confirmation email')
+        
         
         let req2 = {
             body:{
@@ -37,7 +37,7 @@ const { Case }  = require('../../case.js')
             description:'urlName has being choosen by another user or confirmation SignUp with this token is pending'
         }, scope.case.resolves[scope.case.index],socket,1)
 
-        console.log('------------',res2.json)
+        
         let signUp2 = new SignUp(processArgv)
                         
         function mockEmail( req, res ){
