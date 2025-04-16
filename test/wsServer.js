@@ -5,7 +5,7 @@ const path  = require('path')
 
 var socket
 
-const Accumulator = require('./accumulator.js')
+const Accumulator = require('../node_modules/emulate/main/accumulator.js')
 const gulpTask = require('./../scripts/mainGulp.js')
 
 const signUpCase1 = require('./cases/signUp/signUp.case1.test.js')
@@ -104,8 +104,8 @@ server.on('connection', (_socket) => {
     inst20 = new forgotPasswordNext( 19, false, null) 
     inst21 = new forgotPasswordNext2( 20, false, null)
 
-    inst22 = new loginCase10( 21, false, null )
-    inst23 = new encryptCase(22, true, dist, socket)
+    inst22 = new loginCase10( 21, true, dist, socket )
+    //inst23 = new encryptCase(22, true, dist, socket)
     
     let instances = [ 
         inst1, 
@@ -129,8 +129,8 @@ server.on('connection', (_socket) => {
         inst19,
         inst20,
         inst21,
-        inst22,
-        inst23
+        inst22//,
+        //inst23
     ]
 
         instances.forEach((inst,index) => {
@@ -154,7 +154,7 @@ server.on('connection', (_socket) => {
     });
 });
 
-let filePath=path.join(__dirname, '/wsClient.html')
+let filePath=path.join(__dirname,'..','/node_modules/emulate/main/wsClient.html')
 const command = `start chrome "${filePath}"`
 exec(command,(err)=>{ console.log(err) });
 

@@ -1,14 +1,14 @@
 
 
 const ChangePasswordNext = require('../../../modules/api/changePasswordNext.js')
-const { Emulate, Mocker } = require('../../expect.js')
+const { Emulate, Mocker } = require('../../../node_modules/emulate/main/expect.js')
 const Login = require('../../../modules/api/login.js')
 const Auth = require('../../../modules/api/auth.js')
 const { reset } = require('../../resetDbTest.js')
-const {Accumulator} = require('../../accumulator.js')
+const {Accumulator} = require('../../../node_modules/emulate/main/accumulator.js')
 const { test } = require('../../../env.js')
-const { Case }  = require('../../case.js')
-const { Socket } = require('../../socket.js')
+const { Case }  = require('../../../node_modules/emulate/main/case.js')
+const { Socket } = require('../../../node_modules/emulate/main/socket.js')
 
 
 class forgotPasswordNext1{

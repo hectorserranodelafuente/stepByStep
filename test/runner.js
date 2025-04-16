@@ -1,9 +1,0 @@
-class Runner{
-    constructor(){
-
-    }
-
-    run(){
-        
-    }
-}

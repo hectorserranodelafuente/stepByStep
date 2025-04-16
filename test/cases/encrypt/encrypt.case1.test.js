@@ -1,8 +1,8 @@
 
-const { Emulate, Mocker } = require('../../expect.js')
-const {Accumulator} = require('../../accumulator.js')
-const { Case }  = require('../../case.js')
-const { Socket } = require('../../socket.js')
+const { Emulate, Mocker } = require('../../../node_modules/emulate/main/expect.js')
+const {Accumulator} = require('../../../node_modules/emulate/main/accumulator.js')
+const { Case }  = require('../../../node_modules/emulate/main/case.js')
+const { Socket } = require('../../../node_modules/emulate/main/socket.js')
 const   UtilsAuth  = require('../../../modules/api/utilsAuth.js')
 const crypto = globalThis.crypto;
 

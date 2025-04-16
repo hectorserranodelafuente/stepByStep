@@ -87,7 +87,7 @@ class ChangePasswordNext extends Auth {
                     tokenChangePasswordSession 
                 ])
 
-                this.db.finalize()
+                //this.db.finalize()
 
             }catch(err){
                 
