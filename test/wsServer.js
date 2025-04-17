@@ -6,7 +6,7 @@ const path  = require('path')
 var socket
 
 const Accumulator = require('../node_modules/emulate/main/accumulator.js')
-const gulpTask = require('./../scripts/mainGulp.js')
+
 
 const signUpCase1 = require('./cases/signUp/signUp.case1.test.js')
 const signUpCase2 = require('./cases/signUp/signUp.case2.test.js')
