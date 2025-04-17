@@ -20,7 +20,7 @@
     "archiver": "^7.0.1",
     "body-parser": "^1.20.3",
     "ejs": "^3.1.10",
-    "emulate": "git+https://github.com/hectorserranodelafuente/emulate.git#f5e0189acbd6f676ff0e5505070494e769eaf93c",
+    "emulate": "git+https://github.com/hectorserranodelafuente/emulate.git#764419b6919559e6aca494c08c096f21c10fe65c",
     "express": "^4.21.2",
     "fs-extra": "^11.3.0",
     "gulp": "^5.0.0",
