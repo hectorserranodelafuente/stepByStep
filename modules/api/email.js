@@ -21,8 +21,8 @@ class Email extends UtilsAuth{
 
         try {
           
-          const username = "";
-          const token = "";
+          const username = new Auth(this.processArgv).smsUsername;
+          const token = new Auth(this.processArgv).smsToken;
           const message = text;
           const phone = [req.body.number];
           const clientLabsMobile = new LabsMobileClient(username, token);
