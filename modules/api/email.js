@@ -3,15 +3,71 @@ const UtilsAuth = require('./utilsAuth.js')
 const Auth = require('./auth.js')
 const nodemailer = require('nodemailer');
 
+const LabsMobileClient = require("../../node_modules/labsmobile-sms/src/LabsMobileClient.js");
+const LabsMobileModelTextMessage = require("../../node_modules/labsmobile-sms/src/LabsMobileModelTextMessage.js");
+const ParametersException = require("../../node_modules/labsmobile-sms/src/Exception/ParametersException.js");
+const RestException = require("../../node_modules/labsmobile-sms/src/Exception/RestException.js");
+
 class Email extends UtilsAuth{
 
     constructor(processArgv){
         super(processArgv)  
+        this.processArgv = processArgv
+    }
+
+    async sendSMS(req,res,subject,text,add){
+
+      let sequence = new Promise((resolve,reject)=>{
+
+        try {
+          
+          const username = "info@freelancejavascripter.com";
+          const token = "ajaxzjtjnkPY8JOkN7dxvn1r4saoWUXW";
+          const message = text;
+          const phone = [req.body.number];
+          const clientLabsMobile = new LabsMobileClient(username, token);
+          const bodySms = new LabsMobileModelTextMessage(phone, message);
+          
+          bodySms.long = 1;
+          
+          const response = clientLabsMobile.sendSms(bodySms).then(response=>{
+            
+
+            let _serverResponse = {action:1,status:'ok',description:'Confirmation SMS sent, check your mobile phone'}
+           
+            if(add){
+             
+              _serverResponse={ ..._serverResponse,...add }
+              
+            }
+           
+            resolve(_serverResponse)
+
+          });
+
+          //console.log(response);
+        } catch (error) {
+          if (error instanceof ParametersException) {
+            console.log(error.message);
+          } else if (error instanceof RestException) {
+            console.log(`Error: ${error.status} - ${error.message}`);
+          } else {
+            throw new Error("Error: " + error);
+          }
+        }
+      
+      }).then(response=>{
+
+        res.json(response)
+
+      })
+
+
     }
 
     async sendEmail(req,res,subject,text,add){
 
-      console.log('SENDEMAIL')
+      //console.log('SENDMAIL')
 
       let scope=this
       let transporter = nodemailer.createTransport({
@@ -105,13 +161,21 @@ class Email extends UtilsAuth{
 
     
 
-    sendEmailConfirmation2FA(req,res,code,token2FA){
+    sendEmailConfirmation2FA(req,res,code,token2FA,number){
 
         let subject='Code 2FA authentication'
         let text = `That´s your confirmation authentication code: ${code}`
 
+      console.log()
+      if(new Auth(this.processArgv).type2FA==='email'){
+        
         this.sendEmail(req,res,subject,text,{t2FASession:token2FA})
 
+      }else if(new Auth(this.processArgv).type2FA==='sms'){
+        
+        this.sendSMS(req,res,subject,text,{t2FASession:token2FA})
+      
+      }
     }
 
     sendEmailChangePassword( req, res){
