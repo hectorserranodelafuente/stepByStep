@@ -21,8 +21,8 @@ class Email extends UtilsAuth{
 
         try {
           
-          const username = "info@freelancejavascripter.com";
-          const token = "ajaxzjtjnkPY8JOkN7dxvn1r4saoWUXW";
+          const username = "";
+          const token = "";
           const message = text;
           const phone = [req.body.number];
           const clientLabsMobile = new LabsMobileClient(username, token);
