@@ -1,7 +1,7 @@
+/api/signUp error not attribute typeTwoFA
 /api/signUp error undefined
-/confirm2FA ERROR Something went wrong
-/confirm2FA ERROR Something went wrong
-/confirm2FA ERROR Something went wrong
+/api/signUp error not attribute typeTwoFA
+/api/signUp error undefined
 /api/signUp error not attribute typeTwoFA
 /api/signUp error undefined
 /api/signUp error not attribute typeTwoFA

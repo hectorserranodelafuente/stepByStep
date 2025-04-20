@@ -119,7 +119,6 @@
         
         }
 
-   
         let dataLogin, dataCode
 
         async function submitForm() {
@@ -129,13 +128,54 @@
             const urlName = document.getElementById('urlName').value.trim(); 
             const twoFA = (document.getElementById('twoFA').checked) ? 1 : 0
             
+            let typeTwoFA 
+            let phoneNumber = null
+            
+            if(confSignUpForm.emailOption2FA && confSignUpForm.smsOption2FA){
+                
+                document.getElementsByName('optionsTwoFA').forEach(el=>{
+                    
+                    if(el.checked){     typeTwoFA = el.value    }
+
+                })
+                     
+                if(typeTwoFA=='sms'){
+                    
+                    phoneNumber = document.getElemenById("phoneNumber").value
+                
+                }
+
+            }else if(confSignUpForm.emailOption2FA==true && confSignUpForm.smsOption2FA==false){
+
+                typeTwoFA = 'email'
+                
+            
+            }else if(confSignUpForm.emailOption2FA==false && confSignUpForm.smsOption2FA==true){
+
+               typeTwoFA = 'sms'  
+               
+               phoneNumber = document.getElementById("phoneNumber").value 
+            
+            }else if(confSignUpForm.emailOption2FA==false && confSignUpForm.smsOption2FA==false){
+                
+                typeTwoFA = ''
+                
+            }
+            
             
             const response = await fetch('/api/signUp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password, urlName, twoFA }),
+                body: JSON.stringify({ 
+                    email, 
+                    password, 
+                    urlName, 
+                    twoFA, 
+                    typeTwoFA, 
+                    phoneNumber
+                }),
             });
 
            dataLogin = await response.json();

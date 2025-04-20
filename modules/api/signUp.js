@@ -35,31 +35,31 @@ class SignUp extends Auth{
         }
         
         
-        if(!req.body.urlName){
+        if(!Object.keys(req.body).includes('urlName')){
             this.description = `not attribute urlName on data or empty data on attribute urlName` 
             logger.log( this.dirPathLogger, this.logsFileName, `/api/signUp error ${this.description}` )
             this.reportStructuredData.validfilterNotNull = false
         }
         
-        if(!req.body.password){
+        if(!Object.keys(req.body).includes('password')){
             this.description = `not attribute password on data or empty data on attribute password` 
             logger.log( this.dirPathLogger, this.logsFileName, `/api/signUp error ${this.description}` )
             this.reportStructuredData.validfilterNotNull = false
         }
         
-        if(!req.body.email){
+        if(!Object.keys(req.body).includes('email')){
             this.description = `not attribute email on data or empty data on attribute email`  
             logger.log( this.dirPathLogger, this.logsFileName, `/api/signUp error ${this.description}` )
             this.reportStructuredData.validfilterNotNull = false
         
         }
-        if(!req.body.twoFA&&req.body.twoFA!==0){ 
+        if(!Object.keys(req.body).includes('twoFA') && req.body.twoFA!==0){ 
             this.description = `not attribute twoFA on data or empty data on attribute twoFA`
             logger.log( this.dirPathLogger, this.logsFileName, `/api/signUp error ${this.description}` )
             this.reportStructuredData.validfilterNotNull = false 
         }
 
-        if(!req.body.typeTwoFA){ 
+        if(!Object.keys(req.body).includes('typeTwoFA')){ 
             
             this.description = `not attribute typeTwoFA`
             logger.log( this.dirPathLogger, this.logsFileName, `/api/signUp error ${this.description}` )
@@ -67,7 +67,7 @@ class SignUp extends Auth{
         
         }
 
-        if(!req.body.phoneNumber){ 
+        if(!Object.keys(req.body).includes('phoneNumber')){ 
             this.description = `not attribute phoneNumber`
             this.reportStructuredData.validfilterNotNull = false 
         }

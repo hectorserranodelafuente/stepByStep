@@ -17,9 +17,9 @@ db.run(` CREATE TABLE users (
     name     TEXT,
     password TEXT,
     twoFA    INTEGER DEFAULT (0),
+    addition TEXT,
     typeTwoFA TEXT,
-    phoneNumber TEXT,
-    addition TEXT
+    phoneNumber TEXT
 )`, (err) => {
   if (err) {
     console.error('Error al crear la tabla users:', err.message);
@@ -80,7 +80,9 @@ db.run(`
                         DEFAULT (0),
   addition      TEXT    NOT NULL
                         DEFAULT "",
-  finished      INTEGER DEFAULT (0) 
+  finished      INTEGER DEFAULT (0),
+  typeTwoFA TEXT,
+  phoneNumber TEXT 
 )`, (err) => {
 if (err) {
   console.error('Error al crear la tabla preUsers:', err.message);

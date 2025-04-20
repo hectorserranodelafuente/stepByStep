@@ -16,7 +16,14 @@ class Email extends UtilsAuth{
     }
 
     async sendSMS(req,res,subject,text,add){
-
+      
+      var phoneNumber
+      
+      console.log('REQ',req)
+      //SELECT phoneNumber FROM twoFA WHERE ....
+      
+      
+      
       let sequence = new Promise((resolve,reject)=>{
 
         try {
@@ -24,7 +31,7 @@ class Email extends UtilsAuth{
           const username = new Auth(this.processArgv).smsUsername;
           const token = new Auth(this.processArgv).smsToken;
           const message = text;
-          const phone = [req.body.number];
+          const phone = [phoneNumber];
           const clientLabsMobile = new LabsMobileClient(username, token);
           const bodySms = new LabsMobileModelTextMessage(phone, message);
           
