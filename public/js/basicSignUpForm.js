@@ -43,7 +43,7 @@
                                     <div>
                                         <div>
                                             <label for="phoneNumber" class="strong" style="text-align:center">Phone Number</label>
-                                            <input type="phoneNumber" id="phoneNumber" name="phoneNumber" disabled>    
+                                            <input type="phoneNumber" id="phoneNumber" name="phoneNumber">    
                                         </div>
                                     </div> 
                                 </fieldset>

@@ -19,10 +19,6 @@ class Email extends UtilsAuth{
       
       var phoneNumber
       
-      console.log('REQ',req)
-      //SELECT phoneNumber FROM twoFA WHERE ....
-      
-      
       
       let sequence = new Promise((resolve,reject)=>{
 
@@ -31,7 +27,7 @@ class Email extends UtilsAuth{
           const username = new Auth(this.processArgv).smsUsername;
           const token = new Auth(this.processArgv).smsToken;
           const message = text;
-          const phone = [phoneNumber];
+          const phone = [add.phoneNumber];
           const clientLabsMobile = new LabsMobileClient(username, token);
           const bodySms = new LabsMobileModelTextMessage(phone, message);
           
@@ -99,6 +95,7 @@ class Email extends UtilsAuth{
       };
       
       let sequence=new Promise((resolve,reject)=>{
+        
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
               logger.log( scope.dirPathLogger, scope.logsFileName, `Error on sending email: ${error}` )  
@@ -111,7 +108,7 @@ class Email extends UtilsAuth{
             let _serverResponse = {action:1,status:'ok',description:'Confirmation email sent, check your email'}
            
             if(add){
-             
+              
               _serverResponse={ ..._serverResponse,...add }
               
             }
@@ -170,20 +167,49 @@ class Email extends UtilsAuth{
 
     sendEmailConfirmation2FA(req,res,code,token2FA,number){
 
-        let subject='Code 2FA authentication'
-        let text = `That´s your confirmation authentication code: ${code}`
-
-      console.log()
-      if(new Auth(this.processArgv).type2FA==='email'){
+      let subject='Code 2FA authentication'
+      let text = `That´s your confirmation authentication code: ${code}`
         
-        this.sendEmail(req,res,subject,text,{t2FASession:token2FA})
-
-      }else if(new Auth(this.processArgv).type2FA==='sms'){
-        
-        this.sendSMS(req,res,subject,text,{t2FASession:token2FA})
       
-      }
+      let sequence = new Promise((resolve,reject)=>{
+
+        this.db.serialize(()=>{
+        
+          let index = 0
+          
+          this.db.each(`SELECT typeTwoFA, phoneNumber from users WHERE email = ?`, [req.body.email], (err,row) => {
+            
+            if(row.typeTwoFA) {
+              
+              if(index==0) {
+                
+                resolve({ 
+                  typeTwoFA:row.typeTwoFA,  
+                  phoneNumber:row.phoneNumber 
+                })
+              
+              }
+            }
+          
+          },(err=>reject()))
+        
+        })
+      
+      }).then( response => {
+
+        switch(response.typeTwoFA){
+          case 'email':
+            this.sendEmail(req,res,subject,text,{ t2FASession:token2FA })
+          break;
+          case 'sms':
+            this.sendSMS(req,res,subject,text,{ t2FASession:token2FA, phoneNumber:response.phoneNumber })
+          break;
+        }
+      
+      })
+    
     }
+  
 
     sendEmailChangePassword( req, res){
       
