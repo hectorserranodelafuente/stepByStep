@@ -63,6 +63,10 @@
         font-weight:600;
     }
 
+    .strong-gray{
+        color:gray;
+    }
+
 </style>
 <body>
     <div class="centered-div">
@@ -80,7 +84,52 @@
         <input type="urlName" id="urlName" name="urlName"><br><br>
         <label for="twoFA" class="strong">2FA:</label>
         <input type="checkbox" id="twoFA" name="twoFA" checked><br><br>
-        <button type="button" onclick="submitForm()">Enviar</button>
+        
+        <div id="options2FA">
+            <div template="caseOne" >
+                
+               
+                
+                
+                
+            
+            </div>
+
+           
+            <div template="caseTwo" >
+            
+
+                
+            
+            </div>
+            
+
+
+
+            <div template="caseThree">
+                
+                    
+                  
+                
+                
+            </div>
+
+
+            <div template="caseFour" >
+                
+                    
+                   
+                
+              
+            </div>
+            
+          </div>  
+
+
+
+
+
+        <button type="button" onclick="submitForm()" style="margin-top:30px;">Enviar</button>
     </form>
     
     <div id = "errorUserForm" 
@@ -121,6 +170,8 @@
 
     
       
+    <script src="../public/js/basicSignUpConfigForm.js"></script>
+ 
     <script src="../public/js/basicSignUpForm.js"></script>
  
 

@@ -1,3 +1,6 @@
 module.exports = {
-    scriptNames:['../public/js/basicSignUpForm']
+    scriptNames:[
+        '../public/js/basicSignUpConfigForm',
+        '../public/js/basicSignUpForm'
+    ]
 }
