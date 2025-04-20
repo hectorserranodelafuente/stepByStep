@@ -75,9 +75,13 @@
         
         }else if(confSignUpForm.emailOption2FA==false&&confSignUpForm.smsOption2FA==false){
             
+            
             document.querySelectorAll('[template="caseFour"]')[0].innerHTML = templateFour
-            document.getElementById("twoFA").disabled=true 
-            console.log(document.getElementById("labelTwoFA").classList)
+            document.getElementById("twoFA").disabled = true 
+            document.getElementById("twoFA").checked = false
+            document.getElementById("labelTwoFA").style.opacity = 0.5
+            
+
         }
 
 

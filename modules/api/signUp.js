@@ -59,6 +59,19 @@ class SignUp extends Auth{
             this.reportStructuredData.validfilterNotNull = false 
         }
 
+        if(!req.body.typeTwoFA){ 
+            
+            this.description = `not attribute typeTwoFA`
+            logger.log( this.dirPathLogger, this.logsFileName, `/api/signUp error ${this.description}` )
+            this.reportStructuredData.validfilterNotNull = false 
+        
+        }
+
+        if(!req.body.phoneNumber){ 
+            this.description = `not attribute phoneNumber`
+            this.reportStructuredData.validfilterNotNull = false 
+        }
+
         //################################################################################
 
         //################################################################################
@@ -88,6 +101,9 @@ class SignUp extends Auth{
             this.reportStructuredData.validfilterParticular= false
         }
         
+        //typeTwoFA
+
+        //phoneNumber
         
         /*
         #################################

@@ -1,22 +1,22 @@
 /api/signUp error undefined
+/confirm2FA ERROR Something went wrong
+/confirm2FA ERROR Something went wrong
+/confirm2FA ERROR Something went wrong
+/api/signUp error not attribute typeTwoFA
 /api/signUp error undefined
-/confirm2FA ERROR Something went wrong
-/confirm2FA ERROR Something went wrong
-/confirm2FA ERROR Something went wrong
+/api/signUp error not attribute typeTwoFA
 /api/signUp error undefined
+/api/signUp error not attribute typeTwoFA
 /api/signUp error undefined
-/confirm2FA ERROR Something went wrong
-/confirm2FA ERROR Something went wrong
-/confirm2FA ERROR Something went wrong
+/api/signUp error not attribute typeTwoFA
 /api/signUp error undefined
+/api/signUp error not attribute typeTwoFA
 /api/signUp error undefined
-/confirm2FA ERROR Something went wrong
-/confirm2FA ERROR Something went wrong
-/confirm2FA ERROR Something went wrong
+/api/signUp error not attribute typeTwoFA
 /api/signUp error undefined
+/api/signUp error not attribute typeTwoFA
 /api/signUp error undefined
-/confirm2FA ERROR Something went wrong
-/confirm2FA ERROR Something went wrong
+/api/signUp error not attribute typeTwoFA
 Last log--------------------------------------------------------------
-/confirm2FA ERROR Something went wrong
+/api/signUp error undefined
 Last log--------------------------------------------------------------

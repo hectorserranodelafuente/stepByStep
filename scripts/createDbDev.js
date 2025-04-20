@@ -17,6 +17,8 @@ db.run(` CREATE TABLE users (
     name     TEXT,
     password TEXT,
     twoFA    INTEGER DEFAULT (0),
+    typeTwoFA TEXT,
+    phoneNumber TEXT,
     addition TEXT
 )`, (err) => {
   if (err) {

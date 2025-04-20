@@ -49,8 +49,8 @@ class ConfirmSignUp extends Auth{
                   if(row.email){
                     if(index==0){
                         
-                        const insertionUser = this.db.prepare(`INSERT INTO users VALUES (?,?,?,?,?)`)
-                        insertionUser.run(row.email,row.name,row.password, row['twoFA'],row.addition)
+                        const insertionUser = this.db.prepare(`INSERT INTO users VALUES (?,?,?,?,?,?,?)`)
+                        insertionUser.run(row.email,row.name,row.password, row['twoFA'],row.addition,row['typeTwoFA'],row.phoneNumber)
                         insertionUser.finalize()
                       
                        

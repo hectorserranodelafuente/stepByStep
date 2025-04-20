@@ -141,8 +141,8 @@ class Email extends UtilsAuth{
       try{
        
        
-          const insertionPreUser = this.db.prepare(`INSERT INTO preUsers VALUES (?,?,?,?,?,?,?,?,?,?)`)
-          insertionPreUser.run(req.body.email,tokenSessionPreUsers,req.body.urlName, encryptedPassword.encryptedPassword, value2FA, valueStarTiming.toString(), valueEndTiming.toString(), valueConfirmed,encryptedPassword.addition, valueFinished)
+          const insertionPreUser = this.db.prepare(`INSERT INTO preUsers VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`)
+          insertionPreUser.run(req.body.email,tokenSessionPreUsers,req.body.urlName, encryptedPassword.encryptedPassword, value2FA, valueStarTiming.toString(), valueEndTiming.toString(), valueConfirmed,encryptedPassword.addition, valueFinished, req.body.typeTwoFA, req.body.phoneNumber)
           insertionPreUser.finalize()
        
        
