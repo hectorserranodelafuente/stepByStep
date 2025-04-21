@@ -16,7 +16,7 @@
 /api/signUp error undefined
 /api/signUp error not attribute typeTwoFA
 /api/signUp error undefined
-/api/signUp error not attribute typeTwoFA
+/api/signUp error undefined
 Last log--------------------------------------------------------------
 /api/signUp error undefined
 Last log--------------------------------------------------------------

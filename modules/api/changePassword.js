@@ -1,5 +1,5 @@
 const Auth = require('./auth.js')
-const Email = require('./email.js')
+const Email = require('./emailSMS.js')
 
 
 class ChangePassword extends Auth {
