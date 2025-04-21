@@ -101,9 +101,18 @@ class SignUp extends Auth{
             this.reportStructuredData.validfilterParticular= false
         }
         
-        //typeTwoFA
-
-        //phoneNumber
+        
+        if(!req.body.typeTwoFA!=='email'||req.body.typeTwoFA!=='sms'){
+            this.description = `not valid typeTwoFA`
+            this.reportStructuredData.validfilterParticular= false
+        }
+        
+        
+        
+        if(!this.utils.validatePhoneNumber(req.body.phoneNumber)){
+            this.description = `not valid phoneNumber`
+            this.reportStructuredData.validatePhoneNumber = false
+        }
         
         /*
         #################################

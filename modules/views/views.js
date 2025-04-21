@@ -58,7 +58,7 @@ class Views extends Auth{
             }
 
         }).catch(err=>{
-                res.sendFile(`${this.dirPathProject}/public/${this.frontTech}Views/notSessionFound.html`)
+            res.sendFile(`${this.dirPathProject}/public/${this.frontTech}Views/notSessionFound.html`)
         })
 
     }

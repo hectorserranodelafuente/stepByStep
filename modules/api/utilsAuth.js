@@ -122,6 +122,11 @@ class UtilsAuth extends Auth{
     validate2FA(doubleFA){
         return doubleFA===0||doubleFA===1
     }
+
+    validatePhoneNumber(phoneNumber){
+      const phoneRegExp = /\d{4,14}$/
+      return phoneRegExp.test( phoneNumber )
+    }
 }
 
 module.exports = UtilsAuth
