@@ -102,7 +102,7 @@ class SignUp extends Auth{
         }
         
         
-        if(!req.body.typeTwoFA!=='email'||req.body.typeTwoFA!=='sms'){
+        if(!(req.body.typeTwoFA!=='email'||req.body.typeTwoFA!=='sms')){
             this.description = `not valid typeTwoFA`
             this.reportStructuredData.validfilterParticular= false
         }
