@@ -29,7 +29,7 @@ const { Socket } = require('../../../node_modules/emulate/main/socket.js')
                         email:'prueba-1@mailinator.com',
                         twoFA:1,
                         typeTwoFA:'email',
-                        phoneNumber:null
+                        phoneNumber:1234
 
                     }
                 }
