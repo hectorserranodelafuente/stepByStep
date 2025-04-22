@@ -2,7 +2,7 @@ const utils = require('./utilsAuth.js')
 const Auth = require('./auth.js')
 const logger = require('../logger/logger.js')
 const Email = require('./emailSMS.js')
-const _env = require('./env.js')
+const env = require('../../env.js')
 
 class SignUp extends Auth{
     
@@ -23,7 +23,7 @@ class SignUp extends Auth{
 
         /*
         ###############################
-            FILTER WELL STRUCTURED DATA
+        1   FILTER WELL STRUCTURED DATA
         ###############################
         */
         let keysJson = Object.keys(req.body)
@@ -54,7 +54,7 @@ class SignUp extends Auth{
             this.reportStructuredData.validfilterNotNull = false
         
         }
-        if(!Object.keys(req.body).includes('twoFA') && req.body.twoFA!==0){ 
+        if(!Object.keys(req.body).includes('twoFA')){ //
             this.description = `not attribute twoFA on data or empty data on attribute twoFA`
             logger.log( this.dirPathLogger, this.logsFileName, `/api/signUp error ${this.description}` )
             this.reportStructuredData.validfilterNotNull = false 
@@ -73,8 +73,29 @@ class SignUp extends Auth{
             this.reportStructuredData.validfilterNotNull = false 
         }
 
-        //################################################################################
+        /*
+        ################################################################################
 
+        2 Analize possible combinations of twoFA,typeTwoFA,phoneNumber that make
+          neccesary give a default phoneNumber
+          We dont need to change typeTwoFA becouse logic wont interact with that attribute
+
+        ################################################################################
+        */
+        
+        let validateTypeTwoFA , validatePhoneNumber
+            validateTypeTwoFA = true
+            validatePhoneNumber = true
+        
+        if( req.body.twoFA == 0 ){
+            req.body.phoneNumber = 0
+            validatePhoneNumber = false
+        }
+        
+        if( req.body.twoFA == 1 && req.body.typeTwoFA == 'email'){
+            req.body.phoneNumber = 0
+            validatePhoneNumber = false
+        }   
         //################################################################################
 
         if(!this.utils.validate2FA(req.body['twoFA'])){ 
@@ -107,12 +128,26 @@ class SignUp extends Auth{
             this.description = `not valid typeTwoFA`
             this.reportStructuredData.validfilterParticular= false
         }
+        //
+        if(req.body.typeTwoFA=='email'&&!env.confEmail){
+
+            this.description = `not email 2FA`
+            this.reportStructuredData.validfilterParticular= false
         
+        }
+
+        if(req.body.typeTwoFA=='sms'&&!env.confSMS){
+
+            this.description =  `not sms 2FA`
+            this.reportStructuredData.validfilterParticular= false
+
+        }
         
-        
-        if(!this.utils.validatePhoneNumber(req.body.phoneNumber)){
-            this.description = `not valid phoneNumber`
-            this.reportStructuredData.validatePhoneNumber = false
+        if(validatePhoneNumber){
+            if(!this.utils.validatePhoneNumber(req.body.phoneNumber)){
+                this.description = `not valid phoneNumber`
+                this.reportStructuredData.validatePhoneNumber = false
+            }
         }
         
         /*

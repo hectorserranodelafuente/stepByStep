@@ -27,7 +27,10 @@ const { Socket } = require('../../../node_modules/emulate/main/socket.js')
                         urlName:'prueba1',
                         password:'contrasena@2025',
                         email:'prueba-1@mailinator.com',
-                        twoFA:1
+                        twoFA:1,
+                        typeTwoFA:'email',
+                        phoneNumber:null
+
                     }
                 }
                 let scope = this
