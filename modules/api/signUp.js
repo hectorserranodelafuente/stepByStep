@@ -129,14 +129,14 @@ class SignUp extends Auth{
             this.reportStructuredData.validfilterParticular= false
         }
         //
-        if(req.body.typeTwoFA=='email'&&!env.confEmail){
-
+        if(req.body.typeTwoFA=='email'&&!env[this.actualEnvironment].confEmail){
+            console.log('---->env.confEmail',env.confEmail)
             this.description = `not email 2FA`
             this.reportStructuredData.validfilterParticular= false
         
         }
 
-        if(req.body.typeTwoFA=='sms'&&!env.confSMS){
+        if(req.body.typeTwoFA=='sms'&&!env[this.actualEnvironment].confSMS){
 
             this.description =  `not sms 2FA`
             this.reportStructuredData.validfilterParticular= false
