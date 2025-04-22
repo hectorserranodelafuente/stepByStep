@@ -42,7 +42,7 @@ constructor(processArgv){
                 scope.transporterAuthPass = env[scope.actualEnvironment].transporter.auth.pass
                 scope.transporterTlsRejectUnauthorized = env[scope.actualEnvironment].transporter.tls.rejectUnauthorized
                 scope.mailOptionsFrom = env[scope.actualEnvironment].mailOptions.from
-                scope.type2FA = env[scope.actualEnvironment].type2FA
+                //scope.type2FA = env[scope.actualEnvironment].type2FA
                 scope.smsUsername = env[scope.actualEnvironment].confSMS.username
                 scope.smsToken = env[scope.actualEnvironment].confSMS.token
                 scope.frontTech = env[scope.actualEnvironment].frontTech

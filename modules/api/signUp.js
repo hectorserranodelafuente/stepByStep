@@ -2,6 +2,7 @@ const utils = require('./utilsAuth.js')
 const Auth = require('./auth.js')
 const logger = require('../logger/logger.js')
 const Email = require('./emailSMS.js')
+const _env = require('./env.js')
 
 class SignUp extends Auth{
     
