@@ -22,7 +22,9 @@ const { Case }  = require('../../../node_modules/emulate/main/case.js')
                         urlName:'prueba3',
                         password:'contrasena@2025',
                         email:'prueba-3@mailinator.com',
-                        twoFA:0
+                        twoFA:0,
+                        typeTwoFA:'email',
+                        phoneNumber:1234
                     }
                 }
                 let scope = this

@@ -11,6 +11,7 @@ const { Case }  = require('../../../node_modules/emulate/main/case.js')
     class SignUpCase2{
         
         constructor(index,end,callback){ 
+            
             this.callback=callback
             this.case = new Case(index,end,callback)
             
@@ -27,7 +28,9 @@ const { Case }  = require('../../../node_modules/emulate/main/case.js')
                 urlName:'prueba1',
                 password:'contrasena@2025',
                 email:'prueba-1@mailinator.com',
-                twoFA:1
+                twoFA:1,
+                typeTwoFA:'email',
+                phoneNumber:1234
             }
         }
         let scope=this
