@@ -9,14 +9,20 @@
                                         <label for="option2FA_1" style="font-weight:600;">Email</label>
                                     </div>
                                     <hr/>
-                                    <div id="twoFASMS">
+                                    <div id="twoFASMS" style="margin-bottom: 10px;">
                                         <input type="radio" id="radioSMS" name="twoFAOptions" value="emailSMSFA">
                                         <label for="option2FA_2" style="font-weight:600;">SMS</label>
                                     </div>
                                     <div>
                                         <div>
                                             <label for="phoneNumber" class="strong" style="text-align:center">Phone Number</label>
-                                            <input type="phoneNumber" id="phoneNumber" name="phoneNumber" disabled>    
+                                            <input type="phoneNumber" id="phoneNumber" name="phoneNumber">    
+                                            
+                                        </div>
+                                        
+                                        <div>
+                                            <label for="formatExample" class="strong" style="text-align:center;position:relative;top:20px;">Format example</label>
+                                            <input type="formatExample" id="formatExample" name="formatExample" value="34450450450" disabled></input> 
                                         </div>
                                     </div> 
                                 </fieldset>
@@ -37,13 +43,20 @@
                             <div style="width:0%;float:left;">&nbsp;</div>
                             <div style="width:100%;float:left;">
                                 <fieldset style="background-color:#DDD">
-                                    <div id="twoFASMS">
-                                        <label for="option2FA_2" style="font-weight:600;">SMS</label>
+                                    <div id="twoFASMS"  style="margin-bottom: 10px;">
+                                        <label for="option2FA_2" style="font-weight:600;margin-top:10px;">SMS</label>
                                     </div>
+                                    
                                     <div>
                                         <div>
                                             <label for="phoneNumber" class="strong" style="text-align:center">Phone Number</label>
                                             <input type="phoneNumber" id="phoneNumber" name="phoneNumber">    
+                                            
+                                        </div>
+                                        
+                                        <div>
+                                            <label for="formatExample" class="strong" style="text-align:center;position:relative;top:20px;">Format example</label>
+                                            <input type="formatExample" id="formatExample" name="formatExample" value="34450450450" disabled></input> 
                                         </div>
                                     </div> 
                                 </fieldset>
