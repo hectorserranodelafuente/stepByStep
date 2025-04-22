@@ -71,3 +71,6 @@ a 2FA code structure that uses email as second step item receiver.
     http://localhost:3000/view/basic-start
 
 
+## Config front-end
+
+Modify basicSignUpConfigForm.js
