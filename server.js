@@ -19,6 +19,10 @@ mailCredentials = null
 async function  main() {
 
     const views = require('./modules/views/views.js')
+    const viewsRegister = require('./modules/views/viewsDeclaration.js')
+
+
+
     const Auth = require('./modules/api/auth.js')
 
 
@@ -170,33 +174,21 @@ async function  main() {
     app.post('/api/changePasswordNext',(req,res) => {
       inst_changePasswordNext.changePasswordNext(req,res)
     })
+    
+    
+    
+    
+    viewsRegister.forEach( view => {
 
-    app.get('/view/basic-login', (req, res) => {
-      new views(process.argv).basicLogin(req,res)
-    })
+      app.get(`/view/${view.serviceName}`,(req,res) => {
+        
+        new views(process.argv)[view.serviceCore](req,res)
       
-
-    app.get('/view/basic-signUp', (req, res) => {
-      new views(process.argv).basicSignUp(res)
+      })
+    
     })
-
-    app.get('/view/init', (req, res) => {
-      new views(process.argv).init(req,res)
-    })
-
-    app.get('/view/basic-start', (req,res) => {
-      new views(process.argv).basicStart(req,res)
-    })
-
-    app.get('/view/change-password-step-one',(req,res) => {
-      new views(process.argv).forgottenPasswordStepOne(req,res)
-    })
-
-    app.get('/view/change-password-step-two',(req,res) => {
-      new views(process.argv).forgottenPasswordStepTwo(req,res)
-    })
-
-
+    
+  
     app.listen(port, () => {
       console.log(`Example app listening on port ${port}`)
     })

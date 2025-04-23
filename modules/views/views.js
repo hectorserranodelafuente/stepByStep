@@ -64,7 +64,7 @@ class Views extends Auth{
     }
 
     
-    basicSignUp(res){
+    basicSignUp(req,res){
         res.sendFile(`${this.dirPathProject}/public/${this.frontTech}Views/basicSignUpForm.html`); 
     }
 

@@ -1,5 +1,6 @@
 const path = require('path')
-
+const confEmail = require('./confEmail.js')
+const confSMS = require('./confSMS.js')
 
 
 let dev = {
@@ -16,21 +17,11 @@ let dev = {
     },
     dbSqlitePath:path.join(__dirname,'/db/dev/sqlite/dbLoginDev.sqlite'),
     domain:'http://localhost:3000',
-    transporter:{
-        host:'',
-        port:587,
-        secure:false,
-        auth:{
-            user:'',
-            pass:''
-        },
-        tls:{
-            rejectUnauthorized:false
-        }
-    },
-    mailOptions:{
-        from:''
-    },
+    confEmail:true,
+    confSMS:true,
+    transporter:confEmail.transporter,
+    mailOptions:confEmail.mailOptions,
+    confSMS:confSMS,
     frontTech:'javascript'
 }
 
