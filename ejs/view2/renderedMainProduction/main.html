@@ -4,7 +4,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Formulario de Usuario</title>
+    <title> Formulario de Usuario </title>
 </head>
 <style>
 
@@ -63,6 +63,10 @@
         font-weight:600;
     }
 
+    .strong-gray{
+        color:gray;
+    }
+
 </style>
 <body>
     <div class="centered-div">
@@ -78,12 +82,65 @@
         <input type="password" id="repeatPassword" name="repeatPassword"><br><br>
         <label for="urlName" class="strong">name:</label>     
         <input type="urlName" id="urlName" name="urlName"><br><br>
-        <label for="twoFA" class="strong">2FA:</label>
+        <label id="labelTwoFA" for="twoFA" class="strong"style="opacity:1">2FA:</label>
         <input type="checkbox" id="twoFA" name="twoFA" checked><br><br>
-        <button type="button" onclick="submitForm()">Enviar</button>
+        
+        <div id="options2FA">
+            <div template="caseOne" >
+                
+               
+                
+                
+                
+            
+            </div>
+
+           
+            <div template="caseTwo" >
+            
+
+                
+            
+            </div>
+            
+
+
+
+            <div template="caseThree">
+                
+                    
+                  
+                
+                
+            </div>
+
+
+            <div template="caseFour" >
+                
+                    
+                   
+                
+              
+            </div>
+            
+          </div>  
+
+
+
+
+
+        <button type="button" onclick="submitForm()" style="margin-top:30px;">Enviar</button>
     </form>
     
-    <div id="errorUserForm" style="color:red;"></div>
+    <div id = "errorUserForm" 
+         style = "color:red;
+                  position:fixed;
+                  border:solid red 1px;
+                  display:none;
+                  padding:20px;
+                  top:10px;
+                  left:10px;">
+    </div>
     
     
     <p class="strong">Password requirements</p>
@@ -95,19 +152,29 @@
 	</ul>
     </div>
     </div>
-    <div id="successUserForm" style="color:yellowgreen;"></div>
+    <div id = "successUserForm" 
+         style = "color:yellowgreen;
+                  border:solid yellowgreen 1px;
+                  padding:20px;
+                  position: fixed;
+                  top: 10px;
+                  left: 10px;
+                  display:none;">
+    </div>
     </div>
     <!--<button id="goToLogin" class="hidden">
         Click to go to LOGIN
     </button>-->
 
-    <div id="countMessage" style="color:orange;font-weight:600"></div>
+    <!--<div id="countMessage" style="color:orange;font-weight:600"></div>-->
 
     
   
       
         
 
+    <script src="../public/js/basicSignUpConfigForm.min.js"></script>
+  
     <script src="../public/js/basicSignUpForm.min.js"></script>
   
 

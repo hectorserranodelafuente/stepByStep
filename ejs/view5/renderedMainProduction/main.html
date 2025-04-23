@@ -3,19 +3,45 @@
 <head>
 
     <style>
-        .hidden{
-            display:none;
-        }
+    button{
+        
+        font-weight:600;
+        cursor:pointer;
+        border-radius:10px;
+        padding:10px;
+        background-color:#1c3be8;
+        color:#fff;
+        border:solid 0x;
+        text-align:center;
+        width:200px;
 
-        .showed{
-            display:block;
-        }
+    }
+    
+    button:hover{
+
+        background-color:#00051e;
+
+    }
+        
+    .hidden{    
+        display:none;   
+    }
+
+    .showed{    
+        display:block;  
+    }
+
     </style>
 
 </head>
 <body>
     
+    <button id ="closeSession" onclick="closeSession()"> CLOSE SESSION </button>
+    
     Wellcome to init
+
+    
+
     <div id="popUpRenewal" style="position:absolute;border:solid 1px;padding:20px;top:0;background-color:#fff;" class="hidden">
         <div id="messagePopUpRenewalSuccess" style="color:yellowgreen;"></div>
         <div id="messagePopUpRenewalError" style="color:red;"></div>

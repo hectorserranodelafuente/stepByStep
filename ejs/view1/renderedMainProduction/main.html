@@ -25,6 +25,14 @@ body{
         box-shadow: 10px 10px 5px 0px rgba(153,153,153,1);
         overflow:hidden;
     }
+
+    .centered-div-showed{
+       display:block;
+    }
+
+    .centered-div-hidden{
+        display:none;
+    }
     
     .move-div-step1{
         width: 820px;
@@ -88,21 +96,72 @@ body{
         display: none
     }
 
+    .recoverPassword{
+        background-color:red;
+        color:#fff;
+    }
+
 </style>
 <body>
-    <div class="centered-div">
+                <div 
+                    id="closeSessionMessage"
+                    class = "hidden"
+                    style = "position:fixed;
+                             top:10px;
+                             left:10px;
+                             padding:20px;
+                             border:solid gray 1px;">
+                     
+                    <div>
+                        <p> 
+                            <strong>
+                                Previous session could be opened, do you want to close them ? 
+                            </strong>
+                        </p>
+                    </div>
+                    <form id="questionCloseSession">
+                                <div style = "border:solid gray 1px;
+                                              height:20px;
+                                              padding:10px;">
+                                    <div style = "float:left;width:10%;">
+                                        <input type="radio" name="closeSession" value="yes">
+                                    </div>
+                                    <div style="float:right;
+                                                width:90%;
+                                                text-align:right;"> 
+                                        <strong>
+                                            Yes
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div style = "border:solid gray 1px;
+                                              height:20px;
+                                              padding:10px;">
+                                    <div style="float:left;width:10%">
+                                        <input type="radio" name="closeSession" value="no"> 
+                                    </div>
+                                    <div style="float:right;
+                                                width:90%;
+                                                text-align:right;"> 
+                                        <strong>    
+                                            No
+                                        </strong>
+                                    </div>
+                                </div>
+                        <div style="padding:10px;">    
+                            <button type="button" onclick="submitCloseSession()">Submit</button>
+                        </div>
+                        
+                    
+                    </form>
+                    
+                </div>
+    <div id="centeredDiv" class="centered-div centered-div-showed">
        <div id="move-div" class="move-div-step1"> 
         <div class="step1Container"> 
-                <div id = "closeSessionMessage" class="hidden">
-                    <p>_______________________________________________________________</p> 
-                    <p> Previous session could be opened, do you want to close them ? </p>
-                    <form id="questionCloseSession">   
-                        <input type="radio" name="closeSession" value="yes"> Yes
-                        <input type="radio" name="closeSession" value="no"> No
-                        <button type="button" onclick="submitCloseSession()">Submit</button>
-                    </form>
-                    <p>_______________________________________________________________</p>
-                </div>
+                
+                
+
                 <p id="closeSessionResponse" class="hidden" style="color:orange;"></p>
                 <div class="centered-div-in">
                 <form id="userForm" class="showed">
@@ -113,14 +172,31 @@ body{
                     <button type="button" onclick="submitForm()">Enviar</button>
                 </form>
                 
-                <div id="errorUserForm"  
-                    class="showed" 
-                    style="color:red;">
+                <div id = "errorUserForm"  
+                    class = "hidden" 
+                    style = "color:red;
+                             border:solid red 1px;
+                             margin-top:5px;
+                             padding:10px;">
                 </div>
+
             </div>
             </div>
             <div class="step2Container">
-                <p id="messageCode" style="color:yellowgreen;"></p>
+                <div id="errorCodeForm"  
+                    class="hidden" 
+                    style="color:red;
+                           border:solid red 1px;
+                           margin-top:5px;
+                           padding:10px;">
+                </div>
+                <div id = "messageCode"
+                     class = "hidden" 
+                     style = "color:yellowgreen;
+                              border:solid yellowgreen 1px;
+                              margin-top:5px;
+                              padding:10px;">
+                </div>
                 <div class="centered-div-in">
                 <form id="codeForm" class="hidden">
                     <label for="code">Code:</label>
@@ -129,13 +205,20 @@ body{
                 </form>
                 </div>
                 
-                <div id="errorCodeForm"  
-                    class="hidden" 
-                    style="color:red;">
-                </div>
+                
             </div>
             
         </div>
+        <div style="padding:20px;background-color:rgb(198, 198, 198);">
+            <button 
+                type="button" 
+                class="recoverPassword" 
+                onClick="forgotPassword()">
+                    Do you forgot your password ?
+            </button>
+        </div>
+
+
     </div>
 
 

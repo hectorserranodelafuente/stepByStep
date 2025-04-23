@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<%- include('../renderedHead/head.ejs') %>
+
 <style>
 
   button {
@@ -72,6 +72,14 @@
     </div>
   
   </main>
+
+  <% if (environment=='development') { %>
+    <%- include('../renderedHead/head.ejs') %>
+    <% } %>
+
+    <% if (environment=='production') { %>
+      <%- include('../renderedHeadProduction/head.ejs') %>
+    <% } %>
 
 </body>
 </html>
