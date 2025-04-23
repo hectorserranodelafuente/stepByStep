@@ -1,2 +1,6 @@
 node_modules
 dist
+ejs/*/renderedHead
+ejs/*/renderedHeadProduction
+ejs/*/renderedHeadMain
+ejs/*/renderedHeadMainProduction
