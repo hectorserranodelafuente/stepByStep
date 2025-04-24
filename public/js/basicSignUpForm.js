@@ -176,11 +176,12 @@
             }
             
             
-            const response = await fetch('/api/signUp', {
+            const response = await fetch('http://127.0.0.1:3000/api/signUp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                mode: 'cors',
                 body: JSON.stringify({ 
                     email, 
                     password, 

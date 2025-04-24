@@ -68,7 +68,7 @@ async function submitCloseSession(event){
         })
 
         try{
-        const _response = await fetch('/api/closeSession', {
+        const _response = await fetch('http://127.0.0.1:3000/api/closeSession', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ async function submitForm() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    const response = await fetch('/api/login', {
+    const response = await fetch('http://127.0.0.1:3000/api/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ async function submitForm() {
 
 
         // Rescue cookies and redirect
-        const response2 = await fetch(`/api/getCookies`,{
+        const response2 = await fetch(`http://127.0.0.1:3000/api/getCookies`,{
             method:'POST',
             headers: {'Content-Type':'application/json'},
             body:JSON.stringify({ tokenSession:dataLogin['tsession']})
@@ -162,7 +162,7 @@ async function submitCodeForm() {
     const tokenTwoFASession = dataLogin.t2FASession
     const code = document.getElementById('code').value
 
-    const response = await fetch('/api/confirm2FA',{
+    const response = await fetch('http://127.0.0.1:3000/api/confirm2FA',{
         method:'POST',
         headers: { 'Content-Type':'application/json' },
         body: JSON.stringify({ tokenTwoFASession, code })
@@ -183,7 +183,7 @@ async function submitCodeForm() {
         let tokenSession = dataCode.tokenSession
         
         // Rescue cookies and redirect
-        const response2 = await fetch(`/api/getCookies`,{
+        const response2 = await fetch(`http://127.0.0.1:3000/api/getCookies`,{
             method:'POST',
             headers: {'Content-Type':'application/json'},
             body:JSON.stringify({tokenSession })

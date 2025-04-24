@@ -118,6 +118,7 @@ class SignUp extends Auth{
         }
         
         if(!req.body.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)){ 
+            console.log(req.body.email)
             this.description = `not valid email`
             logger.log( this.dirPathLogger, this.logsFileName, `/api/signUp error ${this.description}` )
             this.reportStructuredData.validfilterParticular= false

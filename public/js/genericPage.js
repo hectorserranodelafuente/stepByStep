@@ -64,7 +64,7 @@ function renewSession(){
     console.log('function renewSession')
     //...
     
-    fetch('/api/renewSession',{
+    fetch('http://127.0.0.1:3000/api/renewSession',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -111,11 +111,11 @@ function renewSession(){
 
 async function closeSession(){
     //...
-    debugger;
+    //debugger;
     let token = cookieBasicTwoFAuth_2
 
     try{
-        const _response = await fetch('http://localhost:3000/api/closeSession', {
+        const _response = await fetch('http://127.0.0.1::3000/api/closeSession', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ async function closeSession(){
         document.cookie =  'basicTwoFAuth_2' + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         document.cookie =  'basicTwoFAuth_1' + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
-        location.href="http://localhost:3000/view/basic-start/startIndex.html"
+        location.href="/view/basic-start/startIndex.html"
 
         
     

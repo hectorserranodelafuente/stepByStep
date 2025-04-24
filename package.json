@@ -10,7 +10,7 @@
     "createDbTest": "node ./scripts/createDbTest.js",
     "render": "node ./scripts/render.js",
     "renderPro": "node ./scripts/renderPro.js",
-    "renderCordova":"node ./scripts/renderCordova.js",
+    "renderCordova": "node ./scripts/renderCordova.js",
     "dist": "node ./scripts/production.js",
     "startDev": "node server.js -- environment=development"
   },
@@ -20,6 +20,7 @@
   "dependencies": {
     "archiver": "^7.0.1",
     "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
     "ejs": "^3.1.10",
     "emulate": "git+https://github.com/hectorserranodelafuente/emulate.git#764419b6919559e6aca494c08c096f21c10fe65c",
     "express": "^4.21.2",

@@ -11,6 +11,7 @@ const cron = require('node-cron')
 const app = express()
 const port = 3000
 const utils = require('./modules/api/utilsAuth.js')
+var cors = require('cors')
 
 
 mailCredentials = null
@@ -126,6 +127,7 @@ async function  main() {
 
 
     app.use(bodyParser.json());
+    app.use(cors());
     
     let pathPublic=path.join(new Auth(process.argv).dirPathProject, 'public')
  

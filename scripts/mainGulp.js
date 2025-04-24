@@ -170,7 +170,7 @@ console.log('mainsToCordova')
     
     })
 
-    fsExtra.copySync(path.join('', ''))
+    fsExtra.copySync(path.join(__dirname, '..','public/js'),path.join(_env.development.dirPathCordovaProject,'js'))
     
 })
 

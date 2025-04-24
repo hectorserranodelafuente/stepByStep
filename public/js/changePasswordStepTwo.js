@@ -58,7 +58,7 @@ async function stablishNewPassword(){
         
             try{
                 
-                const _response = await fetch('/api/changePasswordNext', {
+                const _response = await fetch('http://127.0.0.1:3000/api/changePasswordNext', {
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify({ 

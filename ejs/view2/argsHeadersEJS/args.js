@@ -3,5 +3,5 @@ module.exports = {
         '../../public/js/basicSignUpConfigForm',
         '../../public/js/basicSignUpForm'
     ],
-    scriptNamesCordova:['js/basicSignUpForm.js']
+    scriptNamesCordova:['../../js/basicSignUpForm.js','../../js/basicSignUpConfigForm.js']
 }

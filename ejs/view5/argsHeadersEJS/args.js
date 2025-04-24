@@ -1,4 +1,4 @@
 module.exports = {
     scriptNames:['../../public/js/genericPage'],
-    scriptNamesCordova:['js/genericPage.js']
+    scriptNamesCordova:['../../js/genericPage.js']
 }
