@@ -9,7 +9,8 @@ const fs = require('fs')
 const path = require('path')
 const fsExtra= require('fs-extra')
 const htmlmin = require('gulp-htmlmin');
-
+const viewsDeclaration = require(path.join(__dirname,'..','/modules/views/viewsDeclaration.js'))
+const _env = require(path.join(__dirname,'..','env.js'))
 
 
 const countFolders = async (directory) => {
@@ -130,6 +131,30 @@ function mainsToFolder(environment,done){
 task('mainsToDevelopment',function(done){
     mainsToFolder('development',done)
 })
+
+task('mainsToCordova',function(){
+//...
+    //console.log('-',env.development.dirPathCordovaProject)
+   
+   viewsDeclaration.forEach( jsonView => {
+        //console.log(env.dirPathCordovaProject)
+        try {
+            //console.log(_env.development.dirPathCordovaProject)
+            //console.log(`${path.join(__dirname,'..',jsonView.html,jsonView.fileName)}`)
+            //console.log(`${path.join(_env.development.dirPathCordovaProject,jsonView.serviceName,jsonView.html)}`)
+            fsExtra.copySync(`${path.join(__dirname,'..',jsonView.html,jsonView.fileName)}`, `${path.join(_env.development.dirPathCordovaProject,jsonView.serviceName,jsonView.fileName)}`)
+            //console.log('success!')
+          } catch (err) {
+            //console.error(err)
+        }
+    
+    
+    })
+    
+
+
+})
+
 task('mainsToProduction',function(done){
     mainsToFolder('production',done)
 })
@@ -229,5 +254,5 @@ task('cleanDist',function(){
 
 
 //exports.production = series('cleanDist','uglifyJS','minifyHTML')
-exports.renderDev = series('cleanRenderedHeaders','cleanRenderedMain','renderHeadersDevelopment','renderMainDevelopment','cleanViewsDev','mainsToDevelopment')
+exports.renderDev = series('cleanRenderedHeaders','cleanRenderedMain','renderHeadersDevelopment','renderMainDevelopment','cleanViewsDev','mainsToDevelopment','mainsToCordova')
 exports.renderPro = series('cleanDist','cleanRenderedHeaders','cleanRenderedMain','renderHeadersProduction','renderMainProduction','mainsToProduction','minifyHTMLProduction','minifyJS','minifyBackendJS')

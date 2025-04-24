@@ -6,6 +6,7 @@ const confSMS = require('./confSMS.js')
 let dev = {
     
     dirPathProject: path.join(__dirname, ''),
+    dirPathCordovaProject: path.join(__dirname,'..','stepByStepCordova/www'),
     dirPathLogger:path.join(__dirname,'/modules/logger'),
     logsFileName:'logs.txt',
     numberLinesLog:10,
@@ -23,6 +24,7 @@ let dev = {
     mailOptions:confEmail.mailOptions,
     confSMS:confSMS,
     frontTech:'javascript'
+
 }
 
 module.exports = {

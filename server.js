@@ -180,7 +180,7 @@ async function  main() {
     
     viewsRegister.forEach( view => {
 
-      app.get(`/view/${view.serviceName}`,(req,res) => {
+      app.get(`${view.serviceName}`,(req,res) => {
         
         new views(process.argv)[view.serviceCore](req,res)
       
