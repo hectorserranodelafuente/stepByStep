@@ -6,6 +6,6 @@ const timer = setInterval(function(){
     if(count<0){ 
         count = 0 
         clearInterval(timer)
-        location.href = 'http://localhost:3000/view/basic-start'
+        location.href = 'http://localhost:3000/view/basic-start/startIndex.html'
     }
 },1000)

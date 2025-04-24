@@ -55,7 +55,7 @@ async function submitCloseSession(event){
     let _data
     if(optionSelected==="no"){
         
-        location.href = `/view/init?tokenSession=${cookieToken}`
+        location.href = `/view/init/init.html?tokenSession=${cookieToken}`
     
     }else{
         
@@ -132,7 +132,7 @@ async function submitForm() {
         
         if(dataCookie.status==='success'){
             
-            location.href=`/view/init?tokenSession=${dataLogin.tsession}`
+            location.href=`/view/init/init.html?tokenSession=${dataLogin.tsession}`
             
         }
 
@@ -195,7 +195,7 @@ async function submitCodeForm() {
         
         if(dataCookie.status==='success'){
             
-            location.href=`/view/init?tokenSession=${tokenSession}`
+            location.href=`/view/init/init.html?tokenSession=${tokenSession}`
         }
         
     

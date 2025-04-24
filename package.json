@@ -10,6 +10,7 @@
     "createDbTest": "node ./scripts/createDbTest.js",
     "render": "node ./scripts/render.js",
     "renderPro": "node ./scripts/renderPro.js",
+    "renderCordova":"node ./scripts/renderCordova.js",
     "dist": "node ./scripts/production.js",
     "startDev": "node server.js -- environment=development"
   },

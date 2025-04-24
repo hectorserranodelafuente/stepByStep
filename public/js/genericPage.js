@@ -128,7 +128,7 @@ async function closeSession(){
         document.cookie =  'basicTwoFAuth_2' + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         document.cookie =  'basicTwoFAuth_1' + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
-        location.href="http://localhost:3000/view/basic-start"
+        location.href="http://localhost:3000/view/basic-start/startIndex.html"
 
         
     

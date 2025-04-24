@@ -128,7 +128,7 @@
         
         function goToStartPage(){
             
-            location.href = '/view/basic-start'
+            location.href = '/view/basic-start/startIndex.html'
         
         }
 

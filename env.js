@@ -7,6 +7,7 @@ let dev = {
     
     dirPathProject: path.join(__dirname, ''),
     dirPathCordovaProject: path.join(__dirname,'..','stepByStepCordova/www'),
+    dirPathCordovaViews: path.join(__dirname,'cordova/views/public/javascriptViews'),
     dirPathLogger:path.join(__dirname,'/modules/logger'),
     logsFileName:'logs.txt',
     numberLinesLog:10,

@@ -230,6 +230,10 @@ body{
       <% if (environment=='production') { %>
         <%- include('../renderedHeadProduction/head.ejs') %>
       <% } %>
+
+      <% if (environment=='cordova') { %>
+        <%- include('../renderedHeadCordova/head.ejs') %>
+      <% } %>
     
       
       </body>

@@ -39,6 +39,10 @@ function renderHeaders(environment,done){
                 renderedHead += 'Production'
                 partial += 'Production'
             }
+            else if(environment=='cordova'){
+                renderedHead += 'Cordova'
+                partial += 'Cordova'
+            }
             
             ejs.renderFile(path.join(path.join(path.join(__dirname,'..')),`ejs/view${i+1}/partialsEJS/${partial}.ejs` ), scriptNames , async = true, function(err, str){
                 
@@ -68,6 +72,10 @@ task('renderHeadersProduction',function(done){
     renderHeaders('production',done)
 })
 
+task('renderHeadersCordova',function(done){
+    renderHeaders('cordova',done)
+})
+
 
 
 function renderMain(environment,done){
@@ -81,6 +89,9 @@ function renderMain(environment,done){
                     let renderedMain='renderedMain'
                     if(environment=='production'){
                         renderedMain += 'production'
+                    }
+                    if(environment=='cordova'){
+                        renderedMain += 'cordova'
                     }
                     fs.writeFileSync(path.join(path.join(path.join(__dirname,'..')),`ejs/view${i+1}/${renderedMain}/main.html`), str, 'utf8'); 
                     if((count-1)==i){
@@ -105,6 +116,10 @@ task('renderMainProduction',function(done){
     renderMain('production',done)
 })
 
+task('renderMainCordova',function(done){
+    renderMain('cordova',done)
+})
+
 function mainsToFolder(environment,done){
 
     countFolders(path.join(path.join(path.join(__dirname,'..')),'ejs')).then(count => {
@@ -116,6 +131,10 @@ function mainsToFolder(environment,done){
             if(environment=='production'){
                 dist = "dist/"
                 rendered='Production'
+            }
+            if(environment=='cordova'){
+                dist= "cordova/views/"
+                rendered = 'Cordova'
             }
             fs.mkdirSync(path.join(path.join(path.join(__dirname,'..')),`${dist}public/javascriptViews`), { recursive: true });
             fs.copyFileSync(path.join(path.join(path.join(__dirname,'..')),`ejs/view${i+1}/renderedMain${rendered}/main.html`),path.join(path.join(path.join(__dirname,'..')),`${dist}public/javascriptViews/${name}`))
@@ -132,31 +151,35 @@ task('mainsToDevelopment',function(done){
     mainsToFolder('development',done)
 })
 
-task('mainsToCordova',function(){
+task('cordovaToStepByStepCordova',function(){
 //...
-    //console.log('-',env.development.dirPathCordovaProject)
-   
-   viewsDeclaration.forEach( jsonView => {
-        //console.log(env.dirPathCordovaProject)
+console.log('mainsToCordova')
+    
+    viewsDeclaration.forEach( jsonView => {
+        //console.log('->',path.join(_env.development.dirPathCordovaViews,'public',jsonView.fileName))
+        //console.log(path.join(_env.development.dirPathCordovaProject,jsonView.serviceName,jsonView.fileName))
         try {
-            //console.log(_env.development.dirPathCordovaProject)
-            //console.log(`${path.join(__dirname,'..',jsonView.html,jsonView.fileName)}`)
-            //console.log(`${path.join(_env.development.dirPathCordovaProject,jsonView.serviceName,jsonView.html)}`)
-            fsExtra.copySync(`${path.join(__dirname,'..',jsonView.html,jsonView.fileName)}`, `${path.join(_env.development.dirPathCordovaProject,jsonView.serviceName,jsonView.fileName)}`)
-            //console.log('success!')
+            
+            fsExtra.copySync(path.join(_env.development.dirPathCordovaViews,jsonView.fileName), path.join(_env.development.dirPathCordovaProject,jsonView.serviceName,jsonView.fileName))
+            
+
           } catch (err) {
-            //console.error(err)
+            console.error(err)
         }
     
     
     })
+
+    fsExtra.copySync(path.join('', ''))
     
-
-
 })
 
 task('mainsToProduction',function(done){
     mainsToFolder('production',done)
+})
+
+task('mainsToCordova',function(done){
+    mainsToFolder('cordova',done)
 })
 
 task('cleanViewsDev',function(){
@@ -165,6 +188,10 @@ task('cleanViewsDev',function(){
 
 task('cleanViewsPro',function(){
     return src(path.join(path.join(path.join(__dirname,'..')),`dist/public/javascriptViews/*.*`)).pipe(clean())
+})
+
+task('cleanViewsCordova',function(){
+    return src(path.join(path.join(path.join(__dirname,'..')),`cordova/*.*`)).pipe(clean())
 })
 
 task('cleanRenderedMain',function(){
@@ -176,6 +203,18 @@ task('cleanRenderedMain',function(){
 task('cleanRenderedHeaders',function(){
     
     return src(path.join(path.join(path.join(__dirname,'..')),`ejs/*/renderedHead/*.*`)).pipe(clean()) 
+    
+})
+
+task('cleanRenderedCordovaHeaders',function(){
+    
+    return src(path.join(path.join(path.join(__dirname,'..')),`ejs/*/renderedHeadCordova/*.*`)).pipe(clean()) 
+    
+})
+
+task('cleanRenderedCordovaMain',function(){
+    
+    return src(path.join(path.join(path.join(__dirname,'..')),`ejs/*/renderedMainCordova/*.*`)).pipe(clean()) 
     
 })
 
@@ -254,5 +293,19 @@ task('cleanDist',function(){
 
 
 //exports.production = series('cleanDist','uglifyJS','minifyHTML')
-exports.renderDev = series('cleanRenderedHeaders','cleanRenderedMain','renderHeadersDevelopment','renderMainDevelopment','cleanViewsDev','mainsToDevelopment','mainsToCordova')
+
+
+
+
+exports.renderCordova = series(
+    'cleanRenderedCordovaHeaders',
+    'cleanRenderedCordovaMain',
+    'renderHeadersCordova',
+    'renderMainCordova',
+    'cleanViewsCordova',
+    'mainsToCordova',
+    'cordovaToStepByStepCordova'
+)
+
+exports.renderDev = series('cleanRenderedHeaders','cleanRenderedMain','renderHeadersDevelopment','renderMainDevelopment','cleanViewsDev','mainsToDevelopment')
 exports.renderPro = series('cleanDist','cleanRenderedHeaders','cleanRenderedMain','renderHeadersProduction','renderMainProduction','mainsToProduction','minifyHTMLProduction','minifyJS','minifyBackendJS')

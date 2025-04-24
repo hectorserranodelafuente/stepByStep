@@ -5,3 +5,5 @@ ejs/*/renderedHeadProduction
 ejs/*/renderedHeadMain
 ejs/*/renderedHeadMainProduction
 ejs/*/renderedMainProduction
+ejs/*/renderedHeadCordova
+ejs/*/renderedMainCordova

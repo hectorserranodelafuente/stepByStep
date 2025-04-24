@@ -1,3 +1,4 @@
 module.exports = {
-    scriptNames:['../public/js/changePasswordStepTwo.js']
+    scriptNames:['../../public/js/changePasswordStepTwo.js'],
+    scriptNamesCordova:['js/changePasswordStepTwo.js']
 }

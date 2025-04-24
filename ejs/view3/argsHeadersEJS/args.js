@@ -1,3 +1,4 @@
 module.exports = {
-    scriptNames:['../public/js/startIndex']
+    scriptNames:['../../public/js/startIndex'],
+    scriptNamesCordova:['js/startIndex.js']
 }
