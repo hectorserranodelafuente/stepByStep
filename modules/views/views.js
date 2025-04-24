@@ -51,15 +51,18 @@ class Views extends Auth{
     }
 
     init(req,res){
+
+        res.sendFile(`${this.dirPathProject}/public/${this.frontTech}Views/init.html`)
         
+        /*
         this.checkSession(req,res).then(response=>{
             if(!response.closed){
                 res.sendFile(`${this.dirPathProject}/public/${this.frontTech}Views/init.html`)
             }
-
         }).catch(err=>{
             res.sendFile(`${this.dirPathProject}/public/${this.frontTech}Views/notSessionFound.html`)
         })
+        */
 
     }
 

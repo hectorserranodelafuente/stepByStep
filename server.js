@@ -57,6 +57,9 @@ async function  main() {
     const ChangePasswordNext = require('./modules/api/changePasswordNext.js')
     const inst_changePasswordNext = new ChangePasswordNext(process.argv)
 
+    const CheckSession = require('./modules/api/checkSession.js') 
+    const inst_checkSession = new CheckSession(process.argv)
+    
     cron.schedule('*/2 * * * *', () => {
       console.log('running a task every 2 minute');
       
@@ -175,6 +178,10 @@ async function  main() {
 
     app.post('/api/changePasswordNext',(req,res) => {
       inst_changePasswordNext.changePasswordNext(req,res)
+    })
+
+    app.post('/api/checkSession',(req,res) => {
+      inst_checkSession.checkSession(req,res)
     })
     
     

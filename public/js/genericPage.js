@@ -4,6 +4,40 @@ var iniziateTimer=false
 var cookieBasicTwoFAuth_2, cookieBaiscTwoFAuth_1
 var popUpShowed = false
 
+async function checkSession(scope){
+    
+    let urlParams = new URLSearchParams( window.location.search )
+    let count = 0
+    let attribute, value
+
+    for (const p of urlParams) {
+        count++
+        attribute = p[0]
+        value = p[1]
+    }
+    
+    
+        let _data
+        let response = await fetch('/api/checkSession',{
+            
+            method: 'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({ tokenSession:value })
+
+        })
+
+        _data = await response.json();
+        
+        if(_data.closed){
+            location.href='/view/basic-start/startIndex.html'
+        }
+
+    }
+
+
+
 
 function rescueCookiesFromNav(){
     
@@ -35,8 +69,8 @@ function iniziateInterval(){
     
         referenceNow = referenceNow + 100
     
-        console.log('1.', referenceNow)
-        console.log('2.', cookieBasicTwoFAuth_1)
+        //console.log('1.', referenceNow)
+        //console.log('2.', cookieBasicTwoFAuth_1)
     
     
         if( (referenceNow > cookieBasicTwoFAuth_1) && !popUpShowed ) {
@@ -49,10 +83,14 @@ function iniziateInterval(){
 }
 
 
+async function exec(){
+await checkSession()
+      rescueCookiesFromNav()
+      iniziateInterval()
+}
+exec()
+    
 
-
-rescueCookiesFromNav()
-iniziateInterval()
 
 
 
