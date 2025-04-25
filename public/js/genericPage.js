@@ -1,7 +1,7 @@
 
 var referenceNow
 var iniziateTimer=false
-var cookieBasicTwoFAuth_2, cookieBaiscTwoFAuth_1
+var cookieBasicTwoFAuth_2, cookieBasicTwoFAuth_1
 var popUpShowed = false
 
 async function checkSession(scope){
@@ -18,7 +18,7 @@ async function checkSession(scope){
     
     
         let _data
-        let response = await fetch('/api/checkSession',{
+        let response = await fetch('http://127.0.0.1:3000/api/checkSession',{
             
             method: 'POST',
             headers:{
@@ -33,6 +33,8 @@ async function checkSession(scope){
         if(_data.closed){
             location.href='/view/basic-start/startIndex.html'
         }
+
+        console.log(1)
 
     }
 
@@ -59,11 +61,14 @@ function rescueCookiesFromNav(){
         }
         
     });
+    
+    console.log(2)
+
 }
 
 
 
-function iniziateInterval(){
+function iniziateInterval(scope){
     
     let timer = setInterval(function(){
     
@@ -71,7 +76,7 @@ function iniziateInterval(){
     
         //console.log('1.', referenceNow)
         //console.log('2.', cookieBasicTwoFAuth_1)
-    
+        
     
         if( (referenceNow > cookieBasicTwoFAuth_1) && !popUpShowed ) {
             document.getElementById("popUpRenewal").className = "showed"
@@ -79,16 +84,18 @@ function iniziateInterval(){
             // timer = clearInterval(timer)
         }
 
-    }, 100)
+    }, 100,scope)
+
+    console.log(3)
 }
 
-
-async function exec(){
+let scope = this
+async function exec(scope){
 await checkSession()
-      rescueCookiesFromNav()
-      iniziateInterval()
+      rescueCookiesFromNav.call(scope)
+      iniziateInterval.call(scope)
 }
-exec()
+exec(scope)
     
 
 
@@ -151,9 +158,10 @@ async function closeSession(){
     //...
     //debugger;
     let token = cookieBasicTwoFAuth_2
+    let _data
 
     try{
-        const _response = await fetch('http://127.0.0.1::3000/api/closeSession', {
+        const _response = await fetch('http://127.0.0.1:3000/api/closeSession', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
