@@ -1,4 +1,4 @@
 var confSignUpForm = { 
-    emailOption2FA:true, 
-    smsOption2FA:false 
+    emailOption2FA:false, 
+    smsOption2FA:true 
 }

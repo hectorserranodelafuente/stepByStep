@@ -23,6 +23,7 @@
     "cors": "^2.8.5",
     "ejs": "^3.1.10",
     "emulate": "git+https://github.com/hectorserranodelafuente/emulate.git#764419b6919559e6aca494c08c096f21c10fe65c",
+    "stepByStep-plugin-sms-labsMobile":"git+https://github.com/hectorserranodelafuente/stepByStep-plugin-sms-labsMobile.git#c199aa67a512b1e9a20a1270fba27b146ea5e3b8",
     "express": "^4.21.2",
     "fs-extra": "^11.3.0",
     "gulp": "^5.0.0",
