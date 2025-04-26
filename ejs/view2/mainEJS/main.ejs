@@ -19,6 +19,7 @@
         display: flex; 
         justify-content: center; 
         align-items: center;
+        padding: 40px;
     }
 
     .centered-div{
@@ -89,6 +90,26 @@
         opacity:1;
         width:100%;
         float:left;
+    }
+    .errorUserForm{
+        background-color:red;
+        color:#fff;
+        position:fixed;
+        border:solid red 1px;
+        display:none;
+        padding:20px;
+        top:10px;
+        left:10px;
+    }
+    .successUserForm{
+        background-color:green;
+        color:#fff;
+        border:solid green 1px;
+        padding:20px;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        display:none;
     }
 }
 
@@ -194,6 +215,32 @@
         width:10%;
         float:left;
     }
+
+    .errorUserForm{
+        background-color:red;
+        color:#fff;
+        position:fixed;
+        border:solid red 1px;
+        display:none;
+        padding:20px;
+        top:10px;
+        left:10px;
+        width:100%;
+        text-align:center;
+    }
+    .successUserForm{
+        background-color:green;
+        color:#fff;
+        border:solid green 1px;
+        padding:20px;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        display:none;
+        width:100%;
+        text-align:center;
+    
+    }
 }
 
 </style>
@@ -280,14 +327,8 @@
         <button type="button" onclick="submitForm()" style="margin-top:30px;">Enviar</button>
     </form>
     
-    <div id = "errorUserForm" 
-         style = "color:red;
-                  position:fixed;
-                  border:solid red 1px;
-                  display:none;
-                  padding:20px;
-                  top:10px;
-                  left:10px;">
+    <div id = "errorUserForm"
+         class = "errorUserForm" >
     </div>
     
     
@@ -295,13 +336,7 @@
     </div>
     </div>
     <div id = "successUserForm" 
-         style = "color:yellowgreen;
-                  border:solid yellowgreen 1px;
-                  padding:20px;
-                  position: fixed;
-                  top: 10px;
-                  left: 10px;
-                  display:none;">
+         class = "successUserForm">
     </div>
     </div>
     <!--<button id="goToLogin" class="hidden">
