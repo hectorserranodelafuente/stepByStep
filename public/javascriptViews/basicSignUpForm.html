@@ -8,6 +8,8 @@
 </head>
 <style>
 
+@media (min-width: 768px) {
+    
     body{
         margin: 0; 
         height: 100vh; 
@@ -66,6 +68,107 @@
     .strong-gray{
         color:gray;
     }
+    .formatExample{
+        text-align:center;
+        position:relative;
+        top:0px;
+    }
+    .phoneNumber{
+        width:50%;
+        float:left;
+    }
+}
+
+@media (max-width: 768px) {
+    
+    
+
+    body{
+        margin: 0; 
+        height: 100vh; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center;
+    }
+
+    .centered-div{
+        border: solid 1px;
+        padding:20px;
+        width: 100%;
+        height: 100vh;
+        -webkit-box-shadow: 10px 10px 5px 0px rgba(153,153,153,1);
+        -moz-box-shadow: 10px 10px 5px 0px rgba(153,153,153,1);
+        box-shadow: 10px 10px 5px 0px rgba(153,153,153,1);
+        padding: 20px;
+        width:100%;
+	    height:100%;
+    }
+
+    .centered-div-in{
+        background-color:rgb(198, 198, 198);
+        padding:10px;
+        width:100%;
+	    height: 100vh;
+    }
+
+    input{
+        float: right;
+        width: 100%;
+        height: 50px;
+        font-size: 2.5em;
+    }
+
+    label{
+    	font-size: 3em;
+	}
+
+    button{
+        
+        font-weight:600;
+        cursor:pointer;
+        border-radius:10px;
+        padding:10px;
+        background-color:#1c3be8;
+        color:#fff;
+        border:solid 0x;
+        text-align:center;
+        font-size:2.5em;
+        width: 100%;
+        height: 100px;
+
+    }
+    button:hover{
+        background-color:#00051e;
+
+    }
+    
+    .showed{
+        display: block
+    }
+
+    .hidden{
+        display: none
+    }
+
+    .strong{
+        font-weight:600;
+    }
+
+    .strong-gray{
+        color:gray;
+    }
+
+    .formatExample{
+        text-align:center;
+        position:relative;
+        top:0px;
+    }
+
+    .phoneNumber{
+        width:100%;
+        float:left;
+    }
+}
 
 </style>
 <body>
@@ -74,15 +177,15 @@
     <br><br>
     <div class="centered-div-in">
     <form id="userForm" class="showed">
-        <label for="email" class="strong">User:</label>
+        <label for="email" class="strong">User</label>
         <input type="text"  id="email" name="email"><br><br>
-        <label for="password" class="strong">Password:</label>
+        <label for="password" class="strong">Password</label>
         <input type="password" id="password" name="password"> <br><br>
-        <label for="repeatPassword" class="strong">Repeat password:</label>
+        <label for="repeatPassword" class="strong">Repeat password</label>
         <input type="password" id="repeatPassword" name="repeatPassword"><br><br>
-        <label for="urlName" class="strong">name:</label>     
+        <label for="urlName" class="strong">name</label>     
         <input type="urlName" id="urlName" name="urlName"><br><br>
-        <label id="labelTwoFA" for="twoFA" class="strong"style="opacity:1">2FA:</label>
+        <label id="labelTwoFA" for="twoFA" class="strong"style="opacity:1">2FA</label>
         <input type="checkbox" id="twoFA" name="twoFA" checked><br><br>
         
         <div id="options2FA">

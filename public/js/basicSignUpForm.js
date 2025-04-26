@@ -5,25 +5,33 @@
                             <div style="width:100%;float:left;">
                                 <fieldset style="background-color:#DDD">
                                     <div id="twoFAEmail">
-                                        <input type="radio" id="radioEmail" name="twoFAOptions" value="emailTwoFA" checked>
-                                        <label for="option2FA_1" style="font-weight:600;">Email</label>
+                                        <div>
+                                            <input type="radio" id="radioEmail" name="twoFAOptions" value="emailTwoFA" checked>
+                                        </div>
+                                        <div>
+                                            <label for="option2FA_1" style="font-weight:600;">Email</label>
+                                        </div>
                                     </div>
                                     <hr/>
                                     <div id="twoFASMS" style="margin-bottom: 10px;">
-                                        <input type="radio" id="radioSMS" name="twoFAOptions" value="emailSMSFA">
-                                        <label for="option2FA_2" style="font-weight:600;">SMS</label>
+                                        <div>    
+                                            <input type="radio" id="radioSMS" name="twoFAOptions" value="emailSMSFA">
+                                        </div>
+                                        <div>
+                                            <label for="option2FA_2" style="font-weight:600;">SMS</label>
+                                        </div>
                                     </div>
                                     <div>
                                         <div>
-                                            <label for="phoneNumber" class="strong" style="text-align:center">Phone Number</label>
-                                            <input type="phoneNumber" id="phoneNumber" name="phoneNumber">    
-                                            
+                                            <div>
+                                                <label for="phoneNumber" class="strong" style="text-align:center">Phone Number</label>
+                                            </div>
+                                            <div>
+                                                <input type="phoneNumber" id="phoneNumber" name="phoneNumber">    
+                                            </div>
                                         </div>
                                         
-                                        <div>
-                                            <label for="formatExample" class="strong" style="text-align:center;position:relative;top:20px;">Format example</label>
-                                            <input type="formatExample" id="formatExample" name="formatExample" value="34450450450" disabled></input> 
-                                        </div>
+                                        
                                     </div> 
                                 </fieldset>
                             </div>
@@ -49,15 +57,15 @@
                                     
                                     <div>
                                         <div>
-                                            <label for="phoneNumber" class="strong" style="text-align:center">Phone Number</label>
-                                            <input type="phoneNumber" id="phoneNumber" name="phoneNumber">    
-                                            
+                                            <div class="phoneNumber">
+                                                <label for="phoneNumber" class="strong" style="text-align:center">Phone Number</label>
+                                            </div>
+                                            <div class="phoneNumber">
+                                                <input type="phoneNumber" id="phoneNumber" name="phoneNumber" placeholder="34450450450">    
+                                            </div>
                                         </div>
                                         
-                                        <div>
-                                            <label for="formatExample" class="strong" style="text-align:center;position:relative;top:20px;">Format example</label>
-                                            <input type="formatExample" id="formatExample" name="formatExample" value="34450450450" disabled></input> 
-                                        </div>
+                                        
                                     </div> 
                                 </fieldset>
                             </div>
