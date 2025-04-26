@@ -27,7 +27,22 @@ function insertMessage(id, message, time){
 
     let el = document.getElementById(id)
     
-    el.className = 'showed'
+    switch(id){
+        case "errorCodeForm":
+            debugger;
+            el.className = 'showed errorUserForm'
+        break;
+        case "messageCode":
+            el.className = 'showed successUserForm'
+        break;
+        case "errorUserForm":
+            debugger;
+            el.className = 'showed errorUserForm'
+        break;
+    }
+    
+    
+    
     el.innerHTML = message
     
     setTimeout(function(){

@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Formulario de Usuario</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <style>
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
 
     body{
         margin: 0; 
@@ -14,6 +15,7 @@
         display: flex; 
         justify-content: center; 
         align-items: center;
+        background-color:rgb(198, 198, 198);
     }
 
     .centered-div{
@@ -25,6 +27,8 @@
         -moz-box-shadow: 10px 10px 5px 0px rgba(153,153,153,1);
         box-shadow: 10px 10px 5px 0px rgba(153,153,153,1);
         overflow:hidden;
+        width: 100%;
+        height: 100%;
     }
 
     .centered-div-showed{
@@ -36,25 +40,25 @@
     }
     
     .move-div-step1{
-        width: 820px;
+        width:200%;
         position: relative;
-        left: 0;
+        left:0;
     }
 
     .move-div-step2{
-        width:820px;
+        width:200%;
         position:relative;
-        left:-440px;
+        left:-105%;
     }
     
     .step1Container{
-        width:410px;
+        width:50%;
         float:left;
-        padding:10px;
+        padding-bottom:40px;
     }
 
     .step2Container{
-        width:360px;
+        width:45%;
         float:left;
         padding:10px;
     }
@@ -62,7 +66,6 @@
 
 
     .centered-div-in{
-        background-color:rgb(198, 198, 198);
         padding:10px;
     }
 
@@ -73,19 +76,32 @@
 
     button{
         
-        font-weight:600;
-        cursor:pointer;
-        border-radius:10px;
-        padding:10px;
-        background-color:#1c3be8;
-        color:#fff;
-        border:solid 0x;
-        text-align:center;width:200px;
+        
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #1c3be8;
+        color: #fff;
+        border: solid 0x;
+        text-align: center;
+        font-size: 1.5em;
+        width: 100%;
+        height: 100px;
+    
 
     }
     
     button:hover{
         background-color:#9aa9f8;
+    }
+
+    input{
+        float: right;
+        width: 100%;
+        height: 50px;
+        font-size: 2.5em;
+        border:solid 1px;
     }
 
     
@@ -99,14 +115,57 @@
 
     .recoverPassword{
         background-color:red;
+        font-size: 1.0em;
         color:#fff;
+        height:76px;
     }
 
+    .backCode{
+        height: 100%;
+        position: relative;
+        top: 40px;
+    }
+
+    label {
+        font-size: 1.5em;
+        font-weight: 600;
+    }
+    
+    .buttonSend-container{
+        position: relative;
+        top: 30px;
+    }
+    
+    .errorUserForm{
+        background-color:red;
+        color:#fff;
+        position:fixed;
+        border:solid red 1px;
+        padding:20px;
+        top:10px;
+        left:10px;
+        width:100%;
+    }
+    .successUserForm{
+        background-color:green;
+        color:#fff;
+        border:solid green 1px;
+        padding:20px;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        width:100%;
+    }
+
+    .container-button-sendCode{
+        position: relative;
+        top: 40px;
+    }
 
 }
 
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
 /* Styles for medium devices */
    
     body{
@@ -189,6 +248,11 @@
         background-color:#9aa9f8;
     }
 
+    .backCode{
+        padding:20px;
+        background-color:rgb(198, 198, 198);
+        height:100%;
+    }
     
     .showed{
         display: block
@@ -201,6 +265,26 @@
     .recoverPassword{
         background-color:red;
         color:#fff;
+    }
+
+    .errorUserForm{
+        background-color:red;
+        color:#fff;
+        position:fixed;
+        border:solid red 1px;
+        padding:20px;
+        top:10px;
+        left:10px;
+    }
+    .successUserForm{
+        background-color:green;
+        color:#fff;
+        border:solid green 1px;
+        padding:20px;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        
     }
 }
 
@@ -272,39 +356,40 @@
                     <input type="text" id="email" name="email"><br><br>
                     <label for="password">Contraseña:</label>
                     <input type="password" id="password" name="password"><br><br>
-                    <button type="button" onclick="submitForm()">Enviar</button>
+                    <div class="buttonSend-container">
+                        <button type="button" onclick="submitForm()">Enviar</button>
+                    </div>    
                 </form>
                 
-                <div id = "errorUserForm"  
-                    class = "hidden" 
-                    style = "color:red;
-                             border:solid red 1px;
-                             margin-top:5px;
-                             padding:10px;">
+                <div id="errorUserForm" class = "hidden" >
+                </div>
+
+                <div class="backCode">
+                    <button 
+                        type="button" 
+                        class="recoverPassword" 
+                        onClick="forgotPassword()">
+                            Do you forgot your password ?
+                    </button><s></s>
                 </div>
 
             </div>
             </div>
             <div class="step2Container">
                 <div id="errorCodeForm"  
-                    class="hidden" 
-                    style="color:red;
-                           border:solid red 1px;
-                           margin-top:5px;
-                           padding:10px;">
+                    class="hidden">
                 </div>
                 <div id = "messageCode"
-                     class = "hidden" 
-                     style = "color:yellowgreen;
-                              border:solid yellowgreen 1px;
-                              margin-top:5px;
-                              padding:10px;">
+                     class = "hidden">
+                     
                 </div>
                 <div class="centered-div-in">
                 <form id="codeForm" class="hidden">
                     <label for="code">Code:</label>
                     <input type="text" id="code" name="code"><br><br>
-                    <button type="button" onclick="submitCodeForm()">Enviar</button>
+                    <div class="container-button-sendCode">
+                        <button type="button" onclick="submitCodeForm()">Enviar</button>
+                    </div>
                 </form>
                 </div>
                 
@@ -312,14 +397,7 @@
             </div>
             
         </div>
-        <div style="padding:20px;background-color:rgb(198, 198, 198);">
-            <button 
-                type="button" 
-                class="recoverPassword" 
-                onClick="forgotPassword()">
-                    Do you forgot your password ?
-            </button>
-        </div>
+        
 
 
     </div>
