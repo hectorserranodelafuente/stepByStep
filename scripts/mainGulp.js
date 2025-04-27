@@ -31,15 +31,15 @@ const countFolders = async (directory) => {
 function renderCss(environment,done){
     //console.log('renderCss')
     countFolders(path.join(path.join(path.join(__dirname,'..')),'ejs')).then(count => {
-        let partial='cssHref'
+        
         console.log(`count ${count}`)
         for(var i=0;i<count;i++){
-            
+              
             //if(fs.existsSync(path.join(path.join(path.join(__dirname,'..')),`ejs/view${i+1}/partialsEJS/${partial}.ejs`))){
                 
                 let scriptCss = require(`../ejs/view${i+1}/argsHeadersEJS/args.js`)
                 let renderedCss = 'renderedCss'
-                
+                let partial='cssHref'    
                 
                 if(environment=='production'){
                     renderedCss += 'Production'
@@ -124,6 +124,10 @@ task('renderCssDevelopment',function(done){
     renderCss('development',done)
 })
 
+task('renderCssCordova',function(done){
+  renderCss('cordova',done)  
+})
+
 
 
 function renderMain(environment,done){
@@ -136,10 +140,10 @@ function renderMain(environment,done){
                 if(!err){
                     let renderedMain='renderedMain'
                     if(environment=='production'){
-                        renderedMain += 'production'
+                        renderedMain += 'Production'
                     }
                     if(environment=='cordova'){
-                        renderedMain += 'cordova'
+                        renderedMain += 'Cordova'
                     }
                     fs.writeFileSync(path.join(path.join(path.join(__dirname,'..')),`ejs/view${i+1}/${renderedMain}/main.html`), str, 'utf8'); 
                     if((count-1)==i){
@@ -219,6 +223,7 @@ console.log('mainsToCordova')
     })
 
     fsExtra.copySync(path.join(__dirname, '..','public/js'),path.join(_env.development.dirPathCordovaProject,'js'))
+    fsExtra.copySync(path.join(__dirname, '..','public/css'),path.join(_env.development.dirPathCordovaProject,'css'))
     
 })
 
@@ -352,6 +357,7 @@ task('cleanDist',function(){
 exports.renderCordova = series(
     'cleanRenderedCordovaHeaders',
     'cleanRenderedCordovaMain',
+    'renderCssCordova',
     'renderHeadersCordova',
     'renderMainCordova',
     'cleanViewsCordova',

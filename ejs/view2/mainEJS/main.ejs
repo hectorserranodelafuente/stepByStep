@@ -7,7 +7,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title> Formulario de Usuario </title>
+     
+  <% if (environment=='development') { %>
     <%- include('../renderedCss/cssHref.ejs') %>
+    <% } %>
+
+   
+
+    <% if (environment=='cordova') { %>
+      <%- include('../renderedCssCordova/cssHref.ejs') %>
+    <% } %>
     
 </head>
 <body>
