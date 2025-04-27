@@ -11,7 +11,7 @@
 </head>
 <style>
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     
     body{
         margin: 0; 
@@ -19,6 +19,7 @@
         display: flex; 
         justify-content: center; 
         align-items: center;
+        padding: 40px;
     }
 
     .centered-div{
@@ -48,7 +49,10 @@
         background-color:#1c3be8;
         color:#fff;
         border:solid 0x;
-        text-align:center;width:200px;
+        text-align:center;
+        width:200px;
+        font-size: 1em;
+
 
     }
     button:hover{
@@ -90,9 +94,29 @@
         width:100%;
         float:left;
     }
+    .errorUserForm{
+        background-color:red;
+        color:#fff;
+        position:fixed;
+        border:solid red 1px;
+        display:none;
+        padding:20px;
+        top:10px;
+        left:10px;
+    }
+    .successUserForm{
+        background-color:green;
+        color:#fff;
+        border:solid green 1px;
+        padding:20px;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        display:none;
+    }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
     
     
 
@@ -102,23 +126,22 @@
         display: flex; 
         justify-content: center; 
         align-items: center;
+        background-color: rgb(198, 198, 198);
+        
     }
 
     .centered-div{
-        border: solid 1px;
+        
         padding:20px;
         width: 100%;
         height: 100vh;
-        -webkit-box-shadow: 10px 10px 5px 0px rgba(153,153,153,1);
-        -moz-box-shadow: 10px 10px 5px 0px rgba(153,153,153,1);
-        box-shadow: 10px 10px 5px 0px rgba(153,153,153,1);
         padding: 20px;
         width:100%;
 	    height:100%;
+        
     }
 
     .centered-div-in{
-        background-color:#fff;
         padding:10px;
         width:100%;
 	    height: 100vh;
@@ -133,7 +156,7 @@
     }
 
     label{
-    	font-size: 3em;
+    	font-size: 1.5em;
 	}
 
     button{
@@ -146,9 +169,9 @@
         color:#fff;
         border:solid 0x;
         text-align:center;
-        font-size:2.5em;
+        font-size:1.5em;
         width: 100%;
-        height: 100px;
+        height: 80px;
 
     }
     button:hover{
@@ -193,6 +216,32 @@
         opacity:1;
         width:10%;
         float:left;
+    }
+
+    .errorUserForm{
+        background-color:red;
+        color:#fff;
+        position:fixed;
+        border:solid red 1px;
+        display:none;
+        padding:20px;
+        top:10px;
+        left:10px;
+        width:100%;
+        text-align:center;
+    }
+    .successUserForm{
+        background-color:green;
+        color:#fff;
+        border:solid green 1px;
+        padding:20px;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        display:none;
+        width:100%;
+        text-align:center;
+    
     }
 }
 
@@ -280,14 +329,8 @@
         <button type="button" onclick="submitForm()" style="margin-top:30px;">Enviar</button>
     </form>
     
-    <div id = "errorUserForm" 
-         style = "color:red;
-                  position:fixed;
-                  border:solid red 1px;
-                  display:none;
-                  padding:20px;
-                  top:10px;
-                  left:10px;">
+    <div id = "errorUserForm"
+         class = "errorUserForm" >
     </div>
     
     
@@ -295,13 +338,7 @@
     </div>
     </div>
     <div id = "successUserForm" 
-         style = "color:yellowgreen;
-                  border:solid yellowgreen 1px;
-                  padding:20px;
-                  position: fixed;
-                  top: 10px;
-                  left: 10px;
-                  display:none;">
+         class = "successUserForm">
     </div>
     </div>
     <!--<button id="goToLogin" class="hidden">
