@@ -24,7 +24,8 @@ let dev = {
     transporter:confEmail.transporter,
     mailOptions:confEmail.mailOptions,
     confSMS:confSMS,
-    frontTech:'javascript'
+    frontTech:'javascript',
+    frontTheme:'theme-default'
 
 }
 

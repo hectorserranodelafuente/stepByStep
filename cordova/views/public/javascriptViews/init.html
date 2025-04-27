@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<head>
+      
+  
+
+   
+
+    
+      
+    <link rel="stylesheet" href="../../css/genericPage.css">
+
+
+    
+    <style>
+ 
+
+    </style>
+
+</head>
+<body>
+    
+    <button id ="closeSession" onclick="closeSession()"> CLOSE SESSION </button>
+    
+    Wellcome to init
+
+    
+
+    <div id="popUpRenewal" style="position:absolute;border:solid 1px;padding:20px;top:0;background-color:#fff;" class="hidden">
+        <div id="messagePopUpRenewalSuccess" style="color:yellowgreen;"></div>
+        <div id="messagePopUpRenewalError" style="color:red;"></div>
+        Do you want to <strong>renew session</strong> ?
+        <form id="questionRenewSession" onsubmit="submitRenewSession(event)">  
+            <input type="radio" name="renewSession" value="yes"> Yes
+            <input type="radio" name="renewSession" value="no"> No
+            <button id="renewSessionButton" type="submit">RENEW</button>
+        </form>
+    </div>
+    
+
+    
+  
+      
+
+      
+        
+    <script src="../../js/genericPage.js"></script>
+  
+      
+    
+    
+</body>
+
+</html>
