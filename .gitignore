@@ -1,9 +1,10 @@
 node_modules
 dist
-ejs/*/renderedHead
-ejs/*/renderedHeadProduction
-ejs/*/renderedHeadMain
-ejs/*/renderedHeadMainProduction
-ejs/*/renderedMainProduction
-ejs/*/renderedHeadCordova
-ejs/*/renderedMainCordova
+ejs/*/renderedCss/*.*
+ejs/*/renderedCssCordova/*.*
+ejs/*/renderedHead/*.*
+ejs/*/rendredHeadCordova/*.*
+ejs/*/renderedHeadProduction/*.*
+ejs/*/renderedMain/*.*
+ejs/*/renderedMainCordova/*.*
+ejs/*/renderedMainProduction/*.*
