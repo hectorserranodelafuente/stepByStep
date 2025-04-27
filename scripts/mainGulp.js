@@ -17,6 +17,8 @@ const countFolders = async (directory) => {
     let entries
     try{
     entries = fs.readdirSync(directory);
+    console.log(`directory ${directory}`)
+    console.log(`entries ${entries}`)
     }catch(err){
 
     }
@@ -25,6 +27,48 @@ const countFolders = async (directory) => {
 };
 
 
+
+function renderCss(environment,done){
+    //console.log('renderCss')
+    countFolders(path.join(path.join(path.join(__dirname,'..')),'ejs')).then(count => {
+        let partial='cssHref'
+        console.log(`count ${count}`)
+        for(var i=0;i<count;i++){
+            
+            //if(fs.existsSync(path.join(path.join(path.join(__dirname,'..')),`ejs/view${i+1}/partialsEJS/${partial}.ejs`))){
+                
+                let scriptCss = require(`../ejs/view${i+1}/argsHeadersEJS/args.js`)
+                let renderedCss = 'renderedCss'
+                
+                
+                if(environment=='production'){
+                    renderedCss += 'Production'
+                    partial += 'Production'
+                }
+                else if(environment=='cordova'){
+                    renderedCss += 'Cordova'
+                    partial += 'Cordova'
+                }
+
+                
+                ejs.renderFile(path.join(path.join(path.join(__dirname,'..')),`ejs/view${i+1}/partialsEJS/${partial}.ejs` ), scriptCss , async = true, function(err, str){
+                    
+                    if(!err){
+                        fs.writeFileSync(path.join(path.join(path.join(__dirname,'..')),`ejs/view${i+1}/${renderedCss}/cssHref.ejs` ), str, 'utf8'); 
+                        if((count-1)==i){
+                            console.log('done::renderCss')
+                            done()
+                        }
+                    }
+                    if(err){
+                        console.log(err)
+                    }
+                    
+                })
+            //}
+        }
+    })
+}
 
 function renderHeaders(environment,done){
     console.log('renderHeaders')
@@ -74,6 +118,10 @@ task('renderHeadersProduction',function(done){
 
 task('renderHeadersCordova',function(done){
     renderHeaders('cordova',done)
+})
+
+task('renderCssDevelopment',function(done){
+    renderCss('development',done)
 })
 
 
@@ -218,6 +266,10 @@ task('cleanRenderedCordovaMain',function(){
     
 })
 
+task('cleanRenderedCss',function(){
+    return src(path.join(path.join(path.join(__dirname,'..'))),`ejs/*/renderedCss/*.*`).pipe(clean())
+})
+
 
 task('minifyJS',function(){
     return src('public/js/*.js')
@@ -307,5 +359,5 @@ exports.renderCordova = series(
     'cordovaToStepByStepCordova'
 )
 
-exports.renderDev = series('cleanRenderedHeaders','cleanRenderedMain','renderHeadersDevelopment','renderMainDevelopment','cleanViewsDev','mainsToDevelopment')
+exports.renderDev = series('cleanRenderedHeaders','cleanRenderedMain','renderCssDevelopment','renderHeadersDevelopment','renderMainDevelopment','cleanViewsDev','mainsToDevelopment')
 exports.renderPro = series('cleanDist','cleanRenderedHeaders','cleanRenderedMain','renderHeadersProduction','renderMainProduction','mainsToProduction','minifyHTMLProduction','minifyJS','minifyBackendJS')
