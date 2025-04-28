@@ -351,8 +351,9 @@ task('cleanDist',function(){
 
 
 task('cloneTheme',function(){
-    //console.log(_env)
-    //console.log(path.join(__dirname,'..',`/node_modules/${_env.development.frontTheme}/views`))
+    
+    // console.log(_env)
+    // console.log(path.join(__dirname,'..',`/node_modules/${_env.development.frontTheme}/views`))
     
     fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.frontTheme}/theme/ejs`),path.join(__dirname,'..','/ejs'))
     fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.frontTheme}/theme/js`), path.join(__dirname,'..','/public/js'))
@@ -361,10 +362,21 @@ task('cloneTheme',function(){
 
 })
 
+task('cloneApi',function(){
+    
+    // console.log(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}`))
+    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/api`), path.join(__dirname,'..','/modules/api'))
+    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/test`), path.join(__dirname,'..','/test'))
+    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/scriptsDb/createDbDev.js`),  path.join(__dirname,'..','/scripts/createDbDev.js'))
+    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/scriptsDb/createDbPro.js`), path.join(__dirname,'..','/scripts/createDbPro.js'))
+    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/scriptsDb/createDbTest.js`),  path.join(__dirname,'..','/script/createDbTest.js'))
+})
+
 
 // exports.production = series('cleanDist','uglifyJS','minifyHTML')
 
 exports.integrateTheme = series('cloneTheme')
+exports.integrateAPI = series('cloneApi')
 
 exports.renderCordova = series(
     'cleanRenderedCordovaHeaders',

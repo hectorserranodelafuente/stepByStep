@@ -8,3 +8,4 @@ ejs/*/renderedHeadProduction/*.*
 ejs/*/renderedMain/*.*
 ejs/*/renderedMainCordova/*.*
 ejs/*/renderedMainProduction/*.*
+modules/api

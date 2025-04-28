@@ -25,7 +25,8 @@ let dev = {
     mailOptions:confEmail.mailOptions,
     confSMS:confSMS,
     frontTech:'javascript',
-    frontTheme:'theme-default'
+    frontTheme:'theme-default',
+    backAPI:'stepByStep-back-node-sqlite'
 
 }
 

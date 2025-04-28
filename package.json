@@ -13,7 +13,8 @@
     "renderCordova": "node ./scripts/renderCordova.js",
     "dist": "node ./scripts/production.js",
     "startDev": "node server.js -- environment=development",
-    "integrateTheme":"node ./scripts/integrateTheme.js"
+    "integrateTheme": "node ./scripts/integrateTheme.js",
+    "integrateAPI": "node ./scripts/integrateApi.js"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +26,7 @@
     "ejs": "^3.1.10",
     "emulate": "git+https://github.com/hectorserranodelafuente/emulate.git#764419b6919559e6aca494c08c096f21c10fe65c",
     "stepByStep-plugin-sms-labsMobile":"git+https://github.com/hectorserranodelafuente/stepByStep-plugin-sms-labsMobile.git#c199aa67a512b1e9a20a1270fba27b146ea5e3b8",
+    "stepByStep-back-node-sqlite":"git+https://github.com/hectorserranodelafuente/stepByStep-back-node-sqlite.git#v1.0.0",
     "theme-default":"git+https://github.com/hectorserranodelafuente/stepByStep-front-vanilla-theme-default.git#v1.0.0",
     "express": "^4.21.2",
     "fs-extra": "^11.3.0",
