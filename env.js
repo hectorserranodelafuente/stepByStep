@@ -11,12 +11,6 @@ let dev = {
     dirPathLogger:path.join(__dirname,'/modules/logger'),
     logsFileName:'logs.txt',
     numberLinesLog:10,
-    scriptCompressProject:{
-        nodeModulesFolderName:path.join(__dirname,''),
-        zipFolderName: 'zipVersion',
-        zipOutputPath: path.join(__dirname, '..','/aws/zipVersions'),
-        version:'1_0_0',
-    },
     dbSqlitePath:path.join(__dirname,'/db/dev/sqlite/dbLoginDev.sqlite'),
     domain:'http://localhost:3000',
     confEmail:true,
