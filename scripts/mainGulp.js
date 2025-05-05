@@ -188,8 +188,8 @@ function mainsToFolder(environment,done){
                 dist= "cordova/views/"
                 rendered = 'Cordova'
             }
-            fs.mkdirSync(path.join(path.join(path.join(__dirname,'..')),`${dist}public/javascriptViews`), { recursive: true });
-            fs.copyFileSync(path.join(path.join(path.join(__dirname,'..')),`ejs/view${i+1}/renderedMain${rendered}/main.html`),path.join(path.join(path.join(__dirname,'..')),`${dist}public/javascriptViews/${name}`))
+            fs.mkdirSync(path.join(path.join(path.join(__dirname,'..')),`${dist}public/views`), { recursive: true });
+            fs.copyFileSync(path.join(path.join(path.join(__dirname,'..')),`ejs/view${i+1}/renderedMain${rendered}/main.html`),path.join(path.join(path.join(__dirname,'..')),`${dist}public/views/${name}`))
             if((count-1)==i){
                 done()
             }
@@ -236,11 +236,11 @@ task('mainsToCordova',function(done){
 })
 
 task('cleanViewsDev',function(){
-    return src(path.join(path.join(path.join(__dirname,'..')),`public/javascriptViews/*.*`)).pipe(clean())
+    return src(path.join(path.join(path.join(__dirname,'..')),`public/views/*.*`)).pipe(clean())
 })
 
 task('cleanViewsPro',function(){
-    return src(path.join(path.join(path.join(__dirname,'..')),`dist/public/javascriptViews/*.*`)).pipe(clean())
+    return src(path.join(path.join(path.join(__dirname,'..')),`dist/public/views/*.*`)).pipe(clean())
 })
 
 task('cleanViewsCordova',function(){
@@ -329,17 +329,17 @@ function uglifyLogger(){
   ));
 
 task('minifyHTMLProduction',function(){
-    return gulp.src('dist/public/javascriptViews/*.html')
+    return gulp.src('dist/public/views/*.html')
     .pipe(htmlmin({ collapseWhitespace: true }))
-    .pipe(gulp.dest('dist/public/javascriptViews'));
+    .pipe(gulp.dest('dist/public/views'));
 
 })
 
 task('minifyHTML',function(){
     
-    return gulp.src('public/javascriptViews/*.html')
+    return gulp.src('public/views/*.html')
     .pipe(htmlmin({ collapseWhitespace: true }))
-    .pipe(gulp.dest('dist/public/javascriptViews'));
+    .pipe(gulp.dest('dist/public/views'));
 
 })
 
