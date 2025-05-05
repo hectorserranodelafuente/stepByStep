@@ -8,14 +8,18 @@ const confFrontTheme = require('./confFront.js')
 
 const confBackAPI = require('./confBack.js')
 
+const confCordova = require('./confCordova.js')
+
+const confLogs = require('./confLog.js')
+
 let dev = {
     
     dirPathProject: path.join(__dirname, ''),
-    dirPathCordovaProject: path.join(__dirname,'..','stepByStepCordova/www'),
-    dirPathCordovaViews: path.join(__dirname,'cordova/views/public/javascriptViews'),
-    dirPathLogger:path.join(__dirname,'/modules/logger'),
-    logsFileName:'logs.txt',
-    numberLinesLog:10,
+    dirPathCordovaProject: confCordova.pathCordovaProject,
+    dirPathCordovaViews: confCordova.pathCordovaViews,
+    dirPathLogger: confLogs.dirPathLogger,
+    logsFileName: confLogs.logsFileName,
+    numberLinesLog: confLogs.numberLinesLog,
     dbSqlitePath:path.join(__dirname,'/db/dev/sqlite/dbLoginDev.sqlite'),
     domain:'http://localhost:3000',
     transporter:confEmail.transporter,
