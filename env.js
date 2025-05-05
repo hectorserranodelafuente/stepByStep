@@ -1,7 +1,12 @@
 const path = require('path')
+
 const confEmail = require('./confEmail.js')
+
 const confSMS = require('./confSMS.js')
 
+const confFrontTheme = require('./confFront.js')
+
+const confBackAPI = require('./confBack.js')
 
 let dev = {
     
@@ -13,13 +18,12 @@ let dev = {
     numberLinesLog:10,
     dbSqlitePath:path.join(__dirname,'/db/dev/sqlite/dbLoginDev.sqlite'),
     domain:'http://localhost:3000',
-    confEmail:true,
-    confSMS:true,
     transporter:confEmail.transporter,
     mailOptions:confEmail.mailOptions,
+    confEmail:true,
     confSMS:confSMS,
-    frontTheme:'theme-default',
-    backAPI:'stepByStep-back-node-sqlite'
+    frontTheme:confFrontTheme.name,
+    backAPI:confBackAPI.name
 
 }
 
