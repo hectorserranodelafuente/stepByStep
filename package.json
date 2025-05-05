@@ -27,7 +27,7 @@
     "emulate": "git+https://github.com/hectorserranodelafuente/emulate.git#764419b6919559e6aca494c08c096f21c10fe65c",
     "stepByStep-plugin-sms-labsMobile":"git+https://github.com/hectorserranodelafuente/stepByStep-plugin-sms-labsMobile.git#c199aa67a512b1e9a20a1270fba27b146ea5e3b8",
     "stepByStep-back-node-sqlite":"git+https://github.com/hectorserranodelafuente/stepByStep-back-node-sqlite.git#v1.0.0",
-    "theme-default":"git+https://github.com/hectorserranodelafuente/stepByStep-front-vanilla-theme-default.git#6f1569a31fb6b744f2b236b2abcd8c7d5fcc0949",
+    "theme-default":"git+https://github.com/hectorserranodelafuente/stepByStep-front-vanilla-theme-default.git#8ccab41bd9fd1cc2615005c0eb9081922b3d5e85",
     "express": "^4.21.2",
     "fs-extra": "^11.3.0",
     "gulp": "^5.0.0",

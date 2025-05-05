@@ -358,6 +358,7 @@ task('cloneTheme',function(){
     fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.frontTheme}/theme/ejs`),path.join(__dirname,'..','/ejs'))
     fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.frontTheme}/theme/js`), path.join(__dirname,'..','/public/js'))
     fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.frontTheme}/theme/css`),  path.join(__dirname,'..','/public/css'))
+    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.frontTheme}/theme/img`),  path.join(__dirname,'..','/public/img'))
 
 
 })
