@@ -6,11 +6,91 @@ button{
     padding:10px;
     background-color:#1c3be8;
     color:#fff;
-    border:solid 0x;
-    text-align:center;width:200px;
+    text-align:center;
+    width:200px;
 
 }
 
 button:hover{
     background-color:#9aa9f8;
+}
+
+.headerProviders{
+    margin:5px;
+}
+
+.providers{
+    text-align:center;
+    padding:10px;
+    font-weight:600;
+    border: solid 1px;
+    background-color: #dddddd;
+    margin-top: 20px;
+}
+
+.providerEmail{
+    float:left;
+    width:50%;
+    height:50px;
+    font-weight:600;
+}
+
+.providerEmail-container{
+    padding:5px;
+}
+
+.providerEmailTitle{
+    float:left;
+    width:80%;
+}   
+
+.providerEmailNodemailer{
+    float:left;
+    width:20%;
+
+}
+
+.providerEmailNodemailer img{
+    width:65px;
+}
+
+.providerSms{
+    float:left;
+    width:50%;
+    height:50px;
+    font-weight:600;
+}
+
+.providerSmsTitle{
+    text-align:center;
+}
+
+.listProvidersContainer-email{
+    
+    float:left;
+    width:50%;
+    border:solid 0px;
+
+}
+
+.listProvidersContainer-sms{
+    float:left;
+    width:50%;
+}
+
+.imgProvider {
+
+    width:25%;
+    height:auto;
+    float:left;
+    background-size: cover;
+    background-position: center;
+
+}
+
+.imgProvider img {
+    
+    width:100%;
+    height:auto;
+
 }
