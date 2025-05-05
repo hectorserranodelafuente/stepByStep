@@ -1,0 +1,139 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title> Formulario de Usuario </title>
+     
+  
+    
+    <link rel="stylesheet" href="../../public/css/basicSignUpForm.css">
+  
+    
+
+   
+
+    
+    
+</head>
+<body>
+    <div class="centered-div">
+    <button id="startPage" onclick="goToStartPage()">Back to start page</button>
+    <br><br>
+    <div class="centered-div-in">
+    <form id="userForm" class="showed">
+        <label for="email" class="strong">User</label>
+        <input type="text"  id="email" name="email"><br><br>
+        <div>
+            <label for="password" class="strong">Password</label>
+            <input type="password" id="password" name="password"> <br><br>
+            <label for="repeatPassword" class="strong">Repeat password</label>
+            <input type="password" id="repeatPassword" name="repeatPassword"><br><br>
+        </div>
+        <div>
+            
+            <p class="strong">Password requirements</p>
+            <ul>
+                <li>At least one especial character</li>
+                <li>At least one capital character</li>
+                <li>At least one number character</li>
+                <li>min length of nine characters and max length twenty characters</li>
+            </ul>
+
+        </div>
+
+        <label for="urlName" class="strong">name</label>     
+        <input type="urlName" id="urlName" name="urlName"><br><br>
+        <div>
+            <div class="twoFACheck-label">    
+                <label id="labelTwoFA" for="twoFA" class="strong"style="opacity:1">2FA</label>
+            </div>
+            <div class="twoFACheck-check">
+                <input type="checkbox" id="twoFA" name="twoFA" checked><br><br>
+            </div>
+        </div>
+        <div id="options2FA">
+            <div template="caseOne" >
+                
+               
+                
+                
+                
+            
+            </div>
+
+           
+            <div template="caseTwo" >
+            
+
+                
+            
+            </div>
+            
+
+
+
+            <div template="caseThree">
+                
+                    
+                  
+                
+                
+            </div>
+
+
+            <div template="caseFour" >
+                
+                    
+                   
+                
+              
+            </div>
+            
+          </div>  
+
+
+
+
+
+        <button type="button" onclick="submitForm()" style="margin-top:30px;">Enviar</button>
+    </form>
+    
+    <div id = "errorUserForm"
+         class = "errorUserForm" >
+    </div>
+    
+    
+    
+    </div>
+    </div>
+    <div id = "successUserForm" 
+         class = "successUserForm">
+    </div>
+    </div>
+    <!--<button id="goToLogin" class="hidden">
+        Click to go to LOGIN
+    </button>-->
+
+    <!--<div id="countMessage" style="color:orange;font-weight:600"></div>-->
+
+    
+      
+    <script src="../../public/js/basicSignUpConfigForm.js"></script>
+ 
+    <script src="../../public/js/basicSignUpForm.js"></script>
+ 
+
+      
+  
+      
+
+      
+    
+    
+</body>
+</html>
+

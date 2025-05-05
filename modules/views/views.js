@@ -52,7 +52,7 @@ class Views extends Auth{
 
     init(req,res){
 
-        res.sendFile(`${this.dirPathProject}/public/${this.frontTech}Views/init.html`)
+        res.sendFile(`${this.dirPathProject}/public/views/init.html`)
         
         /*
         this.checkSession(req,res).then(response=>{
@@ -68,23 +68,23 @@ class Views extends Auth{
 
     
     basicSignUp(req,res){
-        res.sendFile(`${this.dirPathProject}/public/${this.frontTech}Views/basicSignUpForm.html`); 
+        res.sendFile(`${this.dirPathProject}/public/views/basicSignUpForm.html`); 
     }
 
     basicLogin(req,res){
-        res.sendFile(`${this.dirPathProject}/public/${this.frontTech}Views/basicLoginForm.html`); 
+        res.sendFile(`${this.dirPathProject}/public/views/basicLoginForm.html`); 
     }
 
     basicStart(req,res){
-        res.sendFile(`${this.dirPathProject}/public/${this.frontTech}Views/startIndex.html`)
+        res.sendFile(`${this.dirPathProject}/public/views/startIndex.html`)
     }
 
     forgottenPasswordStepOne(req,res){
-        res.sendFile(`${this.dirPathProject}/public/${this.frontTech}Views/forgottenPasswordStepOne.html`)
+        res.sendFile(`${this.dirPathProject}/public/views/forgottenPasswordStepOne.html`)
     }
 
     forgottenPasswordStepTwo(req,res){
-        res.sendFile(`${this.dirPathProject}/public/${this.frontTech}Views/forgottenPasswordStepTwo.html`)
+        res.sendFile(`${this.dirPathProject}/public/views/forgottenPasswordStepTwo.html`)
     }
     
 }
