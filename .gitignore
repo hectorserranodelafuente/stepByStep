@@ -8,4 +8,15 @@ ejs/*/renderedHeadProduction/*.*
 ejs/*/renderedMain/*.*
 ejs/*/renderedMainCordova/*.*
 ejs/*/renderedMainProduction/*.*
+
+incrementalEjs/*/renderedCss/*.*
+incrementalEjs/*/renderedCssCordova/*.*
+incrementalEjs/*/renderedHead/*.*
+incrementalEjs/*/rendredHeadCordova/*.*
+incrementalEjs/*/renderedHeadProduction/*.*
+incrementalEjs/*/renderedMain/*.*
+incrementalEjs/*/renderedMainCordova/*.*
+incrementalEjs/*/renderedMainProduction/*.*
+
+
 modules/api
