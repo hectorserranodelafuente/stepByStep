@@ -253,6 +253,243 @@ task('cleanRenderedMain',function(){
          
 })
 
+
+
+function isView(_path){
+    
+    
+    const referenceViewInitPath = path.join(_env.development.dirPathProject,'viewInit')
+    
+    let firstPartToCompare = fs.readdirSync( _path, 'utf8' )
+    let secondPartToCompare = fs.readdirSync(referenceViewInitPath,`utf8`)
+
+    return firstPartToCompare.every( item =>{ 
+
+        return secondPartToCompare.includes(item)
+
+    }) && (firstPartToCompare.length===secondPartToCompare.length)
+
+
+}
+
+
+function checkedAllFolderStructure(nextParents){
+
+    return nextParents.every( item => item.isView )
+
+}
+
+/*
+################################# 
+        INCREMENTAL VIEWS
+#################################
+ */
+
+var levels = []
+
+function isView(_path){
+    
+    
+    const referenceViewInitPath = path.join(_env.development.dirPathProject,'viewInit')
+    
+    let firstPartToCompare = fs.readdirSync( _path, 'utf8' )
+    let secondPartToCompare = fs.readdirSync(referenceViewInitPath,`utf8`)
+
+    return firstPartToCompare.every( item =>{ 
+
+        return secondPartToCompare.includes(item)
+
+    }) && (firstPartToCompare.length===secondPartToCompare.length)
+
+
+}
+
+
+function checkedAllFolderStructure(nextParents){
+
+    return nextParents.every( item => item.isView )
+
+}
+
+
+// DEF: It returns a json containing completePath
+
+function runThroughBranchFromEndBranch( levelRegister, name ){
+    
+    
+    let _levelRegister, _name
+    let nextRegister
+    let segmentsPath = []
+
+    let originalLevelRegister, originalName
+
+
+    _levelRegister = levelRegister
+    _name = name
+    originalLevelRegister = levelRegister
+    originalName = name
+
+    do{
+        
+        nextRegister = levels.find( level => {
+
+            return ((level.level == _levelRegister) && (level.name===_name))
+        
+        })
+        
+        segmentsPath.unshift(nextRegister.name)
+            
+        _levelRegister = _levelRegister-1
+        
+        _name = nextRegister.parent
+        
+    
+    }while( _levelRegister > -1 )
+
+        let completePath = path.join(__dirname,'..') 
+        
+        segmentsPath.forEach( segment => {
+            
+            completePath = path.join( completePath, segment )
+
+        })
+    
+   
+    return { segmentsPath: segmentsPath, completePath: completePath }
+}
+
+task('incrementalViewsExtractInfo', function(){
+    
+    // Only posible structure of folders
+    
+    /*
+        folder
+            folder
+            folder
+                view
+    
+    */
+    
+    
+    // 1. getLevels
+    
+    let _limitRegister
+
+    levels = [
+            
+           {    
+                
+                level: 0,
+                actualParent:null,
+                name:'incrementalEjs',
+                isView:false,
+                completePath:path.join(__dirname,'..','incrementalEjs'),
+                finishedBranch:false
+            
+            }
+    ]
+    
+    // 2. completePaths
+    
+    let actualLevel = 0
+    
+    let listParents = []
+
+    let nextParents = [
+        { 
+            relativePath:`incrementalEjs`,       
+            name:'incrementalEjs', 
+            isView:false, 
+            completeParentPath: path.join(__dirname,'..','incrementalEjs') 
+        }
+    ]
+
+    let actualIndexListParents = 0
+
+    let limitAchieved = false
+
+    do{
+    
+        actualLevel++
+        listParents = [...nextParents]
+        
+        do {
+        
+            let actualParent = listParents[ actualIndexListParents ].relativePath
+            
+            if( ! listParents[ actualIndexListParents ].isView ){
+                
+                
+                let itemFolderstructure = fs.readdirSync( actualParent, 'utf8' )  
+                
+                
+                for(var item of itemFolderstructure ){  
+                    
+                    let completePath = path.join(listParents[actualIndexListParents].completeParentPath,item)
+
+                    let itemRegister = {    
+                        
+                        level: actualLevel,
+
+                        parent: listParents[ actualIndexListParents ].name,
+                        
+                        actualParent:actualParent,
+                        
+                        name:item,
+                        
+                        isView:isView( completePath ),
+                        
+                        completePath:completePath,
+                        
+                        finishedBranch:isView( completePath )
+                    
+                    }
+                    
+                    levels.push( itemRegister )
+
+
+                    let _completePath = runThroughBranchFromEndBranch( actualLevel , item  ).completePath
+
+                    
+                    nextParents.push( { 
+                        relativePath: `${actualParent}/${item}`, 
+                        name: item, isView:itemRegister.isView, 
+                        completeParentPath:_completePath 
+                    } )
+                
+                }
+            
+            }else{
+
+                if( levels.filter(item => (actualLevel == item.level)).every( item => item.isView )){
+                    
+                    limitAchieved = true
+                
+                }
+            
+            }
+
+            actualIndexListParents++
+            
+        
+        }while( actualIndexListParents <= ( listParents.length-1 ) )
+    
+    
+    
+    }while(!limitAchieved)
+
+
+    console.log(levels)
+
+
+})
+
+/*
+################################
+        END INCREMENTAL VIEWS
+################################
+*/
+
 task('cleanRenderedHeaders',function(){
     
     return src(path.join(path.join(path.join(__dirname,'..')),`ejs/*/renderedHead/*.*`)).pipe(clean()) 
@@ -392,3 +629,18 @@ exports.renderCordova = series(
 
 exports.renderDev = series('cleanRenderedHeaders','cleanRenderedMain','renderCssDevelopment','renderHeadersDevelopment','renderMainDevelopment','cleanViewsDev','mainsToDevelopment')
 exports.renderPro = series('cleanDist','cleanRenderedHeaders','cleanRenderedMain','renderHeadersProduction','renderMainProduction','mainsToProduction','minifyHTMLProduction','minifyJS','minifyBackendJS')
+
+exports.incrementalRenderDev = series(`incrementalViewsExtractInfo`)
+/*
+exports.incrementalRenderDev = series(
+    `incrementalCleanRenderedHeaders`
+    //'incrementalCleanRenderedHeaders'
+    //,
+    //'incrementalCleanRenderedMain',
+    //'incrementalRenderCssDevelopment',
+    //'incrementalRenderHeadersDevelopment'
+    //'incrementalRenderMainDevelopment',
+    //'incrementalCleanViewsDev',
+    //'incrementalMainsToDevelopment'
+)
+*/
