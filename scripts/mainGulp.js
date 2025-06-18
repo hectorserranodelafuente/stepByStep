@@ -27,7 +27,6 @@ const countFolders = async (directory) => {
 };
 
 
-
 function renderCss(environment,done){
     //console.log('renderCss')
     countFolders(path.join(path.join(path.join(__dirname,'..')),'ejs')).then(count => {
@@ -358,7 +357,7 @@ function runThroughBranchFromEndBranch( levelRegister, name ){
     return { segmentsPath: segmentsPath, completePath: completePath }
 }
 
-task('incrementalViewsExtractInfo', function(){
+task('incrementalViewsExtractInfo', function(done){
     
     // Only posible structure of folders
     
@@ -478,17 +477,276 @@ task('incrementalViewsExtractInfo', function(){
     
     }while(!limitAchieved)
 
+        console.log(JSON.stringify(levels))
+    done()
+    
 
-    console.log(levels)
+    // return levels
+
+})
+
+
+task(`incrementalCleanRenderedHeaders`, function(done){
+    
+    levels.filter(level=>level.isView).forEach( level => {
+        
+        let _path = path.join(`${level.completePath}`,`renderedHead/*.*`)
+       
+        src(_path).pipe(clean())
+    
+    })
+
+    done()
 
 
 })
 
+task(`incrementalCleanRenderedMain`,function(done){
+    
+     levels.filter(level=>level.isView).forEach( level => {
+
+        let _path = path.join(`${level.completePath}`,`renderedMain/*.*`)
+        
+        src(_path).pipe(clean())
+    
+    })
+
+    done()
+
+})
+
+
+function incrementalRenderCss(environment, done){
+    
+    console.log('incrementalRenderCss')
+    
+    levels.filter(level=>level.isView).forEach( (level, index) => {
+
+        let _path = path.join(`${ level.completePath }`,`argsHeadersEJS/args.js`)
+        let scriptCss = require(_path)
+        var renderedCss = 'renderedCss'
+        
+        let partial = 'cssHref' 
+        
+        if(environment=='production'){
+            renderedCss += 'Production'
+            partial += 'Production'
+        }
+        else if(environment=='cordova'){
+            renderedCss += 'Cordova'
+            partial += 'Cordova'
+        }
+
+        let _pathRender = path.join(`${ level.completePath }`,`partialsEJS/${partial}.ejs`)
+
+        
+        ejs.renderFile(_pathRender , scriptCss , async = true, function(err, str){    
+
+             if(!err){
+                
+                let _pathWrite = path.join( `${level.completePath}`, `${renderedCss}/cssHref.ejs`)
+                
+                fs.writeFileSync(_pathWrite, str, 'utf8'); 
+                
+                console.log( levels.length - 1 )
+                
+                console.log( index ) 
+                
+                if( levels.filter(level=>level.isView).length-1 == index ){
+                    
+                    done()
+                    
+                    console.log(`incrementalRenderCss - Done`)
+                }
+
+            }
+            if(err){
+                console.log(err)
+            }
+        
+        
+        }) 
+
+    })
+
+}
+
+
+
+
+task(`incrementalRenderCssDevelopment`, function(done){ 
+    
+    incrementalRenderCss(`development`, done)
+
+})
+
+
+
+function incrementalRenderHeaders(environment,done){
+    
+    console.log(`--incrementalRenderHeaders`)
+
+    levels.filter( level => level.isView ).forEach( (level, index) => {
+        
+        let _path = path.join(`${ level.completePath }`,`argsHeadersEJS/args.js`)
+        
+        console.log(`_path ${_path}`)
+        
+        let scriptNames = require(_path)
+
+        let renderedHead='renderedHead'
+        let partial='head'
+            
+            if(environment=='production'){
+                renderedHead += 'Production'
+                partial += 'Production'
+            }
+            else if(environment=='cordova'){
+                renderedHead += 'Cordova'
+                partial += 'Cordova'
+            }
+    
+        
+            let _pathRender = path.join(`${ level.completePath }`,`partialsEJS/${partial}.ejs`)
+    
+            ejs.renderFile( _pathRender, scriptNames , async = true, function(err, str){
+                
+                if(!err){
+                    
+                    let _pathWrite = path.join(`${level.completePath}`,`${renderedHead}/head.ejs`)
+                    
+                    console.log(`_pathWrite ${_pathWrite}`)
+                    
+                    fs.writeFileSync( _pathWrite, str, 'utf8'); 
+                    
+                    if(levels.filter(level=>level.isView).length-1){
+                        //console.log('done::renderHeaders')
+                        done()
+                    }
+                }
+                if(err){
+                    console.log(err)
+                }
+                
+            })
+    
+    
+    })
+    
+    
+    /*  ################################################################ */
+   
+
+}
+
+
+
+task(`incrementalRenderHeadersDevelopment`, function(done){ 
+    
+    incrementalRenderHeaders(`development`, done)
+
+})
+
+
+function incrementalRenderMain( environment, done ){
+
+    console.log(`incrementalRenderMain`)
+
+    levels.filter( level => level.isView ).forEach( (level, index) => {   
+    
+        let _path = path.join(`${ level.completePath }`,`mainEJS/main.ejs`) 
+        
+        console.log(`_path ${_path}`)
+    
+        ejs.renderFile(_path, {environment:environment} , async = true, function(err, str){
+                
+                if(!err){
+                    let renderedMain='renderedMain'
+                    if(environment=='production'){
+                        renderedMain += 'Production'
+                    }
+                    if(environment=='cordova'){
+                        renderedMain += 'Cordova'
+                    }
+                    let writePath = path.join(`${ level.completePath }`,`${renderedMain}/main.html`)
+                    
+                    fs.writeFileSync(writePath, str, 'utf8'); 
+                    
+                    if( index == levels.filter( level => level.isView ).length-1 ){
+                        done()
+                    }
+                }else{
+                    console.log(err)
+                }
+               
+            })
+        
+    
+    })
+
+}
+
+
+task(`incrementalRenderMainDevelopment`, function(done){ 
+    
+    incrementalRenderMain(`development`, done)
+
+})
+
+
+task('incrementalCleanViewsDev',function(){
+    let _path = path.join(path.join(path.join(__dirname,'..')),`public/incrementalViews/*.*`)
+    return src(_path).pipe(clean())
+})
+
+
+function incrementalMainsToFolder(environment,done){
+
+    levels.filter( level => level.isView ).forEach( (level, index) => { 
+            let _path = path.join(`${ level.completePath }`,`nameFileDest.js`)
+            let { name } = require(_path)
+            
+            let dist=''
+            let rendered=''
+            if(environment=='production'){
+                dist = "dist/"
+                rendered='Production'
+            }
+            if(environment=='cordova'){
+                dist= "cordova/views/"
+                rendered = 'Cordova'
+            }
+            
+            let _writePath = path.join(path.join(path.join(__dirname,'..')),`${dist}public/invcrementalViews`)
+            
+            fs.mkdirSync(_writePath, { recursive: true });
+            
+            let _originPath = path.join(`${ level.completePath }`,`renderedMain${rendered}/main.html`)
+            let _destinyPath = path.join(path.join(path.join(__dirname,'..')),`${dist}public/incrementalViews/${name}`)
+
+            fs.copyFileSync(_originPath,_destinyPath)
+            
+            if(index==levels.filter(level=>level.isView).length-1){
+                done()
+            }
+    
+    })
+
+}
+
+task('incrementalMainsToDevelopment',function(done){
+    incrementalMainsToFolder('development',done)
+})
+
+
+
 /*
 ################################
-        END INCREMENTAL VIEWS
+        END INCREMENTAL
 ################################
 */
+
+
 
 task('cleanRenderedHeaders',function(){
     
@@ -630,17 +888,13 @@ exports.renderCordova = series(
 exports.renderDev = series('cleanRenderedHeaders','cleanRenderedMain','renderCssDevelopment','renderHeadersDevelopment','renderMainDevelopment','cleanViewsDev','mainsToDevelopment')
 exports.renderPro = series('cleanDist','cleanRenderedHeaders','cleanRenderedMain','renderHeadersProduction','renderMainProduction','mainsToProduction','minifyHTMLProduction','minifyJS','minifyBackendJS')
 
-exports.incrementalRenderDev = series(`incrementalViewsExtractInfo`)
-/*
 exports.incrementalRenderDev = series(
-    `incrementalCleanRenderedHeaders`
-    //'incrementalCleanRenderedHeaders'
-    //,
-    //'incrementalCleanRenderedMain',
-    //'incrementalRenderCssDevelopment',
-    //'incrementalRenderHeadersDevelopment'
-    //'incrementalRenderMainDevelopment',
-    //'incrementalCleanViewsDev',
-    //'incrementalMainsToDevelopment'
+    `incrementalViewsExtractInfo`,
+    `incrementalCleanRenderedHeaders`,
+    `incrementalCleanRenderedMain`,
+    `incrementalRenderCssDevelopment`,
+    `incrementalRenderHeadersDevelopment`,
+    `incrementalRenderMainDevelopment`,
+    `incrementalCleanViewsDev`,
+    `incrementalMainsToDevelopment`
 )
-*/

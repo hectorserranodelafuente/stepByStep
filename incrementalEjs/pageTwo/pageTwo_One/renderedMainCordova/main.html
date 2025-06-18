@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Usuario</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+      
+  
+
+   
+
+    
+      
+    <link rel="stylesheet" href="../../css/basicLoginForm.css">
+
+
+    
+</head>
+
+<body>
+                <div 
+                    id="closeSessionMessage"
+                    class = "hidden"
+                    style = "position:fixed;
+                             top:10px;
+                             left:10px;
+                             padding:20px;
+                             border:solid gray 1px;">
+                     
+                    <div>
+                        <p> 
+                            <strong>
+                                Previous session could be opened, do you want to close them ? 
+                            </strong>
+                        </p>
+                    </div>
+                    <form id="questionCloseSession">
+                                <div style = "border:solid gray 1px;
+                                              height:20px;
+                                              padding:10px;">
+                                    <div style = "float:left;width:10%;">
+                                        <input type="radio" name="closeSession" value="yes">
+                                    </div>
+                                    <div style="float:right;
+                                                width:90%;
+                                                text-align:right;"> 
+                                        <strong>
+                                            Yes
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div style = "border:solid gray 1px;
+                                              height:20px;
+                                              padding:10px;">
+                                    <div style="float:left;width:10%">
+                                        <input type="radio" name="closeSession" value="no"> 
+                                    </div>
+                                    <div style="float:right;
+                                                width:90%;
+                                                text-align:right;"> 
+                                        <strong>    
+                                            No
+                                        </strong>
+                                    </div>
+                                </div>
+                        <div style="padding:10px;">    
+                            <button type="button" onclick="submitCloseSession()">Submit</button>
+                        </div>
+                        
+                    
+                    </form>
+                    
+                </div>
+    <div id="centeredDiv" class="centered-div centered-div-showed">
+       <div id="move-div" class="move-div-step1"> 
+        <div class="step1Container"> 
+                
+                
+
+                <p id="closeSessionResponse" class="hidden" style="color:orange;"></p>
+                <div class="centered-div-in">
+                <form id="userForm" class="showed">
+                    <label for="email">Usuario:</label>
+                    <input type="text" id="email" name="email"><br><br>
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" name="password"><br><br>
+                    <div class="buttonSend-container">
+                        <button type="button" onclick="submitForm()">Enviar</button>
+                    </div>    
+                </form>
+                
+                <div id="errorUserForm" class = "hidden" >
+                </div>
+
+                <div class="backCode">
+                    <button 
+                        type="button" 
+                        class="recoverPassword" 
+                        onClick="forgotPassword()">
+                            Do you forgot your password ?
+                    </button><s></s>
+                </div>
+
+            </div>
+            </div>
+            <div class="step2Container">
+                <div id="errorCodeForm"  
+                    class="hidden">
+                </div>
+                <div id = "messageCode"
+                     class = "hidden">
+                     
+                </div>
+                <div class="centered-div-in">
+                <form id="codeForm" class="hidden">
+                    <label for="code">Code:</label>
+                    <input type="text" id="code" name="code"><br><br>
+                    <div class="container-button-sendCode">
+                        <button type="button" onclick="submitCodeForm()">Enviar</button>
+                    </div>
+                </form>
+                </div>
+                
+                
+            </div>
+            
+        </div>
+        
+
+
+    </div>
+
+
+
+    
+  
+      
+
+      
+        
+    <script src="../../js/basicLoginForm.js"></script>
+  
+      
+    
+      
+      </body>
+</html>

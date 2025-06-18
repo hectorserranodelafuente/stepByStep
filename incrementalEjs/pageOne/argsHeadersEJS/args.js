@@ -1,3 +1,6 @@
 module.exports = {
-    scriptNames:['.js/example0.min.js','./js/example1.min.js']
+    scriptNames:['../../public/js/basicLoginForm'],
+    scriptNamesCordova:['../../js/basicLoginForm.js'],
+    scriptCss:['../../public/css/basicLoginForm.css'],
+    scriptCssCordova:['../../css/basicLoginForm.css']
 }

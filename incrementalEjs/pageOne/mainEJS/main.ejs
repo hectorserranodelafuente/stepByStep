@@ -1,14 +1,43 @@
-
 <!DOCTYPE html>
 <html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>PageOne</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+      
+  <% if (environment=='development') { %>
+    <%- include('../renderedCss/cssHref.ejs') %>
+    <% } %>
 
-<%- include('../renderedHead/head.ejs') %>
+   
+
+    <% if (environment=='cordova') { %>
+      <%- include('../renderedCssCordova/cssHref.ejs') %>
+    <% } %>
+
+</head>
 
 <body>
-  <!-- Incluir el encabezado -->
-  <main>
-    <p>Este es el contenido principal de la página.</p>
-  </main>
+    
+    <div>
+        That´s just pageOne
+    </div>
+    
 
-</body>
+
+
+    <% if (environment=='development') { %>
+      <%- include('../renderedHead/head.ejs') %>
+      <% } %>
+  
+      <% if (environment=='production') { %>
+        <%- include('../renderedHeadProduction/head.ejs') %>
+      <% } %>
+
+      <% if (environment=='cordova') { %>
+        <%- include('../renderedHeadCordova/head.ejs') %>
+      <% } %>
+    
+      
+      </body>
 </html>
