@@ -86,6 +86,19 @@ class Views extends Auth{
     forgottenPasswordStepTwo(req,res){
         res.sendFile(`${this.dirPathProject}/public/views/forgottenPasswordStepTwo.html`)
     }
+
+    pageOne(){
+        res.sendFile(`${this.dirPathProject}/public/incrementalViews/pageOne/pageOne.html`)
+    }
+
+    pageTwo_One(){
+        res.sendFile(`${this.dirPathProject}/public/incrementalViews/pageTwo/pageTwo_One/pageTwo_One.html`)
+    }
+
+    pageTwo_Two(){
+        res.sendFile(`${this.dirPathProject}/public/incrementalViews/pageTwo/pageTwo_Two/pageTwo_Two.html`)
+
+    }
     
 }
 
