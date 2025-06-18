@@ -12,6 +12,7 @@
     "renderPro": "node ./scripts/renderPro.js",
     "renderCordova": "node ./scripts/renderCordova.js",
     "renderIncremental":"node ./scripts/renderIncremental.js",
+    "renderIncrementalCordova":"node ./scripts/renderIncrementalCordova.js",
     "dist": "node ./scripts/production.js",
     "startDev": "node server.js -- environment=development",
     "integrateTheme": "node ./scripts/integrateTheme.js",

@@ -511,11 +511,47 @@ task(`incrementalCleanRenderedHeaders`, function(done){
 
 })
 
+
+task('incrementalCleanRenderedCordovaHeaders',function(done){
+    
+
+    levels.filter(level=>level.isView).forEach( level => {
+        
+        let _path = path.join(`${level.completePath}`,`renderedHeadCordova/*.*`)
+       
+        src(_path).pipe(clean())
+
+    
+    
+    })
+
+    done()
+
+})
+
+
+
+
 task(`incrementalCleanRenderedMain`,function(done){
     
      levels.filter(level=>level.isView).forEach( level => {
 
         let _path = path.join(`${level.completePath}`,`renderedMain/*.*`)
+        
+        src(_path).pipe(clean())
+    
+    })
+
+    done()
+
+})
+
+
+task(`incrementalCleanRenderedCordovaMain`,function(done){
+    
+     levels.filter(level=>level.isView).forEach( level => {
+
+        let _path = path.join(`${level.completePath}`,`renderedMainCordova/*.*`)
         
         src(_path).pipe(clean())
     
@@ -583,10 +619,16 @@ function incrementalRenderCss(environment, done){
 
 
 
-
 task(`incrementalRenderCssDevelopment`, function(done){ 
     
     incrementalRenderCss(`development`, done)
+
+})
+
+
+task(`incrementalRenderCssCordova`, function(done){ 
+    
+    incrementalRenderCss(`cordova`, done)
 
 })
 
@@ -657,6 +699,12 @@ task(`incrementalRenderHeadersDevelopment`, function(done){
 
 })
 
+task(`incrementalRenderHeadersCordova`, function(done){ 
+    
+    incrementalRenderHeaders(`cordova`, done)
+
+})
+
 
 function incrementalRenderMain( environment, done ){
 
@@ -703,6 +751,12 @@ function incrementalRenderMain( environment, done ){
 task(`incrementalRenderMainDevelopment`, function(done){ 
     
     incrementalRenderMain(`development`, done)
+
+})
+
+task(`incrementalRenderMainCordova`, function(done){ 
+    
+    incrementalRenderMain(`cordova`, done)
 
 })
 
@@ -759,6 +813,106 @@ function incrementalMainsToFolder(environment,done){
 
 task('incrementalMainsToDevelopment',function(done){
     incrementalMainsToFolder('development',done)
+})
+
+
+
+task('cleanIncrementalViewsCordova',function(){
+    
+    return src(path.join(path.join(path.join(__dirname,'..')),`cordova/*.*`)).pipe(clean())
+    
+    done()
+    
+})
+
+
+function incrementalMainsToCordova(environment,done){
+    
+    levels.filter( level => level.isView ).forEach( (level, index) => { 
+        
+            let _path = path.join(`${ level.completePath }`,`nameFileDest.js`)
+
+            let { name } = require(_path)
+            
+            let dist=''
+            let rendered=''
+            
+            if(environment=='production'){
+                dist = "dist/"
+                rendered='Production'
+            }
+            
+            if(environment=='cordova'){
+                dist= "cordova/"
+                rendered = 'Cordova'
+            }
+            
+            fs.mkdirSync(path.join(path.join(path.join(__dirname,'..')),`${dist}public/incrementalViews`), { recursive: true });
+            
+            
+            
+            let _originPath = path.join(`${ level.completePath }`,`renderedMain${rendered}/main.html`)
+
+           
+
+            let _destinyPath = path.join(path.join(path.join(path.join(path.join(__dirname,'..')),`${dist}/incrementalViews`),`${level.destinyViewsActualParent}/${level.name}`),`${name}`)
+
+            
+            
+            fsExtra.copySync(_originPath,_destinyPath)
+            
+            
+            if((levels.filter(level=>level.isView).length-1)==index){
+                
+                done()
+            
+            }
+    
+    
+    })
+    
+
+}
+
+task('incrementalMainsToCordova',function(done){
+
+    incrementalMainsToCordova('cordova',done)
+
+})
+
+task('incrementalCordovaToStepByStepCordova',function(){
+    //...
+    console.log(`incremental;ainsToCordova ${JSON.stringify(viewsDeclaration)}`)
+    
+    viewsDeclaration.filter(view=> (view.html == '/public/incrementalViews/')).forEach( jsonView => {
+        console.log('-')
+        try {
+
+            console.log(_env.development.dirPathCordovaViews)
+            console.log(_env.development.dirPathCordovaProject)
+            
+            let _pathOrigin = path.join(path.join(path.join(__dirname,'..'),'cordova'),path.join(`${jsonView.serviceName}`,`${jsonView.fileName}`))
+            let _pathDestiny =path.join(_env.development.dirPathCordovaProject,`${jsonView.serviceName}/${jsonView.fileName}`)
+           
+            
+            // let _pathDestiny = path.join(path.join(path.join(path.join(path.join(__dirname,'..')),`${dist}public/incrementalViews`),`${level.destinyViewsActualParent}/${level.name}`),`${name}`)
+
+            console.log(`_pathOrigin ${_pathOrigin}`)
+            console.log(`_pathDestiny ${_pathDestiny}`)
+            
+            fsExtra.copySync(_pathOrigin,_pathDestiny)
+            
+
+          } catch (err) {
+            console.error(err)
+          }
+    
+    
+    })
+
+    fsExtra.copySync(path.join(__dirname, '..','public/js'),path.join(_env.development.dirPathCordovaProject,'js'))
+    fsExtra.copySync(path.join(__dirname, '..','public/css'),path.join(_env.development.dirPathCordovaProject,'css'))
+    
 })
 
 
@@ -920,4 +1074,18 @@ exports.incrementalRenderDev = series(
     `incrementalRenderMainDevelopment`,
     `incrementalCleanViewsDev`,
     `incrementalMainsToDevelopment`
+)
+
+
+
+exports.incrementalRenderCordova = series(
+    `incrementalViewsExtractInfo`,
+    'incrementalCleanRenderedCordovaHeaders',
+    'incrementalCleanRenderedCordovaMain',
+    'incrementalRenderCssCordova',
+    'incrementalRenderHeadersCordova',
+    'incrementalRenderMainCordova',
+    'cleanIncrementalViewsCordova',
+    'incrementalMainsToCordova',
+    'incrementalCordovaToStepByStepCordova'
 )
