@@ -420,7 +420,15 @@ task('incrementalViewsExtractInfo', function(done){
                 
                 
                 let itemFolderstructure = fs.readdirSync( actualParent, 'utf8' )  
-                
+                /*
+                console.log(`#############`)
+
+                console.log(`actualParent ${actualParent}`)
+
+                console.log(actualParent.split('/').filter( el => el !== "incrementalEjs" ).join('/'))
+
+                console.log(`#############`)
+                */
                 
                 for(var item of itemFolderstructure ){  
                     
@@ -433,6 +441,8 @@ task('incrementalViewsExtractInfo', function(done){
                         parent: listParents[ actualIndexListParents ].name,
                         
                         actualParent:actualParent,
+                        
+                        destinyViewsActualParent:actualParent.split('/').filter( el => el !== levels.find(level=>level.level==0).name ).join('/'),
                         
                         name:item,
                         
@@ -661,6 +671,7 @@ function incrementalRenderMain( environment, done ){
         ejs.renderFile(_path, {environment:environment} , async = true, function(err, str){
                 
                 if(!err){
+                    
                     let renderedMain='renderedMain'
                     if(environment=='production'){
                         renderedMain += 'Production'
@@ -669,6 +680,8 @@ function incrementalRenderMain( environment, done ){
                         renderedMain += 'Cordova'
                     }
                     let writePath = path.join(`${ level.completePath }`,`${renderedMain}/main.html`)
+                    
+                    console.log(` WritePath ${ writePath }`)
                     
                     fs.writeFileSync(writePath, str, 'utf8'); 
                     
@@ -702,7 +715,10 @@ task('incrementalCleanViewsDev',function(){
 
 function incrementalMainsToFolder(environment,done){
 
+    console.log( `levels => ${JSON.stringify(levels)}`)
+
     levels.filter( level => level.isView ).forEach( (level, index) => { 
+            
             let _path = path.join(`${ level.completePath }`,`nameFileDest.js`)
             let { name } = require(_path)
             
@@ -717,14 +733,21 @@ function incrementalMainsToFolder(environment,done){
                 rendered = 'Cordova'
             }
             
-            let _writePath = path.join(path.join(path.join(__dirname,'..')),`${dist}public/invcrementalViews`)
+            let _writePath = path.join(path.join(path.join(__dirname,'..')),`${dist}public/incrementalViews`)
             
             fs.mkdirSync(_writePath, { recursive: true });
             
             let _originPath = path.join(`${ level.completePath }`,`renderedMain${rendered}/main.html`)
-            let _destinyPath = path.join(path.join(path.join(__dirname,'..')),`${dist}public/incrementalViews/${name}`)
+            
+            // console.log(JSON.stringify(level))
 
-            fs.copyFileSync(_originPath,_destinyPath)
+            // console.log(`_originPath ${_originPath}`)
+
+            let _destinyPath = path.join(path.join(path.join(path.join(path.join(__dirname,'..')),`${dist}public/incrementalViews`),`${level.destinyViewsActualParent}/${level.name}`),`${name}`)
+
+            // console.log(`_destinyPath ${_destinyPath}`)
+            
+            fsExtra.copySync(_originPath,_destinyPath)
             
             if(index==levels.filter(level=>level.isView).length-1){
                 done()
