@@ -1,5 +1,7 @@
 # stepByStep
+<div style="width: 50%; height: auto;">
 ![](documentation/img/logoStepByStep.jpg)
+</div>
 a 2FA code structure that uses email as second step item receiver.
 
 ## Create dev dataBase
