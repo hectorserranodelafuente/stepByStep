@@ -56,7 +56,7 @@
     "sqlite3": "^5.1.7",
     "stepByStep-back-node-sqlite": "git+https://github.com/hectorserranodelafuente/stepByStep-back-node-sqlite.git#v1.0.0",
     "stepByStep-plugin-sms-labsMobile": "git+https://github.com/hectorserranodelafuente/stepByStep-plugin-sms-labsMobile.git#c199aa67a512b1e9a20a1270fba27b146ea5e3b8",
-    "theme-default": "git+https://github.com/hectorserranodelafuente/stepByStep-front-vanilla-theme-default.git#48e7c6fe448f9da4183b465647f9d468ed49a01c",
+    "theme-default": "git+https://github.com/hectorserranodelafuente/stepByStep-front-vanilla-theme-default.git#aac5454d5d8e6d0c6bf9ae047f9af4e8355d7bce",
     "uglify-js": "^3.19.3",
     "ws": "^8.18.1"
   },
