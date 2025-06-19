@@ -174,26 +174,49 @@ task('renderMainCordova',function(done){
 function mainsToFolder(environment,done){
 
     countFolders(path.join(path.join(path.join(__dirname,'..')),'ejs')).then(count => {
+        
         for(var i=0;i<count;i++){
-            let { name } = require(`../ejs/view${i+1}/nameFileDest.js`)
             
+            let { name } = require(`../ejs/view${i+1}/nameFileDest.js`)
             let dist=''
+            let _pathMkdirDestiny = ''
+            
             let rendered=''
+            
             if(environment=='production'){
+                
                 dist = "dist/"
+                _pathMkdirDestiny = `${dist}public/views`
+                _pathCopyDestiny = `${dist}public/views/${name}`
                 rendered='Production'
             }
             if(environment=='cordova'){
-                dist= "cordova/views/"
+                
+                dist= "cordova/views"
+                _pathMkdirDestiny = `${dist}`
+                _pathCopyDestiny = `${dist}/${name}` 
                 rendered = 'Cordova'
             }
-            fs.mkdirSync(path.join(path.join(path.join(__dirname,'..')),`${dist}public/views`), { recursive: true });
-            fs.copyFileSync(path.join(path.join(path.join(__dirname,'..')),`ejs/view${i+1}/renderedMain${rendered}/main.html`),path.join(path.join(path.join(__dirname,'..')),`${dist}public/views/${name}`))
+            
+            //console.log( `_pathMkdirDestiny ${_pathMkdirDestiny}`)
+            //console.log( `_pathCoyDestiny ${_pathCopyDestiny}` )
+            
+            if(i==0){
+
+                fs.mkdirSync(path.join(path.join(path.join(__dirname,'..')), _pathMkdirDestiny ), { recursive: true });
+            
+            }
+
+            //console.log( path.join(path.join(path.join(__dirname,'..')),_pathCopyDestiny ))
+
+            fs.copyFileSync(path.join(path.join(path.join(__dirname,'..')),`ejs/view${i+1}/renderedMain${rendered}/main.html`),path.join(path.join(path.join(__dirname,'..')),_pathCopyDestiny ))
+            
             if((count-1)==i){
                 done()
             }
         
         }
+
     });
 
 }
@@ -209,7 +232,11 @@ console.log('mainsToCordova')
     viewsDeclaration.forEach( jsonView => {
         //console.log('->',path.join(_env.development.dirPathCordovaViews,'public',jsonView.fileName))
         //console.log(path.join(_env.development.dirPathCordovaProject,jsonView.serviceName,jsonView.fileName))
+        
         try {
+            
+            //console.log('1',path.join(_env.development.dirPathCordovaViews,jsonView.fileName))
+            //console.log('2',path.join(_env.development.dirPathCordovaProject,jsonView.serviceName,jsonView.fileName))
             
             fsExtra.copySync(path.join(_env.development.dirPathCordovaViews,jsonView.fileName), path.join(_env.development.dirPathCordovaProject,jsonView.serviceName,jsonView.fileName))
             
@@ -221,8 +248,8 @@ console.log('mainsToCordova')
     
     })
 
-    fsExtra.copySync(path.join(__dirname, '..','public/js'),path.join(_env.development.dirPathCordovaProject,'js'))
-    fsExtra.copySync(path.join(__dirname, '..','public/css'),path.join(_env.development.dirPathCordovaProject,'css'))
+    //fsExtra.copySync(path.join(__dirname, '..','public/js'),path.join(_env.development.dirPathCordovaProject,'js'))
+    //fsExtra.copySync(path.join(__dirname, '..','public/css'),path.join(_env.development.dirPathCordovaProject,'css'))
     
 })
 
@@ -243,7 +270,7 @@ task('cleanViewsPro',function(){
 })
 
 task('cleanViewsCordova',function(){
-    return src(path.join(path.join(path.join(__dirname,'..')),`cordova/*.*`)).pipe(clean())
+    return src(path.join(path.join(path.join(__dirname,'..')),`cordova/views/*`)).pipe(clean())
 })
 
 task('cleanRenderedMain',function(){
@@ -910,8 +937,8 @@ task('incrementalCordovaToStepByStepCordova',function(){
     
     })
 
-    fsExtra.copySync(path.join(__dirname, '..','public/js'),path.join(_env.development.dirPathCordovaProject,'js'))
-    fsExtra.copySync(path.join(__dirname, '..','public/css'),path.join(_env.development.dirPathCordovaProject,'css'))
+    //fsExtra.copySync(path.join(__dirname, '..','public/js'),path.join(_env.development.dirPathCordovaProject,'js'))
+    //fsExtra.copySync(path.join(__dirname, '..','public/css'),path.join(_env.development.dirPathCordovaProject,'css'))
     
 })
 
@@ -1045,10 +1072,18 @@ task('cloneApi',function(){
     fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/scriptsDb/createDbTest.js`),  path.join(__dirname,'..','/script/createDbTest.js'))
 })
 
+task('transportCordovaCssJs',function(done){
+    
+    fsExtra.copySync(path.join(__dirname, '..','public/js'),path.join(_env.development.dirPathCordovaProject,'js'))
+    fsExtra.copySync(path.join(__dirname, '..','public/css'),path.join(_env.development.dirPathCordovaProject,'css'))
+    done()
+
+})
 
 // exports.production = series('cleanDist','uglifyJS','minifyHTML')
 
 exports.integrateTheme = series('cloneTheme')
+
 exports.integrateAPI = series('cloneApi')
 
 exports.renderCordova = series(
@@ -1059,8 +1094,13 @@ exports.renderCordova = series(
     'renderMainCordova',
     'cleanViewsCordova',
     'mainsToCordova',
-    'cordovaToStepByStepCordova'
 )
+
+exports.transportCordovaViews = series('cordovaToStepByStepCordova')
+
+exports.transportCordovaCssJs = series('transportCordovaCssJs')
+
+
 
 exports.renderDev = series('cleanRenderedHeaders','cleanRenderedMain','renderCssDevelopment','renderHeadersDevelopment','renderMainDevelopment','cleanViewsDev','mainsToDevelopment')
 exports.renderPro = series('cleanDist','cleanRenderedHeaders','cleanRenderedMain','renderHeadersProduction','renderMainProduction','mainsToProduction','minifyHTMLProduction','minifyJS','minifyBackendJS')
@@ -1087,5 +1127,6 @@ exports.incrementalRenderCordova = series(
     'incrementalRenderMainCordova',
     'cleanIncrementalViewsCordova',
     'incrementalMainsToCordova',
-    'incrementalCordovaToStepByStepCordova'
 )
+
+exports.transportIncrementalCordovaViews = series('incrementalCordovaToStepByStepCordova') 
