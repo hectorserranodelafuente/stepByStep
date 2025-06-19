@@ -1,6 +1,7 @@
 const { task,series,src, dest } = require('gulp');
-const babel = require('gulp-babel');
+const babel = require('gulp-babel')
 const uglify = require('gulp-uglify')
+const csso = require('gulp-csso')
 const rename=require('gulp-rename')
 const clean = require('gulp-clean')
 const gulp = require('gulp')
@@ -599,14 +600,16 @@ function incrementalRenderCss(environment, done){
     levels.filter(level=>level.isView).forEach( (level, index) => {
 
         let _path = path.join(`${ level.completePath }`,`argsHeadersEJS/args.js`)
+        
         let scriptCss = require(_path)
+        
         var renderedCss = 'renderedCss'
         
         let partial = 'cssHref' 
         
         if(environment=='production'){
-            renderedCss += 'Production'
-            partial += 'Production'
+            //renderedCss += 'renderedCss'
+            partial += ''
         }
         else if(environment=='cordova'){
             renderedCss += 'Cordova'
@@ -622,6 +625,8 @@ function incrementalRenderCss(environment, done){
                 
                 let _pathWrite = path.join( `${level.completePath}`, `${renderedCss}/cssHref.ejs`)
                 
+                console.log(`_pathWrite ${_pathWrite}`)
+
                 fs.writeFileSync(_pathWrite, str, 'utf8'); 
                 
                 console.log( levels.length - 1 )
@@ -652,6 +657,13 @@ function incrementalRenderCss(environment, done){
 task(`incrementalRenderCssDevelopment`, function(done){ 
     
     incrementalRenderCss(`development`, done)
+
+})
+
+
+task(`incrementalRenderCssProduction`, function(done){ 
+    
+    incrementalRenderCss(`production`, done)
 
 })
 
@@ -735,6 +747,12 @@ task(`incrementalRenderHeadersCordova`, function(done){
 
 })
 
+task(`incrementalRenderHeadersProduction`, function(done){ 
+    
+    incrementalRenderHeaders(`production`, done)
+
+})
+
 
 function incrementalRenderMain( environment, done ){
 
@@ -791,6 +809,13 @@ task(`incrementalRenderMainCordova`, function(done){
 })
 
 
+task(`incrementalRenderMainProduction`, function(done){ 
+    
+    incrementalRenderMain(`production`, done)
+
+})
+
+
 task('incrementalCleanViewsDev',function(){
     let _path = path.join(path.join(path.join(__dirname,'..')),`public/incrementalViews/*.*`)
     return src(_path).pipe(clean())
@@ -810,7 +835,7 @@ function incrementalMainsToFolder(environment,done){
             let rendered=''
             if(environment=='production'){
                 dist = "dist/"
-                rendered='Production'
+                rendered = 'Production'
             }
             if(environment=='cordova'){
                 dist= "cordova/views/"
@@ -844,6 +869,12 @@ function incrementalMainsToFolder(environment,done){
 task('incrementalMainsToDevelopment',function(done){
     incrementalMainsToFolder('development',done)
 })
+
+
+task('incrementalMainsToProduction',function(done){
+    incrementalMainsToFolder('production',done)
+})
+
 
 
 
@@ -950,6 +981,18 @@ task('incrementalCordovaToStepByStepCordova', function(done){
     
 })
 
+    
+    task(`incrementalMinifyHTMLProduction`,function(done){
+        
+        return gulp.src('dist/public/incrementalViews/*/*.html')
+                    .pipe(htmlmin({ collapseWhitespace: true }))
+                    .pipe(gulp.dest('dist/public/incrementalViews'));
+        
+    
+    })
+
+    
+
 
 
 /*
@@ -988,6 +1031,10 @@ task('minifyJS',function(){
     .pipe(uglify())
     .pipe(rename({ extname:'.min.js' }))
     .pipe(dest('dist/public/js'))
+})
+
+task('moveCSSPro',function(){
+    return src('public/css/*.css').pipe(csso()).pipe(dest('dist/public/css'))
 })
 
 
@@ -1109,9 +1156,46 @@ exports.transportCordovaViews = series('cordovaToStepByStepCordova')
 exports.transportCordovaCssJs = series('transportCordovaCssJs')
 
 
+exports.renderDev = series(
+    'cleanRenderedHeaders',
+    'cleanRenderedMain',
+    'renderCssDevelopment',
+    'renderHeadersDevelopment',
+    'renderMainDevelopment',
+    'cleanViewsDev',
+    'mainsToDevelopment')
 
-exports.renderDev = series('cleanRenderedHeaders','cleanRenderedMain','renderCssDevelopment','renderHeadersDevelopment','renderMainDevelopment','cleanViewsDev','mainsToDevelopment')
-exports.renderPro = series('cleanDist','cleanRenderedHeaders','cleanRenderedMain','renderHeadersProduction','renderMainProduction','mainsToProduction','minifyHTMLProduction','minifyJS','minifyBackendJS')
+
+
+
+
+exports.cleanDist = series('cleanDist')
+
+
+exports.renderPro = series(
+    'cleanDist',
+    'cleanRenderedHeaders',
+    'cleanRenderedMain',
+    'renderHeadersProduction',
+    'renderMainProduction',
+    'mainsToProduction',
+    'minifyHTMLProduction',
+    'minifyJS',
+    'minifyBackendJS'
+)
+
+
+exports.incrementalRenderPro = series(
+    `incrementalViewsExtractInfo`,
+    `incrementalCleanRenderedHeaders`,
+    `incrementalCleanRenderedMain`,
+    `incrementalRenderCssProduction`,
+    `incrementalRenderHeadersProduction`,
+    `incrementalRenderMainProduction`,
+    `incrementalMainsToProduction`,
+    `incrementalMinifyHTMLProduction`,
+    `moveCSSPro`
+)
 
 exports.incrementalRenderDev = series(
     `incrementalViewsExtractInfo`,
