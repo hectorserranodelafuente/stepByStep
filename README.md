@@ -1,4 +1,5 @@
 # stepByStep
+![](documentation/img/logoStepByStep.jpg)
 a 2FA code structure that uses email as second step item receiver.
 
 ## Create dev dataBase
