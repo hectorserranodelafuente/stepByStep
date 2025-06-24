@@ -185,7 +185,16 @@ async function  main() {
     })
     
     
+    /**************** INCREMENTAL API ******************/
+
+
+
+
+
+
+
     
+    /*************** END INCREMENTAL API ***************/
     
     viewsRegister.forEach( view => {
 
