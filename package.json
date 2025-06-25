@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node ./test/wsServer.js -- environment=test",
-    "createView": "node ./scripts/createView.js",
+    "createNonPersistentView": "node ./scripts/createView.js",
     "createDbDev": "node ./scripts/createDbDev.js",
     "createDbPro": "node ./scripts/createDbPro.js",
     "createDbTest": "node ./scripts/createDbTest.js",
