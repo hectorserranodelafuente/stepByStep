@@ -1121,6 +1121,7 @@ task('cloneApi',function(){
     
     // console.log(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}`))
     fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/api`), path.join(__dirname,'..','/modules/api'))
+    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/incrementalAPI`), path.join(__dirname,'..','/modules/incrementalApi'))
     fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/test`), path.join(__dirname,'..','/test'))
     fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/scriptsDb/createDbDev.js`),  path.join(__dirname,'..','/scripts/createDbDev.js'))
     fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/scriptsDb/createDbPro.js`), path.join(__dirname,'..','/scripts/createDbPro.js'))

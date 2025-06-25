@@ -54,7 +54,7 @@
     "rimraf": "^6.0.1",
     "sib-api-v3-sdk": "^8.5.0",
     "sqlite3": "^5.1.7",
-    "stepByStep-back-node-sqlite": "git+https://github.com/hectorserranodelafuente/stepByStep-back-node-sqlite.git#v1.0.0",
+    "stepByStep-back-node-sqlite": "git+https://github.com/hectorserranodelafuente/stepByStep-back-node-sqlite.git#ea247d0137dfab0bda7c9f196e5464b5aad2e96a",
     "stepByStep-plugin-sms-labsMobile": "git+https://github.com/hectorserranodelafuente/stepByStep-plugin-sms-labsMobile.git#c199aa67a512b1e9a20a1270fba27b146ea5e3b8",
     "theme-default": "git+https://github.com/hectorserranodelafuente/stepByStep-front-vanilla-theme-default.git#aac5454d5d8e6d0c6bf9ae047f9af4e8355d7bce",
     "uglify-js": "^3.19.3",
