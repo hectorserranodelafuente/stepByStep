@@ -12,6 +12,8 @@ const confCordova = require('./confCordova.js')
 
 const confLogs = require('./confLog.js')
 
+const confAI = require('./confAI.js')
+
 let dev = {
     
     dirPathProject: path.join(__dirname, ''),
@@ -27,7 +29,8 @@ let dev = {
     confEmail:true,
     confSMS:confSMS,
     frontTheme:confFrontTheme.name,
-    backAPI:confBackAPI.name
+    backAPI:confBackAPI.name,
+    confAI:confAI
 
 }
 
