@@ -59,7 +59,12 @@ async function  main() {
 
     const CheckSession = require('./modules/api/checkSession.js') 
     const inst_checkSession = new CheckSession(process.argv)
-    
+
+    const PageOneExample = require('./modules/incrementalApi/pageOneExample.js') 
+    const inst_yogaList = new PageOneExample()
+
+
+
     cron.schedule('*/2 * * * *', () => {
       console.log('running a task every 2 minute');
       
@@ -187,7 +192,9 @@ async function  main() {
     
     /**************** INCREMENTAL API ******************/
 
-
+    app.get('/incrementalApi/yogaDisciplines',(req,res)=>{
+      inst_yogaList.yogaDisciplines(req,res)
+    })
 
 
 
