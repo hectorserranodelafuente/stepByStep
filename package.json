@@ -31,6 +31,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@google/genai": "^1.7.0",
     "archiver": "^7.0.1",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
@@ -54,7 +55,7 @@
     "rimraf": "^6.0.1",
     "sib-api-v3-sdk": "^8.5.0",
     "sqlite3": "^5.1.7",
-    "stepByStep-back-node-sqlite": "git+https://github.com/hectorserranodelafuente/stepByStep-back-node-sqlite.git#ea247d0137dfab0bda7c9f196e5464b5aad2e96a",
+    "stepByStep-back-node-sqlite": "git+https://github.com/hectorserranodelafuente/stepByStep-back-node-sqlite.git#0a09fe35268faa612d1978883b90625a18f0ae95",
     "stepByStep-plugin-sms-labsMobile": "git+https://github.com/hectorserranodelafuente/stepByStep-plugin-sms-labsMobile.git#c199aa67a512b1e9a20a1270fba27b146ea5e3b8",
     "theme-default": "git+https://github.com/hectorserranodelafuente/stepByStep-front-vanilla-theme-default.git#aac5454d5d8e6d0c6bf9ae047f9af4e8355d7bce",
     "uglify-js": "^3.19.3",
