@@ -181,7 +181,7 @@ function mainsToFolder(environment,done){
             let { name } = require(`../ejs/view${i+1}/nameFileDest.js`)
             let dist=''
             let _pathMkdirDestiny = ''
-            
+            let _pathCopyDestiny = `public/views/${name}`
             let rendered=''
             
             if(environment=='production'){
@@ -713,8 +713,8 @@ function incrementalRenderHeaders(environment,done){
                     
                     fs.writeFileSync( _pathWrite, str, 'utf8'); 
                     
-                    if(levels.filter(level=>level.isView).length-1){
-                        //console.log('done::renderHeaders')
+                    if(index==levels.filter(level=>level.isView).length-1){
+                        console.log('done::renderHeaders')
                         done()
                     }
                 }
@@ -816,9 +816,12 @@ task(`incrementalRenderMainProduction`, function(done){
 })
 
 
-task('incrementalCleanViewsDev',function(){
+task('incrementalCleanViewsDev',function(done){
+    console.log('*********')
     let _path = path.join(path.join(path.join(__dirname,'..')),`public/incrementalViews/*.*`)
-    return src(_path).pipe(clean())
+    console.log("--PATH--",_path)
+    src(_path).pipe(clean())
+    done()
 })
 
 
