@@ -10,9 +10,7 @@ const views = [
 ]
 
 const incrementalViews = [
-    { html:'/public/incrementalViews/',fileName:'pageOne.html',serviceName:'/incrementalViews/pageOne', serviceCore:'basicStart' },
-    { html:'/public/incrementalViews/',fileName:'pageTwo_One.html',serviceName:'/incrementalViews/pageTwo/pageTwo_One', serviceCore:'forgottenPasswordStepOne' },
-    { html:'/public/incrementalViews/',fileName:'pageTwo_Two.html',serviceName:'/incrementalViews/pageTwo/pageTwo_Two', serviceCore:'forgottenPasswordStepTwo' }
+    { html:'/public/incrementalViews/',fileName:'pageOne.html',serviceName:'/incrementalViews/pageOne', serviceCore:'pageOne' }
 
 ]
 
