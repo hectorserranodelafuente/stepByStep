@@ -1196,15 +1196,15 @@ task('cloneTheme',function(done){
 
 
 task('cleanPreviousCloneApi_Api',function(done){
-   
-    return src(path.join(path.join(__dirname,'..'),'modules/api/*.*')).pipe(clean())
+
+    fsExtra.removeSync(path.join(path.join(__dirname,'..'),'modules/api/*.*'))
 
     done()
 })
 
 task('cleanPreviousCloneApi_IncrementalApi',function(done){
     
-    return src(path.join(path.join(__dirname,'..'),'modules/incrementalApi/*.*')).pipe(clean())
+    fsExtra.removeSync(path.join(path.join(__dirname,'..'),'modules/incrementalApi/*.*'))
     
     done()
 })
