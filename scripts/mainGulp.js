@@ -1,4 +1,4 @@
-const { task,series,src, dest } = require('gulp');
+const { task,series,src, dest,parallel } = require('gulp');
 const babel = require('gulp-babel')
 const uglify = require('gulp-uglify')
 const csso = require('gulp-csso')
@@ -9,6 +9,7 @@ const ejs = require('ejs')
 const fs = require('fs')
 const path = require('path')
 const fsExtra= require('fs-extra')
+//const del = require('del')
 const htmlmin = require('gulp-htmlmin');
 const viewsDeclaration = require(path.join(__dirname,'..','/modules/views/viewsDeclaration.js'))
 const _env = require(path.join(__dirname,'..','env.js'))
@@ -1101,16 +1102,84 @@ task('minifyHTML',function(){
 })
 
 task('cleanDist',function(){
+    
     return src(path.join(path.join(path.join(__dirname,'..')),`dist/*`)).pipe(clean()) 
 
 })
 
 
-
-task('cloneTheme',function(){
+task('cleanPreviousCloneThemeEjs',function(done){
     
-    // console.log(_env)
-    // console.log(path.join(__dirname,'..',`/node_modules/${_env.development.frontTheme}/views`))
+
+    
+    let _path = path.join(path.join(__dirname,'..'),'ejs')
+    fs.readdirSync( _path, 'utf8' ).forEach(folder=>{
+        console.log(folder)
+        fsExtra.removeSync(path.join(_path,`${folder}`))
+    })
+    
+    done()
+ 
+})
+
+task('cleanPreviousCloneThemeJs',function(done){
+    
+
+    let _path = path.join(path.join(__dirname,'..'),'public/js')
+    fs.readdirSync( _path, 'utf8' ).forEach(file=>{
+        
+        fsExtra.removeSync(path.join(_path,`${file}`))
+    })
+    
+    done()
+
+
+})
+
+task('cleanPreviousCloneThemeCss',function(done){
+    
+    let _path = path.join(path.join(__dirname,'..'),'public/css')
+    fs.readdirSync( _path, 'utf8' ).forEach(file=>{
+        fsExtra.removeSync(path.join(_path,`${file}`))
+    })
+    
+    done()
+    
+   
+})
+
+task('cleanPreviousCloneThemeImg',function(done){
+    
+    let _path = path.join(path.join(__dirname,'..'),'/public/img')
+    fs.readdirSync( _path, 'utf8' ).forEach(folder=>{
+        
+        fsExtra.removeSync(path.join(_path,`${folder}`))
+    })
+    
+    done()
+    
+
+})
+
+task('cleanPreviousCloneThemeIncrementalEjs',function(done){
+
+
+    let _path = path.join(path.join(__dirname,'..'),'incrementalEjs')
+
+    fs.readdirSync( _path, 'utf8' ).forEach(folder=>{
+        
+        fsExtra.removeSync(path.join(_path,`${folder}`))
+        
+    })
+    
+    done()
+    
+})
+
+
+
+task('cloneTheme',function(done){
+    
     
     fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.frontTheme}/theme/ejs`),path.join(__dirname,'..','/ejs'))
     fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.frontTheme}/theme/js`), path.join(__dirname,'..','/public/js'))
@@ -1118,7 +1187,67 @@ task('cloneTheme',function(){
     fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.frontTheme}/theme/img`),  path.join(__dirname,'..','/public/img'))
     fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.frontTheme}/theme/incrementalEjs`),  path.join(__dirname,'..','/incrementalEjs'))
 
+
+    done()
 })
+
+
+
+
+
+task('cleanPreviousCloneApi_Api',function(done){
+   
+    return src(path.join(path.join(__dirname,'..'),'modules/api/*.*')).pipe(clean())
+
+    done()
+})
+
+task('cleanPreviousCloneApi_IncrementalApi',function(done){
+    
+    return src(path.join(path.join(__dirname,'..'),'modules/incrementalApi/*.*')).pipe(clean())
+    
+    done()
+})
+
+task('cleanPreviousCloneApi_Test',function(done){
+    
+    let _path = path.join(path.join(__dirname,'..'),'test')
+
+    fs.readdirSync( _path, 'utf8' ).forEach(folder=>{
+        
+        src(path.join(_path,`${folder}`),{allowEmpty:true}).pipe(clean())
+    })
+    
+    done()
+
+})
+
+task('cleanPreviousCloneApi_DbDev',function(done){
+    
+    fsExtra.removeSync(path.join(path.join(__dirname,'..'),'scripts/createDbDev.js'))
+
+    done()
+
+})
+
+task('cleanPreviousCloneApi_DbPro',function(done){
+    
+    fsExtra.removeSync(path.join(path.join(__dirname,'..'),'scripts/createDbPro.js'))
+
+    done()
+
+})
+
+task('cleanPreviousCloneApi_DbTest',function(done){
+    
+    fsExtra.removeSync(path.join(path.join(__dirname,'..'),'script/createDbTest.js'))
+    
+    done()
+
+})
+
+
+
 
 task('cloneApi',function(){
     
@@ -1141,9 +1270,25 @@ task('transportCordovaCssJs',function(done){
 
 // exports.production = series('cleanDist','uglifyJS','minifyHTML')
 
-exports.integrateTheme = series('cloneTheme')
 
-exports.integrateAPI = series('cloneApi')
+
+exports.integrateTheme = series(
+    'cleanPreviousCloneThemeEjs',
+    'cleanPreviousCloneThemeJs',
+    'cleanPreviousCloneThemeCss',
+    'cleanPreviousCloneThemeImg',
+    'cleanPreviousCloneThemeIncrementalEjs',
+    'cloneTheme')
+
+
+exports.integrateAPI = series(
+    'cleanPreviousCloneApi_Api',
+    'cleanPreviousCloneApi_IncrementalApi',
+    'cleanPreviousCloneApi_Test',
+    'cleanPreviousCloneApi_DbDev',
+    'cleanPreviousCloneApi_DbPro',
+    'cleanPreviousCloneApi_DbTest',
+    'cloneApi')
 
 exports.renderCordova = series(
     'cleanRenderedCordovaHeaders',
