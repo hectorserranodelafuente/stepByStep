@@ -66,13 +66,22 @@ class Views extends Auth{
 
     }
 
+
+
     
     basicSignUp(req,res){
+        
         res.sendFile(`${this.dirPathProject}/public/views/basicSignUpForm.html`); 
     }
 
     basicLogin(req,res){
+        
         res.sendFile(`${this.dirPathProject}/public/views/basicLoginForm.html`); 
+    }
+
+    loadingPage(req,res){
+        
+        res.sendFile(`${this.dirPathProject}/public/views/loading.html`)       
     }
 
     basicStart(req,res){

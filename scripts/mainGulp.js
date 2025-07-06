@@ -1270,7 +1270,12 @@ task('transportCordovaCssJs',function(done){
 
 // exports.production = series('cleanDist','uglifyJS','minifyHTML')
 
+task('integrateLoading',function(){
+    //...
+    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/loading-plugin/public/cubical-expansion.js`), path.join(__dirname,'..','/public/js/cubical-expansion.js'))
 
+
+})
 
 exports.integrateTheme = series(
     'cleanPreviousCloneThemeEjs',
@@ -1371,3 +1376,6 @@ exports.incrementalRenderCordova = series(
 )
 
 exports.transportIncrementalCordovaViews = series('incrementalCordovaToStepByStepCordova') 
+
+
+exports.integrateLoading = series('integrateLoading')
