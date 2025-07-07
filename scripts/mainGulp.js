@@ -1272,7 +1272,7 @@ task('transportCordovaCssJs',function(done){
 
 task('integrateLoading',function(){
     //...
-    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/loading-plugin/public/cubical-expansion.js`), path.join(__dirname,'..','/public/js/cubical-expansion.js'))
+    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.nameLoadingNodeModules}/public/logicLoading.js`), path.join(__dirname,'..','/public/js/logicLoading.js'))
 
 
 })
