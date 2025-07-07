@@ -24,6 +24,7 @@ let dev = {
     numberLinesLog: confLogs.numberLinesLog,
     dbSqlitePath:path.join(__dirname,'/db/dev/sqlite/dbLoginDev.sqlite'),
     domain:'http://localhost:3000',
+    redirectionLoading:'/view/basic-start/startIndex.html',
     transporter:confEmail.transporter,
     mailOptions:confEmail.mailOptions,
     confEmail:true,
