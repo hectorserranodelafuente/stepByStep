@@ -14,6 +14,8 @@ const confLogs = require('./confLog.js')
 
 const confAI = require('./confAI.js')
 
+const confLoading = require('./confLoading.js')
+
 let dev = {
     
     dirPathProject: path.join(__dirname, ''),
@@ -24,14 +26,16 @@ let dev = {
     numberLinesLog: confLogs.numberLinesLog,
     dbSqlitePath:path.join(__dirname,'/db/dev/sqlite/dbLoginDev.sqlite'),
     domain:'http://localhost:3000',
-    redirectionLoading:'/view/basic-start/startIndex.html',
     transporter:confEmail.transporter,
     mailOptions:confEmail.mailOptions,
     confEmail:true,
     confSMS:confSMS,
     frontTheme:confFrontTheme.name,
     backAPI:confBackAPI.name,
-    confAI:confAI
+    confAI:confAI,
+    redirectionLoading: confLoading.redirectionLoadingRelativeURL,
+    nameLoadingNodeModules: confLoading.nameNodeModules,
+    namePathJsFile: confLoading.pathJsFile
 
 }
 
