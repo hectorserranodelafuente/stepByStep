@@ -1268,14 +1268,13 @@ task('transportCordovaCssJs',function(done){
 
 })
 
-// exports.production = series('cleanDist','uglifyJS','minifyHTML')
-
-task('integrateLoading',function(){
+task('transportGulpScriptLoading',function(){
     //...
-    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.nameLoadingNodeModules}/public/logicLoading.js`), path.join(__dirname,'..','/public/js/logicLoading.js'))
-
-
+    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.nameLoadingNodeModules}/integrationScript/integrateLoading.js`), path.join(__dirname,'..','/scripts/integrateLoading.js'))
+    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.nameLoadingNodeModules}/integrationScript/gulpIntegrateLoading.js`), path.join(__dirname,'..','/scripts/gulpIntegrateLoading.js'))
 })
+
+// exports.production = series('cleanDist','uglifyJS','minifyHTML')
 
 exports.integrateTheme = series(
     'cleanPreviousCloneThemeEjs',
@@ -1378,4 +1377,4 @@ exports.incrementalRenderCordova = series(
 exports.transportIncrementalCordovaViews = series('incrementalCordovaToStepByStepCordova') 
 
 
-exports.integrateLoading = series('integrateLoading')
+exports.transportGulpScriptLoading = series('transportGulpScriptLoading')
