@@ -262,6 +262,26 @@ task('mainsToProduction',function(done){
     mainsToFolder('production',done)
 })
 
+
+
+task('transportConfigToPro',function(done){
+    
+    fsExtra.copySync(path.join(__dirname, '..','confAI.js'),path.join(__dirname, '..','/dist/confAI.js'))
+    fsExtra.copySync(path.join(__dirname, '..','confBack.js'),path.join(__dirname, '..','/dist/confBack.js'))
+    fsExtra.copySync(path.join(__dirname, '..','confCordova.js'),path.join(__dirname, '..','/dist/confCordova.js'))
+    fsExtra.copySync(path.join(__dirname, '..','confEmail.js'),path.join(__dirname, '..','/dist/confEmail.js'))
+    fsExtra.copySync(path.join(__dirname, '..','confFront.js'),path.join(__dirname, '..','/dist/confFront.js'))
+    fsExtra.copySync(path.join(__dirname, '..','confLoading.js'),path.join(__dirname, '..','/dist/confLoading.js'))
+    fsExtra.copySync(path.join(__dirname, '..','confLog.js'),path.join(__dirname, '..','/dist/confLog.js'))
+    fsExtra.copySync(path.join(__dirname, '..','confSMS.js'),path.join(__dirname, '..','/dist/confSMS.js'))
+    
+    
+    done()
+
+})
+
+
+
 task('mainsToCordova',function(done){
     mainsToFolder('cordova',done)
 })
@@ -1037,6 +1057,12 @@ task('minifyJS',function(){
     .pipe(dest('dist/public/js'))
 })
 
+task('moveImgPro',function(done){
+    //return src('public/img/*.*').pipe(csso()).pipe(dest('dist/public/img'))
+    fsExtra.copySync(path.join(__dirname, '..','public/img'),path.join(__dirname, '..','dist/public/img'))
+    done()
+})
+
 task('moveCSSPro',function(){
     return src('public/css/*.css').pipe(csso()).pipe(dest('dist/public/css'))
 })
@@ -1047,6 +1073,12 @@ function minifyModules() {
       .pipe(uglify({ mangle: false })).on('error', (err) => console.error('Error al minificar módulos:', err))
       .pipe(dest('dist/modules/api'));
   }
+
+function minifyIncrementalApi() {
+    return src('modules/incrementalApi/*')
+      .pipe(uglify({ mangle: false })).on('error', (err) => console.error('Error al minificar módulos:', err))
+      .pipe(dest('dist/modules/incrementalApi'));
+  }  
 function minifyViews(){
     return src('modules/views/**/*')
     .pipe(uglify()).on('error', (err) => console.error('Error al minificar views:', err))
@@ -1078,6 +1110,7 @@ function uglifyLogger(){
   
   task('minifyBackendJS', series(
     minifyModules,
+    minifyIncrementalApi,
     minifyViews,
     moveLogger,
     uglifyLogger,
@@ -1101,10 +1134,17 @@ task('minifyHTML',function(){
 
 })
 
-task('cleanDist',function(){
-    
-    return src(path.join(path.join(path.join(__dirname,'..')),`dist/*`)).pipe(clean()) 
+task('cleanDist',function(done){
 
+    let _path = path.join( path.join(__dirname,'..'), 'dist' )
+    
+    fs.readdirSync( _path, 'utf8' ).forEach(file=>{
+        fsExtra.removeSync(path.join(_path,`${file}`))
+    })
+
+    done()
+    
+    // return src(path.join(path.join(path.join(__dirname,'..')),`dist/*`)).pipe(clean()) 
 })
 
 
@@ -1332,6 +1372,7 @@ exports.renderPro = series(
     'renderHeadersProduction',
     'renderMainProduction',
     'mainsToProduction',
+    'transportConfigToPro',
     'minifyHTMLProduction',
     'minifyJS',
     'minifyBackendJS'
@@ -1347,8 +1388,11 @@ exports.incrementalRenderPro = series(
     `incrementalRenderMainProduction`,
     `incrementalMainsToProduction`,
     `incrementalMinifyHTMLProduction`,
+    `moveImgPro`,
     `moveCSSPro`
 )
+
+exports.transportConfigToPro = series(`transportConfigToPro`)
 
 exports.incrementalRenderDev = series(
     `incrementalViewsExtractInfo`,

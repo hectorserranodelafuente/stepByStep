@@ -41,6 +41,6 @@ let dev = {
 
 module.exports = {
      development:dev,
-     production:{...dev,dbSqlitePath:path.join(__dirname,'/db/pro/sqlite/dbLogin.sqlite')},
+     production:{...dev,dbSqlitePath:path.join(path.join(__dirname,'..'),'/db/pro/sqlite/dbLogin.sqlite')},
      test:{...dev,dbSqlitePath:path.join(__dirname,'/db/test/sqlite/dbLoginTest.sqlite')}
 }
