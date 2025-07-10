@@ -902,11 +902,23 @@ task('incrementalMainsToProduction',function(done){
 
 
 
-task('cleanIncrementalViewsCordova',function(){
+task('cleanIncrementalViewsCordova',function(done){
     
+    let _path = path.join( path.join(__dirname,'..'), 'cordova/incrementalViews' )
+    
+    fs.readdirSync( _path, 'utf8' ).forEach(file=>{
+        fsExtra.removeSync(path.join(_path,`${file}`))
+    })
+
+    done()
+    
+    /*
+
     return src(path.join(path.join(path.join(__dirname,'..')),`cordova/*.*`)).pipe(clean())
     
     done()
+    
+    */
     
 })
 
@@ -969,40 +981,10 @@ task('incrementalMainsToCordova',function(done){
 })
 
 task('incrementalCordovaToStepByStepCordova', function(done){
-    //...
-    //console.log(`incremental;ainsToCordova ${JSON.stringify(viewsDeclaration)}`)
-    
-    viewsDeclaration.filter(view=> (view.html == '/public/incrementalViews/')).forEach( jsonView => {
-        console.log('-')
-        try {
-
-            console.log(_env.development.dirPathCordovaViews)
-            console.log(_env.development.dirPathCordovaProject)
-            
-            let _pathOrigin = path.join(path.join(path.join(__dirname,'..'),'cordova'),path.join(`${jsonView.serviceName}`,`${jsonView.fileName}`))
-            let _pathDestiny =path.join(_env.development.dirPathCordovaProject,`${jsonView.serviceName}/${jsonView.fileName}`)
-           
-            
-            // let _pathDestiny = path.join(path.join(path.join(path.join(path.join(__dirname,'..')),`${dist}public/incrementalViews`),`${level.destinyViewsActualParent}/${level.name}`),`${name}`)
-
-            console.log(`_pathOrigin ${_pathOrigin}`)
-            console.log(`_pathDestiny ${_pathDestiny}`)
-            
-            fsExtra.copySync(_pathOrigin,_pathDestiny)
-            
-
-          } catch (err) {
-            console.error(err)
-          }
-    
-    
-    })
-
-    done()
-
-    //fsExtra.copySync(path.join(__dirname, '..','public/js'),path.join(_env.development.dirPathCordovaProject,'js'))
-    //fsExtra.copySync(path.join(__dirname, '..','public/css'),path.join(_env.development.dirPathCordovaProject,'css'))
-    
+    console.log(path.join(path.join(path.join(__dirname,'..'),'cordova/incrementalViews')))
+    console.log(path.join(_env.development.dirPathCordovaProject,'/incrementalViews'))
+        fsExtra.copySync(path.join(path.join(path.join(__dirname,'..'),'cordova/incrementalViews')), path.join(_env.development.dirPathCordovaProject,'/incrementalViews'))
+        done()
 })
 
     
@@ -1304,6 +1286,7 @@ task('transportCordovaCssJs',function(done){
     
     fsExtra.copySync(path.join(__dirname, '..','public/js'),path.join(_env.development.dirPathCordovaProject,'js'))
     fsExtra.copySync(path.join(__dirname, '..','public/css'),path.join(_env.development.dirPathCordovaProject,'css'))
+    fsExtra.copySync(path.join(__dirname, '..','public/img'),path.join(_env.development.dirPathCordovaProject,'img'))
     done()
 
 })
