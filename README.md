@@ -41,6 +41,17 @@ The basis of a diverse modular Authentication base digital solution to start you
     ( Action ) Delete node_modules
     
     ( Action ) Update package.json with last plugin commits
+    
+    [
+        "stepByStep-back-node-sqlite": "git+https://github.com/hectorserranodelafuente/stepByStep-back-node-sqlite.git#74c3b3f27534a52ec12e21cff2baf4761a4bfd57",
+        
+        "stepByStep-plugin-sms-labsMobile": "git+https://github.com/hectorserranodelafuente/stepByStep-plugin-sms-labsMobile.git#c199aa67a512b1e9a20a1270fba27b146ea5e3b8",
+    
+        "theme-default": "git+https://github.com/hectorserranodelafuente/stepByStep-front-vanilla-theme-default.git#ab2b77a169f54779ae5e495cd60a13415a91f374",
+
+        "loading-plugin":"git+https://github.com/hectorserranodelafuente/stepByStep-plugin-basic-loading.git#84c9539bc26279d6f876d823e2def6ea70931a7e"
+    
+    ]
 
     ( Command )  npm install
 
