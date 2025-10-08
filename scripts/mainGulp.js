@@ -1219,16 +1219,58 @@ task('cloneTheme',function(done){
 
 task('cleanPreviousCloneApi_Api',function(done){
 
-    fsExtra.removeSync(path.join(path.join(__dirname,'..'),'modules/api/*.*'))
+    //fsExtra.removeSync(path.join(path.join(__dirname,'..'),'modules/api/*.*'))
+    let _path = path.join(path.join(__dirname,'..'),'modules/api')
 
+    let arrFolders = fs.readdirSync( _path, 'utf8' ) 
+    
+    // console.log("arrFolders",arrFolders)
+    
+    arrFolders.forEach((folder,index)=>{
+        
+        src(path.join(_path,`${folder}`),{allowEmpty:false}).pipe(clean())
+        
+        if(index > 0 && index == (arrFolders.length-1)){
+        
+            done()   
+        
+        }
+        
+    
+    })
+
+    
     done()
 })
 
 task('cleanPreviousCloneApi_IncrementalApi',function(done){
     
-    fsExtra.removeSync(path.join(path.join(__dirname,'..'),'modules/incrementalApi/*.*'))
+    // fsExtra.removeSync(path.join(path.join(__dirname,'..'),'modules/incrementalApi/*.*'))
+
+    let _path = path.join(path.join(__dirname,'..'),'modules/incrementalApi')
+    let arrFolders = fs.readdirSync( _path, 'utf8' )
+
+    arrFolders.forEach((folder,index)=>{
+        
+        src(path.join(_path,`${folder}`),{allowEmpty:true}).pipe(clean())
+
+        if(index == (arrFolders.length-1)){
+            
+            
+            
+            done()
+        
+        }
+    })
+
     
+
     done()
+    
+   
+    
+    
+    
 })
 
 task('cleanPreviousCloneApi_Test',function(done){
@@ -1238,8 +1280,9 @@ task('cleanPreviousCloneApi_Test',function(done){
     fs.readdirSync( _path, 'utf8' ).forEach(folder=>{
         
         src(path.join(_path,`${folder}`),{allowEmpty:true}).pipe(clean())
+
     })
-    
+
     done()
 
 })
@@ -1271,15 +1314,22 @@ task('cleanPreviousCloneApi_DbTest',function(done){
 
 
 
-task('cloneApi',function(){
+task('cloneApi',function(done){
     
-    // console.log(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}`))
-    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/api`), path.join(__dirname,'..','/modules/api'))
-    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/incrementalAPI`), path.join(__dirname,'..','/modules/incrementalApi'))
-    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/test`), path.join(__dirname,'..','/test'))
-    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/scriptsDb/createDbDev.js`),  path.join(__dirname,'..','/scripts/createDbDev.js'))
-    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/scriptsDb/createDbPro.js`), path.join(__dirname,'..','/scripts/createDbPro.js'))
-    fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/scriptsDb/createDbTest.js`),  path.join(__dirname,'..','/script/createDbTest.js'))
+    
+    setTimeout(function(){
+
+        fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/api`), path.join(__dirname,'..','/modules/api'))
+        fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/incrementalAPI`), path.join(__dirname,'..','/modules/incrementalApi'))
+        fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/test`), path.join(__dirname,'..','/test'))
+        fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/scriptsDb/createDbDev.js`),  path.join(__dirname,'..','/scripts/createDbDev.js'))
+        fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/scriptsDb/createDbPro.js`), path.join(__dirname,'..','/scripts/createDbPro.js'))
+        fsExtra.copySync(path.join(__dirname,'..',`/node_modules/${_env.development.backAPI}/scriptsDb/createDbTest.js`),  path.join(__dirname,'..','/script/createDbTest.js'))
+        
+        done()
+    
+    },1000)
+
 })
 
 task('transportCordovaCssJs',function(done){
@@ -1305,7 +1355,8 @@ exports.integrateTheme = series(
     'cleanPreviousCloneThemeCss',
     'cleanPreviousCloneThemeImg',
     'cleanPreviousCloneThemeIncrementalEjs',
-    'cloneTheme')
+    'cloneTheme'
+)
 
 
 exports.integrateAPI = series(
@@ -1315,7 +1366,8 @@ exports.integrateAPI = series(
     'cleanPreviousCloneApi_DbDev',
     'cleanPreviousCloneApi_DbPro',
     'cleanPreviousCloneApi_DbTest',
-    'cloneApi')
+    'cloneApi'
+)
 
 exports.renderCordova = series(
     'cleanRenderedCordovaHeaders',
