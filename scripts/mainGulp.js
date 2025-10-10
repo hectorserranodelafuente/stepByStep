@@ -1248,23 +1248,25 @@ task('cleanPreviousCloneApi_IncrementalApi',function(done){
     // fsExtra.removeSync(path.join(path.join(__dirname,'..'),'modules/incrementalApi/*.*'))
 
     let _path = path.join(path.join(__dirname,'..'),'modules/incrementalApi')
-    let arrFolders = fs.readdirSync( _path, 'utf8' )
+    
+    if(fs.existsSync(_path)){
+        let arrFolders = fs.readdirSync( _path, 'utf8' )
 
-    arrFolders.forEach((folder,index)=>{
-        
-        src(path.join(_path,`${folder}`),{allowEmpty:true}).pipe(clean())
+        arrFolders.forEach((folder,index)=>{
+            
+            src(path.join(_path,`${folder}`),{allowEmpty:true}).pipe(clean())
 
-        if(index == (arrFolders.length-1)){
+            if(index == (arrFolders.length-1)){
+                
+                
+                
+                done()
             
-            
-            
-            done()
-        
-        }
-    })
+            }
+        })
 
     
-
+    }
     done()
     
    
